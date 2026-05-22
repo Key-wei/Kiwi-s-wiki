@@ -7,7 +7,26 @@
 # Track .gitignore itself
 !.gitignore
 
-# Track Claude, Codex, Gemini and Agents configs in language folders
+# Track Claude, Codex, Gemini and Agents configs — root-level vault
+!.claude/
+.claude/*
+!.claude/skills
+!.claude/commands/
+.claude/settings.local.json
+
+!.gemini/
+.gemini/*
+!.gemini/skills
+!.gemini/commands/
+!.gemini/settings.json
+
+!.codex/
+.codex/*
+!.codex/skills
+
+!.agents/
+
+# Track Claude, Codex, Gemini and Agents configs in language folders (legacy EN/CN structure)
 !EN/.claude/
 EN/.claude/*
 !EN/.claude/skills
@@ -44,9 +63,16 @@ CN/.codex/*
 
 !CN/.agents/
 
+# Node dependencies
+node_modules/
+
 # System files
 .DS_Store
 .trash/
+
+# Obsidian workspace files
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
 
 # Temporary files
 *.tmp
