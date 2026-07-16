@@ -81,3 +81,8 @@ node_modules/
 # Log files
 *.log
 .superpowers/
+
+# MkDocs / KIWI CODEX
+.venv/
+site_docs/
+site/

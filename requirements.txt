@@ -1,0 +1,7 @@
+mkdocs-material>=9.5
+mkdocs-roamlinks-plugin>=0.3.2
+mkdocs-callouts>=1.13
+mkdocs-awesome-pages-plugin>=2.9
+pymdown-extensions>=10.7
+jieba>=0.42
+pytest>=8.0
