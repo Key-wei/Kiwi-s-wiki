@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "owner": "keywei",
+    "updated": "2026-07-16T07:10:22.043Z"
+  },
+  "northStar": "成为能指挥 AI 从 0 到 1 造出产品的顶级独立开发者（One Person Company）",
+  "principle": "捕获可以无限跳，执行只能有一件（WIP = 1）。手上这件没到「完成」，其它一律封存。",
+  "wipFocus": "vibecoding",
+  "goals": [
+    {
+      "id": "g1",
+      "title": "打牢 UE 客户端 + C++ 底层功底",
+      "why": "这是实习主业，也是所有上层能力的地基",
+      "progress": 45
+    },
+    {
+      "id": "g2",
+      "title": "建成并发布《VibeCoding 能力体系》系列",
+      "why": "把「读懂」变成可复用资产 + 个人品牌",
+      "progress": 20
+    },
+    {
+      "id": "g3",
+      "title": "让一个小程序产品真正上线（哪怕最小版）",
+      "why": "打破「每个项目都开了头、没一个完成」的循环",
+      "progress": 10
+    }
+  ],
+  "projects": [
+    {
+      "id": "vibecoding",
+      "title": "VibeCoding 能力体系",
+      "status": "active",
+      "area": "个人成长",
+      "note": "9 大专栏已建骨架，进入逐栏深化实践阶段",
+      "nextAction": "精读 03_AI协作能力 前两章并各做一次实战练习",
+      "due": ""
+    },
+    {
+      "id": "detective",
+      "title": "AI 侦探局（微信小程序）",
+      "status": "on-hold",
+      "area": "个人创业",
+      "note": "MVP 阶段，已封存——等主线完成再启",
+      "nextAction": "",
+      "due": ""
+    },
+    {
+      "id": "wall",
+      "title": "人生成就墙（微信小程序）",
+      "status": "on-hold",
+      "area": "个人创业",
+      "note": "已封存——high 优先级但先让位给主线",
+      "nextAction": "",
+      "due": "2026-12-04"
+    },
+    {
+      "id": "ue-study",
+      "title": "UE 源码 + GoF 设计模式系列",
+      "status": "on-hold",
+      "area": "个人成长",
+      "note": "跟 Lyra 源码重学设计模式，已出工厂方法/简单工厂两篇",
+      "nextAction": "",
+      "due": ""
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "title": "精读 03_AI协作能力 前两章 + 各做一次实战练习",
+      "done": false,
+      "project": "vibecoding"
+    },
+    {
+      "id": "t2",
+      "title": "清空收件箱：机会成本拆解",
+      "done": false,
+      "project": ""
+    },
+    {
+      "id": "t3",
+      "title": "清空收件箱：S&P 500 那条",
+      "done": false,
+      "project": ""
+    },
+    {
+      "id": "t4",
+      "title": "复习：怪物 RVO 避障 & Detour",
+      "done": false,
+      "project": "ue-study"
+    },
+    {
+      "id": "t5",
+      "title": "复习清单：编译原理 / 数据结构算法 / C++ 基础",
+      "done": false,
+      "project": "ue-study"
+    }
+  ]
+}
