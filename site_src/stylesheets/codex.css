@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root{
+  --cx-void:#0B1017; --cx-field:#10161F; --cx-field2:#161E2A;
+  --cx-line:#232E3B; --cx-line2:#2E3A49; --cx-muted:#6E7C8C;
+  --cx-cyan:#5AD7E6; --cx-cyan-d:#2b6b74; --cx-gold:#FFC24B; --cx-gold-d:#8a6f31;
+  --md-text-font:"Inter","PingFang SC","Microsoft YaHei",sans-serif;
+  --md-code-font:"JetBrains Mono",monospace;
+}
+[data-md-color-scheme="slate"]{
+  --md-default-bg-color:var(--cx-void);
+  --md-default-fg-color:#DCE3EC;
+  --md-default-fg-color--light:#c3ccd6;
+  --md-default-fg-color--lighter:var(--cx-muted);
+  --md-primary-fg-color:#0e141c;
+  --md-accent-fg-color:var(--cx-cyan);
+  --md-typeset-a-color:var(--cx-cyan);
+  --md-code-bg-color:#070b10;
+}
+/* HUD 标题字体 */
+.md-typeset h1,.md-typeset h2,.md-typeset h3,.md-header__title{
+  font-family:"Chakra Petch",var(--md-text-font);letter-spacing:.5px}
+/* 侧栏当前项青色 */
+.md-nav__link--active,.md-nav__item--active>.md-nav__link{color:var(--cx-cyan)}
+/* 交叉引用（正文站内链接）点下划 + hover 扫光 */
+.md-typeset a:not(.md-button){
+  border-bottom:1px dotted var(--cx-cyan-d);
+  background:linear-gradient(90deg,transparent,rgba(90,215,230,.22),transparent);
+  background-size:220% 100%;background-position:-110% 0;transition:background-position .45s}
+.md-typeset a:not(.md-button):hover{background-position:110% 0}
+/* 档案属性带（Task 6 注入 .cx-meta） */
+.cx-meta{display:flex;flex-wrap:wrap;border:1px solid var(--cx-line2);background:var(--cx-field);
+  margin:0 0 1.2rem;font-family:"JetBrains Mono",monospace;font-size:.62rem;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)}
+.cx-meta span{padding:.35rem .7rem;border-right:1px solid var(--cx-line);color:var(--cx-muted)}
+.cx-meta b{color:var(--cx-cyan);font-weight:600}
+/* admonition / 代码块 斜切角 */
+.md-typeset .admonition,.md-typeset pre{clip-path:polygon(0 0,100% 0,100% 100%,12px 100%,0 calc(100% - 12px))}
+.md-typeset .admonition{border-left:3px solid var(--cx-cyan)}
+/* ===== 机械特效样式（Task 7 的 JS 注入元素 + 触发 .cx-booting） ===== */
+.cx-scan{position:absolute;top:0;bottom:0;width:2px;background:var(--cx-cyan);
+  box-shadow:0 0 12px var(--cx-cyan);opacity:0;pointer-events:none;z-index:3;left:0}
+.cx-bracket{position:absolute;width:22px;height:22px;border:2px solid var(--cx-cyan);
+  opacity:0;pointer-events:none;z-index:3}
+.cx-bracket.cx-tl{top:0;left:0;border-right:none;border-bottom:none}
+.cx-bracket.cx-tr{top:0;right:0;border-left:none;border-bottom:none}
+.cx-bracket.cx-bl{bottom:0;left:0;border-right:none;border-top:none}
+.cx-bracket.cx-br{bottom:0;right:0;border-left:none;border-top:none}
+.cx-booting .cx-bracket{animation:cx-snap .45s cubic-bezier(.34,1.7,.5,1) both}
+@keyframes cx-snap{0%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.5)}55%{opacity:1}100%{opacity:1;transform:none}}
+.cx-booting .cx-scan{animation:cx-sweep .55s steps(22) both}
+@keyframes cx-sweep{0%{left:0;opacity:.9}100%{left:100%;opacity:0}}
+.cx-booting .md-content__inner>h1{animation:cx-wipe .5s steps(14) .3s both}
+@keyframes cx-wipe{from{clip-path:inset(0 100% 0 0);opacity:.4}to{clip-path:inset(0 0 0 0);opacity:1}}
+.cx-booting .cx-meta span{animation:cx-clack .28s cubic-bezier(.2,.9,.3,1) both}
+.cx-booting .cx-meta span:nth-child(1){animation-delay:.6s}
+.cx-booting .cx-meta span:nth-child(2){animation-delay:.7s}
+.cx-booting .cx-meta span:nth-child(3){animation-delay:.8s}
+@keyframes cx-clack{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .cx-booting *{animation:none !important}
+  .cx-bracket,.cx-scan{display:none}
+  .md-content__inner>h1,.cx-meta span{clip-path:none !important;opacity:1 !important;transform:none !important}
+}
