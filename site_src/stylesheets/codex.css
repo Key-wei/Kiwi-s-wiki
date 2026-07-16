@@ -50,7 +50,7 @@
 @keyframes cx-snap{0%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.5)}55%{opacity:1}100%{opacity:1;transform:none}}
 .cx-booting .cx-scan{animation:cx-sweep .55s steps(22) both}
 @keyframes cx-sweep{0%{left:0;opacity:.9}100%{left:100%;opacity:0}}
-.cx-booting .md-content__inner>h1{animation:cx-wipe .5s steps(14) .3s both}
+.cx-booting>h1{animation:cx-wipe .5s steps(14) .3s both}
 @keyframes cx-wipe{from{clip-path:inset(0 100% 0 0);opacity:.4}to{clip-path:inset(0 0 0 0);opacity:1}}
 .cx-booting .cx-meta span{animation:cx-clack .28s cubic-bezier(.2,.9,.3,1) both}
 .cx-booting .cx-meta span:nth-child(1){animation-delay:.6s}

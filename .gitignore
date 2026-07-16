@@ -86,3 +86,5 @@ node_modules/
 .venv/
 site_docs/
 site/
+__pycache__/
+*.pyc
