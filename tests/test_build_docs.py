@@ -22,6 +22,7 @@ def test_build_creates_partitions(tmp_path):
         (tmp_path / d / f).write_text("# t", encoding="utf-8")
     (tmp_path / "40_知识库" / "attachments").mkdir()
     (tmp_path / "40_知识库" / "attachments" / "p.png").write_bytes(b"x")
+    (tmp_path / "40_知识库" / "embed.md").write_text("![[p.png]]", encoding="utf-8")
     assets = tmp_path / "site_src"; assets.mkdir()
     (assets / "index.md").write_text("home", encoding="utf-8")
     out = tmp_path / "site_docs"
@@ -31,3 +32,4 @@ def test_build_creates_partitions(tmp_path):
     assert (out / "项目" / "c.md").exists()
     assert (out / "知识库" / "attachments" / "p.png").exists()
     assert (out / "index.md").exists()
+    assert (out / "知识库" / "embed.md").read_text(encoding="utf-8") == "![](p.png)"
