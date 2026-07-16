@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page and page.meta and (page.meta.tags or page.meta.type or page.meta.created) %}
+  <div class="cx-meta">
+    {% if page.meta.type %}<span>类型 <b>{{ page.meta.type }}</b></span>{% endif %}
+    {% if page.meta.tags %}<span>标签 <b>{{ page.meta.tags | join(" · ") }}</b></span>{% endif %}
+    {% if page.meta.created %}<span>建立 <b>{{ page.meta.created }}</b></span>{% endif %}
+  </div>
+  {% endif %}
+  {{ super() }}
+{% endblock %}
