@@ -171,6 +171,11 @@
   .obj .tasksel{font-size:10px;letter-spacing:.5px;padding:2px 6px;max-width:130px}
   .obj .del{background:none;border:none;color:var(--dim);font-family:var(--mono);font-size:15px;cursor:pointer;line-height:1;padding:2px 4px}
   .obj .del:hover{color:var(--danger)}
+  /* 每日必做 */
+  .daily.done .box{background:var(--cyan);border-color:var(--cyan)}
+  .daily.done .tt{text-decoration:none;color:var(--cyan)}
+  .daily .streak{font-family:var(--mono);font-size:11px;color:var(--dim);white-space:nowrap;letter-spacing:.5px}
+  .daily .streak.hot{color:var(--gold)}
   .addrow{display:flex;gap:8px;margin-top:11px}
   .addrow input{flex:1;background:var(--field);border:1px solid var(--line2);color:var(--text);padding:9px 13px;font-size:13px;font-family:var(--body)}
   .addrow input::placeholder{color:var(--dim)}
@@ -212,6 +217,12 @@
   <div class="protocol" id="protocol"></div>
 
   <div class="sec">
+    <div class="sechead"><span class="eyebrow">每日必做 <span class="en">/ DAILY OPS</span></span><span class="rule"></span><span class="count" id="daily-count"></span></div>
+    <div id="dailies"></div>
+    <div class="addrow"><input id="newdaily" placeholder="加一条每日必做（每天重置、记连续天数），回车提交…" /><button onclick="addDaily()">ADD</button></div>
+  </div>
+
+  <div class="sec">
     <div class="sechead"><span class="eyebrow">单元 <span class="en">/ UNITS</span></span><span class="rule"></span><span class="count" id="unit-count"></span></div>
     <div id="warn-slot"></div>
     <div id="projects"></div>
@@ -239,6 +250,9 @@ let state=null, saveTimer=null;
 const $=(id)=>document.getElementById(id);
 const esc=(s)=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="#0B1017" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>';
+const ymd=(d)=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const todayStr=()=>ymd(new Date());
+const yesterStr=()=>{const d=new Date();d.setDate(d.getDate()-1);return ymd(d);};
 
 async function load(force){
   const r=await fetch('/api/data',{cache:'no-store'});
@@ -264,7 +278,7 @@ function editText(kind,id,field,el){
   const v=el.textContent.trim();
   if(kind==='root') state[field]=v;
   else{
-    const arr=kind==='proj'?state.projects:kind==='goal'?state.goals:state.tasks;
+    const arr=kind==='proj'?state.projects:kind==='goal'?state.goals:kind==='daily'?state.dailies:state.tasks;
     const o=arr.find(x=>x.id===id); if(o) o[field]=v;
   }
   save();
@@ -287,6 +301,22 @@ function render(){
 
   $('protocol').innerHTML=`<span class="tag">PROTOCOL · WIP=1</span>
     <span class="txt" contenteditable data-ph="写下你的执行铁律…" onblur="editText('root','','principle',this)">${esc(state.principle||'')}</span>`;
+
+  // 每日必做（每天重置 + 连续天数）
+  state.dailies=state.dailies||[];
+  const T=todayStr(),Y=yesterStr();
+  const dDone=state.dailies.filter(x=>x.lastDate===T).length;
+  $('daily-count').textContent=`${dDone}/${state.dailies.length} 今日完成`;
+  $('dailies').innerHTML=state.dailies.map(it=>{
+    const done=it.lastDate===T;
+    const shown=(it.lastDate===T||it.lastDate===Y)?(it.streak||0):0;
+    return `<div class="obj daily ${done?'done':''}">
+      <div class="box" onclick="toggleDaily('${it.id}')">${CHECK}</div>
+      <span class="tt" contenteditable data-ph="每日必做内容" onblur="editText('daily','${it.id}','title',this)">${esc(it.title)}</span>
+      <span class="streak ${shown>0?'hot':''}" title="连续天数">🔥 ${shown}</span>
+      <button class="del" onclick="delDaily('${it.id}')" title="移除">✕</button>
+    </div>`;
+  }).join('');
 
   // 单元
   const actives=state.projects.filter(p=>p.status==='active');
@@ -373,6 +403,17 @@ function delProject(id){if(state.wipFocus===id)state.wipFocus='';state.projects=
 function addGoal(){state.goals.push({id:'g'+Date.now(),title:'新能力',why:'',progress:0});save();render();}
 function delGoal(id){state.goals=state.goals.filter(x=>x.id!==id);save();render();}
 
+function toggleDaily(id){
+  const it=state.dailies.find(x=>x.id===id);const t=todayStr(),y=yesterStr();
+  if(it.lastDate===t){it.streak=Math.max(0,(it.streak||0)-1);it.lastDate=y;}   // 撤销今日：回退到昨日状态
+  else{it.streak=(it.lastDate===y)?(it.streak||0)+1:1;it.lastDate=t;}          // 完成今日：连昨日则+1，否则重置为1
+  save();render();
+}
+function addDaily(){const inp=$('newdaily'),v=inp.value.trim();if(!v)return;
+  state.dailies=state.dailies||[];state.dailies.push({id:'d'+Date.now(),title:v,streak:0,lastDate:''});inp.value='';save();render();}
+function delDaily(id){state.dailies=state.dailies.filter(x=>x.id!==id);save();render();}
+
+$('newdaily').addEventListener('keydown',e=>{if(e.key==='Enter')addDaily();});
 $('newtask').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
 function tick(){$('clock').textContent=new Date().toLocaleTimeString('zh-CN',{hour12:false});}
 tick();setInterval(tick,1000);
