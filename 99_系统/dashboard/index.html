@@ -43,7 +43,6 @@
   .brand small{color:var(--muted);font-weight:400;letter-spacing:2px;font-size:11px}
   .topbar .clock{margin-left:auto;font-family:var(--mono);font-size:12px;
     color:var(--muted);letter-spacing:1px;display:flex;gap:12px;align-items:center}
-  .topbar .clock b{color:var(--cyan);font-weight:500}
   .sync{display:inline-flex;align-items:center;gap:6px}
   .sync i{width:7px;height:7px;border-radius:50%;background:var(--cyan);
     box-shadow:0 0 8px var(--cyan);animation:blip 2.4s infinite}
@@ -66,9 +65,7 @@
     background:radial-gradient(600px 200px at 15% 0%, var(--gold-glow), transparent 70%)}
   .lock::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
     background:var(--gold);box-shadow:0 0 18px var(--gold)}
-  /* 四角瞄准括弧 */
-  .tick{position:absolute;width:26px;height:26px;border:2px solid var(--gold);
-    z-index:3;opacity:0}
+  .tick{position:absolute;width:26px;height:26px;border:2px solid var(--gold);z-index:3;opacity:0}
   .tick.tl{top:10px;left:10px;border-right:none;border-bottom:none}
   .tick.tr{top:10px;right:10px;border-left:none;border-bottom:none}
   .tick.bl{bottom:10px;left:10px;border-right:none;border-top:none}
@@ -78,25 +75,21 @@
     .locked .tick{animation:lockon .5s cubic-bezier(.2,.9,.3,1) both}
     .locked .tick.tl{animation-delay:.05s} .locked .tick.tr{animation-delay:.12s}
     .locked .tick.bl{animation-delay:.19s} .locked .tick.br{animation-delay:.26s}
-    @keyframes lockon{from{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.4)}
-      to{opacity:1;transform:none}}
+    @keyframes lockon{from{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.4)}to{opacity:1;transform:none}}
     .tick.tl{--dx:14px;--dy:14px} .tick.tr{--dx:-14px;--dy:14px}
     .tick.bl{--dx:14px;--dy:-14px} .tick.br{--dx:-14px;--dy:-14px}
   }
-  .lock .status{font-family:var(--mono);font-size:11px;letter-spacing:2px;
-    color:var(--gold);display:inline-flex;align-items:center;gap:8px;position:relative;z-index:2}
+  .lock .status{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--gold);
+    display:inline-flex;align-items:center;gap:8px;position:relative;z-index:2}
   .lock .status .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);
     box-shadow:0 0 10px var(--gold);animation:pulse 1.8s infinite}
   @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.5}}
   .lock h2{font-family:var(--disp);font-weight:700;font-size:30px;margin:14px 0 6px;
     letter-spacing:.5px;position:relative;z-index:2;line-height:1.15}
   .lock .note{color:var(--muted);font-size:14px;position:relative;z-index:2;max-width:62ch}
-  .lock .next{margin-top:18px;position:relative;z-index:2;font-size:15px;
-    display:flex;gap:10px;align-items:baseline}
-  .lock .next .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--gold-dim);
-    white-space:nowrap;padding-top:2px}
-  .lock .next .v{color:var(--text);font-weight:500}
-  .lock .next .v.empty{color:var(--dim);font-style:italic;font-weight:400}
+  .lock .next{margin-top:18px;position:relative;z-index:2;font-size:15px;display:flex;gap:10px;align-items:baseline}
+  .lock .next .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--gold-dim);white-space:nowrap;padding-top:2px}
+  .lock .next .v{color:var(--text);font-weight:500;flex:1}
   .lock.none{padding:26px 34px;color:var(--muted)}
 
   /* ── 协议条 ── */
@@ -104,7 +97,7 @@
     background:var(--field);border:1px solid var(--line);border-left:2px solid var(--gold)}
   .protocol .tag{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--gold);
     border:1px solid var(--gold-dim);padding:2px 7px;white-space:nowrap}
-  .protocol .txt{color:var(--muted);font-size:13px}
+  .protocol .txt{color:var(--muted);font-size:13px;flex:1}
 
   /* ── 分区标题 ── */
   .sec{margin-bottom:30px}
@@ -115,17 +108,16 @@
 
   /* ── 单元（项目）── */
   .warn{display:flex;gap:10px;align-items:center;background:rgba(255,107,94,.08);
-    border:1px solid rgba(255,107,94,.35);color:var(--danger);padding:9px 14px;
-    font-size:13px;margin-bottom:12px;font-family:var(--body)}
+    border:1px solid rgba(255,107,94,.35);color:var(--danger);padding:9px 14px;font-size:13px;margin-bottom:12px}
   .warn b{font-family:var(--mono);font-size:11px;letter-spacing:1px}
-  .unit{display:flex;align-items:stretch;gap:0;background:var(--field);
-    border:1px solid var(--line);margin-bottom:9px;transition:border-color .15s,transform .15s}
+  .unit{display:flex;align-items:stretch;background:var(--field);border:1px solid var(--line);
+    margin-bottom:9px;transition:border-color .15s}
   .unit:hover{border-color:var(--line2)}
   .unit .stripe{width:3px;background:var(--dim);flex:none}
   .unit.on .stripe{background:var(--gold);box-shadow:0 0 12px var(--gold)}
   .unit.done .stripe{background:var(--cyan)}
   .unit .body{flex:1;min-width:0;padding:13px 16px}
-  .unit.hold{opacity:.52}
+  .unit.hold{opacity:.72}
   .unit .row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .unit .name{font-family:var(--disp);font-weight:600;font-size:16px;letter-spacing:.3px}
   .st{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;padding:2px 8px;
@@ -136,120 +128,106 @@
   .st.done{color:var(--cyan);border-color:var(--cyan-dim)} .st.done .d{background:var(--cyan)}
   .primary-flag{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--gold);
     display:inline-flex;align-items:center;gap:5px}
-  .unit .meta{color:var(--muted);font-size:12.5px;margin-top:4px}
+  .unit .meta{color:var(--muted);font-size:12.5px;margin-top:5px;display:flex;flex-wrap:wrap;gap:0 6px;align-items:baseline}
+  .unit .meta .sep{color:var(--dim)}
+  .unit .meta .area{color:var(--cyan)}
   .unit .meta .due{color:var(--gold-dim);font-family:var(--mono);font-size:11px}
-  .unit .ctrl{display:flex;flex-direction:column;gap:7px;align-items:flex-end;
-    padding:13px 14px;justify-content:center}
+  .unit .unext{margin-top:7px;font-size:13px;display:flex;gap:8px;align-items:baseline}
+  .unit .unext .k{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--gold-dim);white-space:nowrap}
+  .unit .unext .v{color:var(--text)}
+  .unit .ctrl{display:flex;flex-direction:column;gap:7px;align-items:flex-end;padding:13px 14px;justify-content:center}
   select{background:var(--field2);color:var(--text);border:1px solid var(--line2);
     padding:4px 8px;font-size:12px;font-family:var(--mono);letter-spacing:1px}
   .lockbtn{background:transparent;border:1px solid var(--gold-dim);color:var(--gold);
-    font-family:var(--mono);font-size:10px;letter-spacing:1.5px;padding:4px 10px;cursor:pointer;
-    transition:.15s}
+    font-family:var(--mono);font-size:10px;letter-spacing:1.5px;padding:4px 10px;cursor:pointer;transition:.15s}
   .lockbtn:hover{background:var(--gold);color:var(--void)}
+  .rmbtn{background:none;border:none;color:var(--dim);font-family:var(--mono);font-size:14px;
+    cursor:pointer;line-height:1;padding:2px 5px;transition:.15s}
+  .rmbtn:hover{color:var(--danger)}
 
-  /* ── 能力（目标 = 遥测条）── */
-  .cap{background:var(--field);border:1px solid var(--line);padding:14px 16px;margin-bottom:9px}
-  .cap .ct{font-family:var(--disp);font-weight:600;font-size:14.5px}
+  /* ── 能力（目标）── */
+  .cap{position:relative;background:var(--field);border:1px solid var(--line);padding:14px 16px;margin-bottom:9px}
+  .cap .capdel{position:absolute;top:10px;right:10px}
+  .cap .ct{font-family:var(--disp);font-weight:600;font-size:14.5px;padding-right:24px}
   .cap .why{color:var(--muted);font-size:12.5px;margin:3px 0 11px}
   .telemetry{display:flex;align-items:center;gap:12px}
   .telemetry input[type=range]{width:140px;accent-color:var(--cyan);cursor:pointer;background:transparent}
   .track{flex:1;height:6px;background:var(--field2);position:relative;overflow:hidden}
-  .track>i{display:block;height:100%;width:0;
-    background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));
+  .track>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));
     box-shadow:0 0 10px rgba(90,215,230,.5);transition:width .6s cubic-bezier(.2,.9,.3,1)}
   .pct{font-family:var(--mono);font-size:12px;color:var(--cyan);width:46px;text-align:right}
 
-  /* ── 目标（任务清单）── */
-  .obj{display:flex;align-items:center;gap:12px;background:var(--field);
-    border:1px solid var(--line);padding:9px 14px;margin-bottom:7px;transition:border-color .15s}
+  /* ── 目标（任务）── */
+  .obj{display:flex;align-items:center;gap:12px;background:var(--field);border:1px solid var(--line);
+    padding:9px 14px;margin-bottom:7px;transition:border-color .15s}
   .obj:hover{border-color:var(--line2)}
-  .obj .box{width:18px;height:18px;flex:none;border:1.5px solid var(--line2);
-    display:grid;place-items:center;cursor:pointer;transition:.15s}
+  .obj .box{width:18px;height:18px;flex:none;border:1.5px solid var(--line2);display:grid;place-items:center;cursor:pointer;transition:.15s}
   .obj .box:hover{border-color:var(--cyan)}
   .obj.done .box{background:var(--cyan);border-color:var(--cyan)}
   .obj .box svg{width:12px;height:12px;opacity:0}
   .obj.done .box svg{opacity:1}
   .obj .tt{flex:1;font-size:14px}
   .obj.done .tt{color:var(--dim);text-decoration:line-through}
-  .obj .ptag{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--muted);
-    border:1px solid var(--line2);padding:1px 7px;white-space:nowrap}
-  .obj .del{background:none;border:none;color:var(--dim);font-family:var(--mono);
-    font-size:15px;cursor:pointer;line-height:1;padding:2px 4px}
+  .obj .tasksel{font-size:10px;letter-spacing:.5px;padding:2px 6px;max-width:130px}
+  .obj .del{background:none;border:none;color:var(--dim);font-family:var(--mono);font-size:15px;cursor:pointer;line-height:1;padding:2px 4px}
   .obj .del:hover{color:var(--danger)}
   .addrow{display:flex;gap:8px;margin-top:11px}
-  .addrow input{flex:1;background:var(--field);border:1px solid var(--line2);color:var(--text);
-    padding:9px 13px;font-size:13px;font-family:var(--body)}
+  .addrow input{flex:1;background:var(--field);border:1px solid var(--line2);color:var(--text);padding:9px 13px;font-size:13px;font-family:var(--body)}
   .addrow input::placeholder{color:var(--dim)}
   .addrow input:focus{outline:none;border-color:var(--cyan)}
-  .addrow button{background:transparent;border:1px solid var(--cyan-dim);color:var(--cyan);
-    font-family:var(--mono);font-size:12px;letter-spacing:2px;padding:0 20px;cursor:pointer;
-    transition:.15s}
-  .addrow button:hover{background:var(--cyan);color:var(--void)}
+  .addrow button,.addbtn{background:transparent;border:1px solid var(--cyan-dim);color:var(--cyan);
+    font-family:var(--mono);font-size:12px;letter-spacing:2px;padding:8px 20px;cursor:pointer;transition:.15s}
+  .addrow button:hover,.addbtn:hover{background:var(--cyan);color:var(--void)}
+  .addbtn{display:block;width:100%;margin-top:2px;border-style:dashed}
 
-  /* ── 页脚 & 保存提示 ── */
-  .foot{font-family:var(--mono);color:var(--dim);font-size:11px;text-align:center;
-    margin-top:40px;letter-spacing:1px}
-  .savedot{position:fixed;bottom:18px;right:22px;background:var(--field2);
-    border:1px solid var(--cyan-dim);color:var(--cyan);font-family:var(--mono);
-    font-size:12px;letter-spacing:2px;padding:8px 16px;opacity:0;transform:translateY(6px);
-    transition:.25s;pointer-events:none}
+  /* ── 页脚 & 保存 ── */
+  .foot{font-family:var(--mono);color:var(--dim);font-size:11px;text-align:center;margin-top:40px;letter-spacing:1px}
+  .savedot{position:fixed;bottom:18px;right:22px;background:var(--field2);border:1px solid var(--cyan-dim);
+    color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:2px;padding:8px 16px;
+    opacity:0;transform:translateY(6px);transition:.25s;pointer-events:none}
   .savedot.show{opacity:1;transform:none}
 
-  [contenteditable]{outline:none;border-bottom:1px dashed transparent}
+  /* ── 可编辑字段 ── */
+  [contenteditable]{outline:none;border-bottom:1px dashed transparent;cursor:text}
   [contenteditable]:hover{border-bottom-color:var(--line2)}
-  [contenteditable]:focus{border-bottom-color:var(--gold)}
+  [contenteditable]:focus{border-bottom-color:var(--gold);background:rgba(255,194,75,.05)}
+  [contenteditable][data-ph]:empty::before{content:attr(data-ph);color:var(--dim);font-style:italic}
   :focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-  @media (max-width:560px){
-    .lock h2{font-size:23px}.unit .ctrl{padding:10px}.topbar .clock .clk{display:none}
-  }
+  @media (max-width:560px){.lock h2{font-size:23px}.unit .ctrl{padding:10px}.topbar .clock .clk{display:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
     <div class="brand"><span class="glyph"></span>任务终端<small>MISSION TERMINAL</small></div>
-    <div class="clock">
-      <span class="clk" id="clock">--:--:--</span>
-      <span class="sync"><i></i>SYNC</span>
-    </div>
+    <div class="clock"><span class="clk" id="clock">--:--:--</span><span class="sync"><i></i>SYNC</span></div>
   </div>
 
   <div class="northbar">
     <span class="eyebrow">北极星 <span class="en">/ NORTH STAR</span></span>
-    <span id="northstar" contenteditable></span>
+    <span id="northstar" contenteditable data-ph="设定你的北极星…" onblur="editText('root','','northStar',this)"></span>
   </div>
 
   <div class="lockwrap"><div id="focus-slot"></div></div>
-
   <div class="protocol" id="protocol"></div>
 
   <div class="sec">
-    <div class="sechead">
-      <span class="eyebrow">单元 <span class="en">/ UNITS</span></span>
-      <span class="rule"></span><span class="count" id="unit-count"></span>
-    </div>
+    <div class="sechead"><span class="eyebrow">单元 <span class="en">/ UNITS</span></span><span class="rule"></span><span class="count" id="unit-count"></span></div>
     <div id="warn-slot"></div>
     <div id="projects"></div>
+    <button class="addbtn" onclick="addProject()">＋ 新单元 NEW UNIT</button>
   </div>
 
   <div class="sec">
-    <div class="sechead">
-      <span class="eyebrow">能力 <span class="en">/ CAPABILITIES</span></span>
-      <span class="rule"></span>
-    </div>
+    <div class="sechead"><span class="eyebrow">能力 <span class="en">/ CAPABILITIES</span></span><span class="rule"></span></div>
     <div id="goals"></div>
+    <button class="addbtn" onclick="addGoal()">＋ 新能力 NEW CAPABILITY</button>
   </div>
 
   <div class="sec">
-    <div class="sechead">
-      <span class="eyebrow">目标 <span class="en">/ OBJECTIVES</span></span>
-      <span class="rule"></span><span class="count" id="task-count"></span>
-    </div>
+    <div class="sechead"><span class="eyebrow">目标 <span class="en">/ OBJECTIVES</span></span><span class="rule"></span><span class="count" id="task-count"></span></div>
     <div id="tasks"></div>
-    <div class="addrow">
-      <input id="newtask" placeholder="登记一条目标，回车提交…" />
-      <button onclick="addTask()">ADD</button>
-    </div>
+    <div class="addrow"><input id="newtask" placeholder="登记一条目标，回车提交…" /><button onclick="addTask()">ADD</button></div>
   </div>
 
   <div class="foot" id="foot"></div>
@@ -257,15 +235,16 @@
 <div class="savedot" id="savedot">已同步 ✓</div>
 
 <script>
-let state=null, saveTimer=null, firstRender=true;
+let state=null, saveTimer=null;
 const $=(id)=>document.getElementById(id);
 const esc=(s)=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="#0B1017" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>';
 
 async function load(force){
   const r=await fetch('/api/data',{cache:'no-store'});
   const data=await r.json();
-  const editing=document.activeElement &&
-    (document.activeElement.isContentEditable||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName));
+  const ae=document.activeElement;
+  const editing=ae&&(ae.isContentEditable||['INPUT','TEXTAREA','SELECT'].includes(ae.tagName));
   if(!force&&state&&editing) return;
   if(!force&&state&&data.meta&&state.meta&&data.meta.updated===state.meta.updated) return;
   state=data; render();
@@ -280,32 +259,39 @@ function save(){
 function flash(){const d=$('savedot');d.classList.add('show');clearTimeout(d._t);d._t=setTimeout(()=>d.classList.remove('show'),1300);}
 function projName(id){const p=state.projects.find(x=>x.id===id);return p?p.title:'';}
 
-const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="#0B1017" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>';
+// 通用文本编辑：更新 state + 保存，不重渲染（保住光标）
+function editText(kind,id,field,el){
+  const v=el.textContent.trim();
+  if(kind==='root') state[field]=v;
+  else{
+    const arr=kind==='proj'?state.projects:kind==='goal'?state.goals:state.tasks;
+    const o=arr.find(x=>x.id===id); if(o) o[field]=v;
+  }
+  save();
+}
 
 function render(){
   $('northstar').textContent=state.northStar||'';
 
-  // 主线锁定
+  // 主线锁定（卡片内字段也可编辑）
   const f=state.projects.find(p=>p.id===state.wipFocus);
   $('focus-slot').innerHTML=f?`
     <div class="lock locked">
-      <span class="tick tl"></span><span class="tick tr"></span>
-      <span class="tick bl"></span><span class="tick br"></span>
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
       <div class="status"><span class="dot"></span>PRIMARY LOCK · 主线锁定 · 执行中</div>
-      <h2>${esc(f.title)}</h2>
-      <div class="note">${esc(f.note)}</div>
+      <h2 contenteditable data-ph="主线名称" onblur="editText('proj','${f.id}','title',this)">${esc(f.title)}</h2>
+      <div class="note" contenteditable data-ph="一句话描述这个主线" onblur="editText('proj','${f.id}','note',this)">${esc(f.note)}</div>
       <div class="next"><span class="k">下一步 ›</span>
-        <span class="v ${f.nextAction?'':'empty'}">${f.nextAction?esc(f.nextAction):'未设定 —— 下面把它写清楚'}</span></div>
+        <span class="v" contenteditable data-ph="此刻最该动手的下一步" onblur="editText('proj','${f.id}','nextAction',this)">${esc(f.nextAction)}</span></div>
     </div>`:`<div class="lock none">尚未锁定主线。到下面的单元里点「锁定」——准星一次只能咬住一个目标。</div>`;
 
-  // 协议
-  $('protocol').innerHTML=`<span class="tag">PROTOCOL · WIP=1</span><span class="txt">${esc(state.principle||'')}</span>`;
+  $('protocol').innerHTML=`<span class="tag">PROTOCOL · WIP=1</span>
+    <span class="txt" contenteditable data-ph="写下你的执行铁律…" onblur="editText('root','','principle',this)">${esc(state.principle||'')}</span>`;
 
   // 单元
   const actives=state.projects.filter(p=>p.status==='active');
   $('unit-count').textContent=`${state.projects.length} 单元 · ${actives.length} 执行中`;
-  $('warn-slot').innerHTML=actives.length>1
-    ?`<div class="warn"><b>[ ALERT ]</b> 检测到 ${actives.length} 个执行中单元。协议要求锁定单一目标——其余转入待命。</div>`:'';
+  $('warn-slot').innerHTML=actives.length>1?`<div class="warn"><b>[ ALERT ]</b> 检测到 ${actives.length} 个执行中单元。协议要求锁定单一目标——其余转入待命。</div>`:'';
   $('projects').innerHTML=state.projects.map(p=>{
     const on=p.status==='active',done=p.status==='done';
     const cls=on?'on':(done?'done':'hold');
@@ -315,11 +301,19 @@ function render(){
     return `<div class="unit ${cls}">
       <div class="stripe"></div>
       <div class="body">
-        <div class="row1"><span class="name">${esc(p.title)}</span>${st}
+        <div class="row1"><span class="name" contenteditable data-ph="单元名称" onblur="editText('proj','${p.id}','title',this)">${esc(p.title)}</span>${st}
           ${p.id===state.wipFocus?'<span class="primary-flag">◆ 主线</span>':''}</div>
-        <div class="meta">${p.area?esc(p.area)+' · ':''}${esc(p.note)}${p.due?' · <span class="due">DUE '+esc(p.due)+'</span>':''}</div>
+        <div class="meta">
+          <span class="area" contenteditable data-ph="领域" onblur="editText('proj','${p.id}','area',this)">${esc(p.area)}</span>
+          <span class="sep">·</span>
+          <span contenteditable data-ph="一句话描述" onblur="editText('proj','${p.id}','note',this)">${esc(p.note)}</span>
+          <span class="sep">· 截止</span>
+          <span class="due" contenteditable data-ph="＋日期" onblur="editText('proj','${p.id}','due',this)">${esc(p.due)}</span>
+        </div>
+        <div class="unext"><span class="k">下一步 ›</span><span class="v" contenteditable data-ph="设定下一步" onblur="editText('proj','${p.id}','nextAction',this)">${esc(p.nextAction)}</span></div>
       </div>
       <div class="ctrl">
+        <button class="rmbtn" title="删除单元" onclick="delProject('${p.id}')">✕</button>
         <select onchange="setStatus('${p.id}',this.value)">
           <option value="active" ${on?'selected':''}>执行中</option>
           <option value="on-hold" ${p.status==='on-hold'?'selected':''}>待命</option>
@@ -333,8 +327,9 @@ function render(){
   // 能力
   $('goals').innerHTML=state.goals.map(g=>`
     <div class="cap">
-      <div class="ct">${esc(g.title)}</div>
-      <div class="why">${esc(g.why)}</div>
+      <button class="rmbtn capdel" title="删除能力" onclick="delGoal('${g.id}')">✕</button>
+      <div class="ct" contenteditable data-ph="能力名称" onblur="editText('goal','${g.id}','title',this)">${esc(g.title)}</div>
+      <div class="why" contenteditable data-ph="为什么它重要" onblur="editText('goal','${g.id}','why',this)">${esc(g.why)}</div>
       <div class="telemetry">
         <input type="range" min="0" max="100" value="${g.progress}" oninput="setGoal('${g.id}',this.value)">
         <div class="track"><i data-w="${g.progress}"></i></div>
@@ -342,56 +337,46 @@ function render(){
       </div>
     </div>`).join('');
 
-  // 目标
+  // 目标（任务）
   const openN=state.tasks.filter(t=>!t.done).length;
   $('task-count').textContent=`${openN} 待执行 · ${state.tasks.length} 总计`;
+  const projOpts=(sel)=>`<option value="" ${sel?'':'selected'}>— 无归属</option>`+
+    state.projects.map(p=>`<option value="${p.id}" ${sel===p.id?'selected':''}>${esc(p.title)}</option>`).join('');
   $('tasks').innerHTML=state.tasks.map(t=>`
     <div class="obj ${t.done?'done':''}">
       <div class="box" onclick="toggleTask('${t.id}')">${CHECK}</div>
-      <span class="tt">${esc(t.title)}</span>
-      ${t.project?`<span class="ptag">${esc(projName(t.project))}</span>`:''}
+      <span class="tt" contenteditable data-ph="任务内容" onblur="editText('task','${t.id}','title',this)">${esc(t.title)}</span>
+      <select class="tasksel" onchange="setTaskProj('${t.id}',this.value)">${projOpts(t.project)}</select>
       <button class="del" onclick="delTask('${t.id}')" title="移除">✕</button>
     </div>`).join('');
 
   const u=state.meta&&state.meta.updated?new Date(state.meta.updated).toLocaleString('zh-CN'):'—';
   $('foot').textContent=`SYNC ◍ 每 4s · 数据源 99_系统/dashboard/data.json · 最后写入 ${u}`;
-
-  // 遥测条填充（下一帧触发 transition）
   requestAnimationFrame(()=>{document.querySelectorAll('.track>i').forEach(i=>i.style.width=i.dataset.w+'%');});
-  firstRender=false;
 }
 
-function setStatus(id,v){
-  const p=state.projects.find(x=>x.id===id);p.status=v;
-  if(v==='active'){state.wipFocus=id;state.projects.forEach(x=>{if(x.id!==id&&x.status==='active')x.status='on-hold';});}
-  save();render();
-}
-function setFocus(id){
-  state.wipFocus=id;const p=state.projects.find(x=>x.id===id);p.status='active';
-  state.projects.forEach(x=>{if(x.id!==id&&x.status==='active')x.status='on-hold';});
-  save();render();
-}
-function setGoal(id,v){
-  const g=state.goals.find(x=>x.id===id);g.progress=+v;
-  const box=event.target.closest('.cap');
-  box.querySelector('.track>i').style.width=v+'%';
-  box.querySelector('.pct').textContent=v+'%';save();
-}
+// 结构性操作（会重渲染）
+function setStatus(id,v){const p=state.projects.find(x=>x.id===id);p.status=v;
+  if(v==='active'){state.wipFocus=id;state.projects.forEach(x=>{if(x.id!==id&&x.status==='active')x.status='on-hold';});}save();render();}
+function setFocus(id){state.wipFocus=id;const p=state.projects.find(x=>x.id===id);p.status='active';
+  state.projects.forEach(x=>{if(x.id!==id&&x.status==='active')x.status='on-hold';});save();render();}
+function setGoal(id,v){const g=state.goals.find(x=>x.id===id);g.progress=+v;const box=event.target.closest('.cap');
+  box.querySelector('.track>i').style.width=v+'%';box.querySelector('.pct').textContent=v+'%';save();}
 function toggleTask(id){const t=state.tasks.find(x=>x.id===id);t.done=!t.done;save();render();}
 function delTask(id){state.tasks=state.tasks.filter(x=>x.id!==id);save();render();}
-function addTask(){
-  const inp=$('newtask'),v=inp.value.trim();if(!v)return;
-  state.tasks.push({id:'t'+Date.now(),title:v,done:false,project:''});inp.value='';save();render();
-}
+function setTaskProj(id,v){const t=state.tasks.find(x=>x.id===id);t.project=v;save();}
+function addTask(){const inp=$('newtask'),v=inp.value.trim();if(!v)return;
+  state.tasks.push({id:'t'+Date.now(),title:v,done:false,project:''});inp.value='';save();render();}
+function addProject(){state.projects.push({id:'p'+Date.now(),title:'新单元',status:'on-hold',area:'',note:'',nextAction:'',due:''});save();render();}
+function delProject(id){if(state.wipFocus===id)state.wipFocus='';state.projects=state.projects.filter(x=>x.id!==id);
+  state.tasks.forEach(t=>{if(t.project===id)t.project='';});save();render();}
+function addGoal(){state.goals.push({id:'g'+Date.now(),title:'新能力',why:'',progress:0});save();render();}
+function delGoal(id){state.goals=state.goals.filter(x=>x.id!==id);save();render();}
+
 $('newtask').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
-$('northstar').addEventListener('blur',()=>{state.northStar=$('northstar').textContent.trim();save();});
-
-// 实时时钟
-function tick(){const d=new Date();$('clock').textContent=d.toLocaleTimeString('zh-CN',{hour12:false});}
+function tick(){$('clock').textContent=new Date().toLocaleTimeString('zh-CN',{hour12:false});}
 tick();setInterval(tick,1000);
-
-load(true);
-setInterval(()=>load(false),4000);
+load(true);setInterval(()=>load(false),4000);
 </script>
 </body>
 </html>
