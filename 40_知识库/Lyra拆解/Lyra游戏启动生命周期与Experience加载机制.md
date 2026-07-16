@@ -8,7 +8,7 @@ aliases: [Lyra启动流程, Experience加载机制, Lyra生命周期]
 # Lyra 游戏启动生命周期与 Experience 加载机制
 
 ## 定义
-Lyra 的启动不是传统 UE 项目那种「GameMode 里写死一堆玩法逻辑」的模式，而是一套**数据驱动 + 异步加载 + 插件化（GameFeature）**的启动架构。核心思想一句话：
+Lyra 的启动不是传统 UE 项目那种「GameMode 里写死一堆玩法逻辑」的模式，而是一套**数据驱动 + 异步加载 + 插件化（GameFeature）的启动架构。核心思想一句话：
 
 > 地图只负责把关卡摆出来，「这一局到底是什么玩法」完全由一个叫 `Experience`（体验）的数据资产异步决定；玩家在 Experience 加载完成前一直被「挂起」，加载完才真正 Spawn。
 
@@ -50,40 +50,7 @@ GameDefaultMap=/Game/System/FrontEnd/Maps/L_LyraFrontEnd.L_LyraFrontEnd
 代价是启动链路变长、时序更绕（大量异步回调 + 委托），调试门槛高；换来的是可扩展性和模块隔离，这正是一个「示范工程」的核心卖点。
 
 ## 四阶段生命周期
-```
-【阶段0：引擎级 一次性初始化】（进程启动，跨所有关卡只做一次）
- UGameEngine::Init
-   → GEngine->AssetManager = LyraAssetManager   （由 DefaultEngine.ini 指定类名）
-   → ULyraAssetManager::StartInitialLoading()    ← 引擎调用
-        ├─ Super::StartInitialLoading()  扫描所有 PrimaryAsset（Experience/GameData/Map…）
-        ├─ STARTUP_JOB: InitializeGameplayCueManager()  预加载常驻 GameplayCue
-        ├─ STARTUP_JOB: GetGameData()  同步加载 DefaultGameData（权重25，最重）
-        └─ DoAllStartupJobs()  跑完所有启动任务（服务端直跑，客户端带进度条）
-
-【阶段1：GameInstance 级】（进程级，第一张地图之前）
- ULyraGameInstance::Init()   ← 引擎调用
-   → 注册 4 个 InitState（Spawned→DataAvailable→DataInitialized→GameplayReady）
-   → 绑定 CommonSession / CommonUser 等在线子系统事件
-
-【阶段2：地图/关卡级】（每次 OpenLevel / ServerTravel 触发）
- ALyraGameMode::InitGame()          ← 引擎在地图加载时调用
-   → SetTimerForNextTick(HandleMatchAssignmentIfNotExpectingOne)  延一帧
- ALyraGameMode::InitGameState()     ← 引擎调用
-   → ExperienceComponent->CallOrRegister_OnExperienceLoaded(OnExperienceLoaded)  注册回调
- [下一帧] HandleMatchAssignmentIfNotExpectingOne()
-   → 按优先级决定用哪个 Experience → OnMatchAssignmentGiven()
-   → ExperienceManagerComponent->SetCurrentExperience(ExperienceId)
-
-【阶段3：Experience 加载（异步状态机，本架构的心脏）】
- SetCurrentExperience → StartExperienceLoad → OnExperienceLoadComplete
-   → LoadAndActivateGameFeaturePlugin（逐个异步）→ OnExperienceFullLoadCompleted
-   → 执行所有 GameFeatureAction（Register→Load→Activate）
-   → LoadState = Loaded，广播 OnExperienceLoaded（High/Normal/Low 三档优先级）
-
-【阶段4：玩家进入】
- OnExperienceLoaded 回调 → ALyraGameMode::OnExperienceLoaded
-   → 遍历所有已连接但没 Pawn 的 PlayerController → RestartPlayer → Spawn Pawn
-```
+![[mermaid-diagram.png]]
 
 关键设计点：GameMode 的 `HandleStartingNewPlayer` 被重写——如果 Experience 没加载完，玩家登录后**不 Spawn**，一直等到 `OnExperienceLoaded` 回调里统一补 Spawn。
 

@@ -46,3 +46,12 @@ Act as Knowledge Manager and Daily Planner. Capture, connect, and organize knowl
 - Daily notes link to projects; projects track progress in daily notes
 - No empty line after frontmatter `---` (it becomes visible in body)
 - 必须使用中文与用户进行交流，所有生成的文件也必须为中文。
+- 每次跑完一个完整任务之后主动上传Git远端仓库，如有冲突进行冲突合并处理
+
+## 长文排版规范（技术长文 / 研究文档）
+产出或修订 `30_研究`、`40_知识库` 及根目录下的技术长文时，遵循统一排版（基准范本：`RecastNavigation 算法解析：从三角形汤到群体寻路.md`）。详细规则见 skill `vault-doc-style`，要点：
+- **标题层级**：正文顶级标题用 `##`（不要用 `#`，字号过大），子级 `###`、`####` 逐级下探。
+- **列表紧凑**：列表项之间**不留空行**（Obsidian 粘贴常带缩进空行 → 松散列表 → 行距被撑大），有序/无序列表都要紧凑。
+- **代码/目录树/ASCII 图**：一律用 ``` 围栏包裹，不裸排在正文。
+- **frontmatter 后不留空行**；段落不超过 5~6 行；图片用 `![[attachments/xxx.png]]` 或标准 `![]()`，缺图用 `> 📷（…）` 占位、不编造路径。
+- 做「格式对齐」任务时**只改格式不改内容**（不增删观点、不改术语与代码逻辑）。
