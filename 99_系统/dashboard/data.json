@@ -1,7 +1,7 @@
 {
   "meta": {
     "owner": "keywei",
-    "updated": "2026-07-16T08:17:47.726Z"
+    "updated": "2026-07-16T11:53:02.572Z"
   },
   "northStar": "成为能指挥 AI 从 0 到 1 造出产品的顶级独立开发者（One Person Company）",
   "principle": "捕获可以无限跳，执行只能有一件（WIP = 1）。手上这件没到「完成」，其它一律封存。",
@@ -11,13 +11,13 @@
       "id": "g1",
       "title": "打牢 UE 客户端 + C++ 底层功底",
       "why": "这是实习主业，也是所有上层能力的地基",
-      "progress": 45
+      "progress": 50
     },
     {
       "id": "g2",
       "title": "建成并发布《VibeCoding 能力体系》系列",
       "why": "把「读懂」变成可复用资产 + 个人品牌",
-      "progress": 20
+      "progress": 0
     },
     {
       "id": "g3",
@@ -94,20 +94,6 @@
       "title": "复习清单：编译原理 / 数据结构算法 / C++ 基础",
       "done": false,
       "project": "ue-study"
-    }
-  ],
-  "dailies": [
-    {
-      "id": "d1",
-      "title": "刷一题力扣",
-      "streak": 0,
-      "lastDate": ""
-    },
-    {
-      "id": "d2",
-      "title": "学十分钟英语",
-      "streak": 0,
-      "lastDate": ""
     }
   ]
 }
