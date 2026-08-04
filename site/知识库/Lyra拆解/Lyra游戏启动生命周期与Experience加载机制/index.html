@@ -1,0 +1,2246 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="keywei 的私人技术图鉴">
+      
+      
+      
+      
+        <link rel="prev" href="../../%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/">
+      
+      
+        <link rel="next" href="../../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lyra 游戏启动生命周期与 Experience 加载机制 - KIWI CODEX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/codex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lyra-experience" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="KIWI CODEX" class="md-header__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KIWI CODEX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lyra 游戏启动生命周期与 Experience 加载机制
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KIWI CODEX" class="md-nav__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KIWI CODEX
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KIWI CODEX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UE%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE群体避障导航架构：CrowdManager与CrowdFollowingComponent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%EF%BC%88GameSettingScreen.CreateRegistry%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简单工厂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML%E7%B1%BB%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 所有线放一起
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位运算符
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra拆解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lyra拆解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定义
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全局位置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么这样设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四阶段生命周期
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心调用链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心调用链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ① 服务端决定玩法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ② 异步加载资产 + 插件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gamemode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ③ 客户端镜像同一流程（无需 GameMode）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ④ 玩家出生
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据流
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiencemanagercomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键成员（ExperienceManagerComponent）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键函数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计模式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能考量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修改影响
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调试建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关概念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    研究
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程目录拆解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E4%B8%AA%E4%BA%BA%E8%BD%AF%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    个人软件工作流说明书
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E8%85%BE%E8%AE%AF%E6%8E%A7%E8%82%A1%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6-%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%B4%A2%E5%8A%A1%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腾讯控股深度研究：商业模式、收入结构与生态版图
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零散知识点整理流程
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%A2%84%E6%94%AF%E6%98%8E%E5%A4%A9%E7%9A%84%E7%83%A6%E6%81%BC-%E9%A2%84%E6%9C%9F%E7%84%A6%E8%99%91%E5%BF%83%E7%90%86%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预支明天的烦恼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI侦探局
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI侦探局
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/AI%E4%BE%A6%E6%8E%A2%E5%B1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 侦探局 · 微信小程序
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding能力体系
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VibeCoding能力体系
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding 能力体系
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品能力：从用户需求到 MVP 的全链路思维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目管理能力：一个人也要有节奏与可交付
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计能力：从数据结构到分布式的工程直觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试能力：AI 时代最被低估的核心竞争力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/08_%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    英语能力：一手信息的带宽与全球市场的入口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/09_%E8%BF%9B%E9%98%B6%E8%A1%A5%E5%85%85%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    进阶补充能力：技术之外，决定一个人能走多远的变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人生成就墙
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙 (地球Online 风)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/figma-prompt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学设计依据
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E6%88%90%E5%B0%B1%E5%BA%93_v0.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    成就库 v0.1 (地球Online 风格)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定义
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全局位置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么这样设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四阶段生命周期
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心调用链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心调用链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ① 服务端决定玩法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ② 异步加载资产 + 插件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gamemode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ③ 客户端镜像同一流程（无需 GameMode）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ④ 玩家出生
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据流
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiencemanagercomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键成员（ExperienceManagerComponent）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键函数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设计模式
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能考量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修改影响
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调试建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关概念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  <div class="cx-meta">
+    
+    <span>标签 <b>UE · Lyra · 生命周期 · Experience · GameFeature · 启动流程</b></span>
+    <span>建立 <b>2026-07-14</b></span>
+  </div>
+  
+  
+                  
+
+
+
+<h1 id="lyra-experience">Lyra 游戏启动生命周期与 Experience 加载机制<a class="headerlink" href="#lyra-experience" title="Permanent link">&para;</a></h1>
+<h2 id="_1">定义<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Lyra 的启动不是传统 UE 项目那种「GameMode 里写死一堆玩法逻辑」的模式，而是一套**数据驱动 + 异步加载 + 插件化（GameFeature）的启动架构。核心思想一句话：</p>
+<blockquote>
+<p>地图只负责把关卡摆出来，「这一局到底是什么玩法」完全由一个叫 <code>Experience</code>（体验）的数据资产异步决定；玩家在 Experience 加载完成前一直被「挂起」，加载完才真正 Spawn。</p>
+</blockquote>
+<p>传统做法是「一个 GameMode 子类 = 一种玩法」，玩法之间靠 <code>if/switch</code> 或继承树切换。Lyra 抛弃了这套，把「玩法」抽象成可插拔的数据资产 + 插件，换玩法只需换一个 <code>ExperienceDefinition</code>，策划不写 C++ 也能配出新模式。</p>
+<h2 id="_2">全局位置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>在整个 Engine 启动链中的层级：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>引擎启动 (Launch)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  └─ UGameEngine::Init
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>       ├─ AssetManager (LyraAssetManager)   ← 全局单例，最早初始化
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>       └─ GameInstance  (ULyraGameInstance) ← 进程级，跨关卡存活
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>            └─ World / GameMode (ALyraGameMode)      ← 每张地图一个（仅服务端权威）
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                 └─ GameState (ALyraGameState)        ← 每张地图一个（客户端也有）
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                      └─ ExperienceManagerComponent   ← 玩法加载的“心脏”
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                           └─ GameFeatureSubsystem     ← 按需启用玩法插件
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                                └─ GameFeatureAction    ← 真正把玩法“装配”到世界
+</code></pre></div>
+<p>配置层入口（<code>Config/DefaultEngine.ini</code>）确定了这条链的起点：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="na">AssetManagerClassName</span><span class="o">=</span><span class="s">/Script/LyraGame.LyraAssetManager</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="na">GlobalDefaultGameMode</span><span class="o">=</span><span class="s">/Game/B_LyraGameMode.B_LyraGameMode_C</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="na">GameInstanceClass</span><span class="o">=</span><span class="s">/Game/B_LyraGameInstance.B_LyraGameInstance_C</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="na">GameDefaultMap</span><span class="o">=</span><span class="s">/Game/System/FrontEnd/Maps/L_LyraFrontEnd.L_LyraFrontEnd</span>
+</code></pre></div>
+<h2 id="_3">为什么这样设计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>动机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>解耦</td>
+<td>玩法逻辑（武器、AI、UI、输入）封装成 GameFeature 插件，与主程序 <code>LyraGame</code> 模块零编译依赖，可独立开关</td>
+</tr>
+<tr>
+<td>数据驱动</td>
+<td>换玩法 = 换一个 <code>ExperienceDefinition</code> 数据资产，无需改 C++</td>
+</tr>
+<tr>
+<td>异步无卡顿</td>
+<td>Experience 及依赖资产全部异步流式加载，加载期显示 Loading Screen，不阻塞主线程</td>
+</tr>
+<tr>
+<td>网络同步</td>
+<td><code>CurrentExperience</code> 是 Replicated 属性——服务端决定玩法，客户端通过 <code>OnRep</code> 自动走同样加载流程，天然对齐 C/S</td>
+</tr>
+<tr>
+<td>按需内存</td>
+<td>只有当前 Experience 需要的 GameFeature 才 Load+Activate，退出时 Deactivate，内存随玩法进出</td>
+</tr>
+</tbody>
+</table>
+<p>代价是启动链路变长、时序更绕（大量异步回调 + 委托），调试门槛高；换来的是可扩展性和模块隔离，这正是一个「示范工程」的核心卖点。</p>
+<h2 id="_4">四阶段生命周期<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="mermaid-diagram.png" /></p>
+<p>关键设计点：GameMode 的 <code>HandleStartingNewPlayer</code> 被重写——如果 Experience 没加载完，玩家登录后<strong>不 Spawn</strong>，一直等到 <code>OnExperienceLoaded</code> 回调里统一补 Spawn。</p>
+<h2 id="_5">核心调用链<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>全程运行在 <strong>Game Thread</strong>，异步加载部分由 <strong>StreamableManager</strong> 在后台线程做 IO、回主线程发回调。</p>
+<h3 id="1">① 服务端决定玩法<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><code>HandleMatchAssignmentIfNotExpectingOne</code> 按优先级裁决用哪个 Experience（高者胜）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Matchmaking 分配 &gt; URL Options &gt; DeveloperSettings(PIE) &gt; CommandLine
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &gt; WorldSettings &gt; Dedicated Server &gt; Default(B_LyraDefaultExperience)
+</code></pre></div>
+<p>选定后 <code>OnMatchAssignmentGiven → SetCurrentExperience(Id)</code>。</p>
+<h3 id="2">② 异步加载资产 + 插件<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>StartExperienceLoad  [GameThread 发起]
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  → AssetManager.ChangeBundleStateForPrimaryAssets(...)  [后台 IO 加载 Bundle]
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  → BindCompleteDelegate(OnExperienceLoadComplete)
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>      ↓ (资产就绪，回到 GameThread)
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>OnExperienceLoadComplete
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  → 收集 GameFeaturePlugin URL
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  → UGameFeaturesSubsystem::LoadAndActivateGameFeaturePlugin(url, 回调)  [异步，逐个]
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>      ↓ (每个插件完成 NumGameFeaturePluginsLoading--)
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>OnExperienceFullLoadCompleted   （计数归零时触发）
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  → 执行 GameFeatureAction：OnGameFeatureRegistering → Loading → Activating
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  → LoadState = Loaded
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  → OnExperienceLoaded_HighPriority / Normal / LowPriority 依次 Broadcast
+</code></pre></div>
+<h3 id="3-gamemode">③ 客户端镜像同一流程（无需 GameMode）<a class="headerlink" href="#3-gamemode" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Server 改 CurrentExperience → 网络复制 → Client: OnRep_CurrentExperience
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  → StartExperienceLoad()  （客户端走完全相同的加载状态机）
+</code></pre></div>
+<h3 id="4">④ 玩家出生<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>OnExperienceLoaded → ALyraGameMode::OnExperienceLoaded
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  → for each PlayerController without Pawn:
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>      PlayerCanRestart → RestartPlayer
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        → SpawnDefaultPawnAtTransform_Implementation
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>            → GetPawnDataForController（从 Experience-&gt;DefaultPawnData 取）
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>            → SpawnActor&lt;APawn&gt;(PawnData-&gt;PawnClass)  bDeferConstruction=true
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            → PawnExtComp-&gt;SetPawnData(PawnData)   ← 关键：把数据注入 Pawn
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            → FinishSpawning()
+</code></pre></div>
+<p><code>bDeferConstruction=true</code> 的原因：要在 <code>FinishSpawning</code> 之前先把 <code>PawnData</code> 塞进 <code>LyraPawnExtensionComponent</code>，这样 Pawn 的组件在初始化（BeginPlay / InitState 流转）时就能拿到数据来源。这是 Lyra「数据先行」设计的体现。</p>
+<h2 id="_6">数据流<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>玩法配置层层下沉到 Pawn，全程数据驱动、无硬编码玩法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>DefaultEngine.ini / DefaultGame.ini        （配置层）
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  → AssetManager类 / GameInstance类 / GameMode类 / DefaultMap / PrimaryAssetTypesToScan
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>      ↓
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>ExperienceDefinition 资产 (B_LyraDefaultExperience)   （玩法定义层）
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  ├─ GameFeaturesToEnable[]   → 要启用哪些插件
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  ├─ Actions[] / ActionSets[] → 要执行哪些装配动作
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  └─ DefaultPawnData          → 默认角色数据
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>      ↓
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>ExperienceManagerComponent（GameState 上的组件）      （运行时装配层）
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  → 加载资产 → 启用 GameFeature → 执行 Action
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>      ↓
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>GameFeatureAction（AddComponents / AddInputBinding / AddWidget…）  （效果注入层）
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  → 往世界里的 Actor 动态挂组件、绑输入、加 UI
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>      ↓
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>LyraPawnExtensionComponent  ← SetPawnData(PawnData)   （Pawn 数据落地）
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>  → 驱动 Pawn 的能力(ASC)、输入、相机等按数据初始化
+</code></pre></div>
+<h2 id="experiencemanagercomponent">关键成员（ExperienceManagerComponent）<a class="headerlink" href="#experiencemanagercomponent" title="Permanent link">&para;</a></h2>
+<p>组件本身是整个启动的异步状态机，最影响逻辑的成员：</p>
+<ul>
+<li><code>CurrentExperience</code> → 当前玩法定义 → <code>SetCurrentExperience</code>/<code>OnRep</code> 时写入 → GameMode 与各系统读取。<strong>Replicated</strong>，服务端权威、客户端镜像。</li>
+<li><code>LoadState</code> → 加载状态枚举（Unloaded→Loading→LoadingGameFeatures→ExecutingActions→Loaded）→ 每个异步回调推进 → <code>IsExperienceLoaded()</code> / <code>ShouldShowLoadingScreen()</code> 读取。</li>
+<li><code>NumGameFeaturePluginsLoading</code> → 剩余未加载完的插件计数 → 每个插件回调 <code>--</code> → 归零即触发 <code>OnExperienceFullLoadCompleted</code>。本质是一个<strong>异步 join 计数器</strong>。</li>
+<li><code>OnExperienceLoaded_High/Normal/LowPriority</code> → 三档优先级委托 → Loaded 时按序 Broadcast → 让「底层系统先于业务逻辑」初始化（例如 ASC 要先于 UI 就绪）。</li>
+</ul>
+<h2 id="_7">关键函数<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>ALyraGameMode::HandleMatchAssignmentIfNotExpectingOne</code> —— 启动后延一帧调用，按优先级裁决用哪个 Experience。延一帧是为了让 URL Options、命令行等启动参数先完成初始化。</li>
+<li><code>ExperienceManagerComponent::StartExperienceLoad</code> —— 客户端与服务端<strong>共用入口</strong>（服务端由 SetCurrentExperience 调，客户端由 OnRep 调），保证 C/S 加载逻辑完全一致。</li>
+<li><code>OnExperienceFullLoadCompleted</code> —— 真正「完成」的收口点，执行所有 GameFeatureAction 并翻转 <code>LoadState=Loaded</code>。内建 <code>lyra.chaos.ExperienceDelayLoad</code> 混沌测试延迟，故意拖慢加载以测 Loading Screen 健壮性。</li>
+<li><code>ALyraGameMode::OnExperienceLoaded</code> —— 玩法就绪后批量补 Spawn 那些提前登录、被挂起的玩家。这是「玩家为什么等玩法加载完才出生」的答案。</li>
+</ul>
+<h2 id="_8">设计模式<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>State Machine</strong>：<code>ELyraExperienceLoadState</code> 驱动整个异步加载。</li>
+<li><strong>Observer / 委托</strong>：三档优先级 <code>OnExperienceLoaded</code> + <code>CallOrRegister</code>（已加载则立即回调，否则注册等待）——经典的「迟到者也能拿到结果」模式，参见 <a href="../../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/">UE设计模式-简单工厂模式（CommonGameDialogDescriptor）</a> 系列里对委托的讨论。</li>
+<li><strong>Data-Driven / 策略</strong>：<code>ExperienceDefinition</code> 数据资产即可插拔的玩法策略。</li>
+<li><strong>Plugin / GameFeature</strong>：玩法作为可热插拔插件，是 UE 官方推的模块化方案。</li>
+<li><strong>Singleton</strong>：<code>ULyraAssetManager::Get()</code>。</li>
+<li><strong>Deferred Construction</strong>：Pawn 延迟构造 + 数据注入。</li>
+</ul>
+<h2 id="_9">性能考量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>全程异步流式加载</strong>：<code>ChangeBundleStateForPrimaryAssets</code> 走 StreamableManager 后台 IO，主线程不阻塞，加载期靠 Loading Screen 遮盖。</li>
+<li><strong>Bundle 精准加载</strong>：根据 NetMode 只加载需要的 Bundle（<code>LoadStateClient</code> / <code>LoadStateServer</code> / <code>Equipped</code>），专用服务器不加载客户端资源，省内存。</li>
+<li><strong>启动任务加权进度</strong>（<code>STARTUP_JOB_WEIGHTED</code>）：<code>GetGameData</code> 权重 25，让进度条更贴近真实耗时。</li>
+<li><strong>专用服务器快路径</strong>：<code>DoAllStartupJobs</code> 里 <code>IsRunningDedicatedServer()</code> 直接跑任务、跳过进度回调开销。</li>
+</ul>
+<h2 id="_10">修改影响<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>改 <strong>Experience 选择优先级</strong>（<code>HandleMatchAssignmentIfNotExpectingOne</code>）→ 影响所有关卡进入哪个玩法，PIE/命令行/Matchmaking 全受影响，极易踩坑。</li>
+<li>改 <strong>Spawn 时机</strong>（<code>OnExperienceLoaded</code> / <code>HandleStartingNewPlayer</code>）→ 直接影响玩家出生、重连、Bot 生成；时机错了会导致 Pawn 拿不到 PawnData。</li>
+<li>改 <strong>GameFeatureAction 激活顺序</strong> → 影响能力(GAS)、输入、UI 的注册顺序，<code>HighPriority</code> 委托里的系统假设自己最先跑。</li>
+<li>改 <strong>CurrentExperience 复制</strong> → 破坏 C/S 玩法一致性，客户端可能永远停在 Loading。</li>
+</ul>
+<h2 id="_11">调试建议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>断点位置</strong>：<code>HandleMatchAssignmentIfNotExpectingOne</code>（看选中的 ExperienceId）、<code>StartExperienceLoad</code>、<code>OnExperienceFullLoadCompleted</code>（看 LoadState 翻转）、<code>OnExperienceLoaded</code>（看谁触发 Spawn）。</li>
+<li><strong>日志</strong>：<code>LogLyraExperience</code> 通道全程打点（<code>EXPERIENCE: StartExperienceLoad...</code> / <code>Identified experience...</code>），开 <code>-LogCmds="LogLyraExperience Verbose"</code>。</li>
+<li><strong>控制台命令</strong>：<code>Lyra.DumpLoadedAssets</code> 看 AssetManager 加载了什么；<code>lyra.chaos.ExperienceDelayLoad.MinSecs</code> 人为拖慢加载测 Loading Screen。</li>
+<li><strong>观察变量</strong>：<code>LoadState</code>、<code>NumGameFeaturePluginsLoading</code>、<code>CurrentExperience</code>。</li>
+<li>卡在 Loading 不动 → 多半是 <code>OnMatchAssignmentGiven</code> 里 ExperienceId 无效（日志会打 <code>loading screen will stay up forever</code>）。</li>
+</ul>
+<h2 id="_12">相关概念<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%EF%BC%88GameSettingScreen.CreateRegistry%EF%BC%89/">UE设计模式-工厂方法模式（GameSettingScreen.CreateRegistry）</a></li>
+<li><a href="../../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/">UE设计模式-简单工厂模式（CommonGameDialogDescriptor）</a></li>
+<li>[[Lyra GameFeature 插件与 GameFeatureAction 装配机制]]</li>
+<li>[[LyraPawnExtensionComponent 与 InitState 组件握手机制]]</li>
+<li>[[Lyra AssetManager 启动任务与 GameData 加载]]</li>
+</ul>
+<h2 id="_13">参考资料<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>源码：<code>Source/LyraGame/GameModes/LyraGameMode.cpp</code>、<code>LyraExperienceManagerComponent.cpp</code>、<code>System/LyraGameInstance.cpp</code>、<code>System/LyraAssetManager.cpp</code></li>
+<li>配置：<code>Config/DefaultEngine.ini</code>（AssetManager/GameInstance/GameMode/DefaultMap）、<code>Config/DefaultGame.ini</code>（PrimaryAssetTypesToScan、LyraGameDataPath、DefaultPawnData）</li>
+<li>排查过程：本地仓库 <code>F:\30_Resources\Personal\LyraStarterGame</code> 源码通读（2026-07）</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/codex.js"></script>
+      
+    
+  </body>
+</html>

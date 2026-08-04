@@ -1,0 +1,194 @@
+# 案件模板 · YAML 结构示例
+# AI 侦探局每桩案件的完整数据结构
+# 文件命名：cases/001-午夜书房凶案.yaml
+
+case_id: "001"
+title: "午夜书房凶案"
+release_date: 2026-07-01
+difficulty: easy        # easy | medium | hard，V1.0 全用 easy
+
+# ── 案件设置 ──────────────────────────────
+setup:
+  victim:
+    name: "张文康"
+    age: 58
+    role: "古董商"
+    background: "本城知名古玩商，藏品价值连城，妻子林淑兰为续弦"
+
+  scene:
+    where: "私人书房"
+    when: "2026 年某雷雨夜 23:00"
+    description: "书房位于二楼，靠墙有一座红木暗格书柜"
+
+  hook: |
+    管家王福于次日清晨发现张文康倒在书桌旁，头部受重击死亡。
+    死亡时间约为前夜 22:30 至 23:30 之间。
+    现场无搏斗痕迹，门窗未损。
+
+# ── 嫌疑人（V1.0 固定 3 人） ──────────────
+suspects:
+  - id: "A"
+    name: "王福"
+    role: "管家"
+    persona:
+      age: 52
+      style: "卑微、字斟句酌、爱用'老爷''小的'，紧张时会重复说话"
+      avatar_hint: "瘦削，穿黑色西装，戴白手套"
+
+    public_alibi: "案发时我在地下室擦银器，没听到任何动静"
+
+    # ── 仅角色自己/凶手知道的真相 ──
+    truth:
+      is_killer: true     # 凶手
+      motive: "贪图主人书房暗格中收藏的青铜烛台（明代御用）"
+
+    secrets:
+      - "曾偷过几次主人的小物件，被主人察觉但未声张"
+      - "知道书房暗格的位置和开法（曾偶然撞见主人开格）"
+
+    knows:
+      - "主人有夜读习惯，每晚 22:00 上楼"
+      - "主人最近从香港收了一批古董"
+      - "厨房后门钥匙就挂在地下室"
+
+    knows_not:
+      - "妻子林淑兰当晚 22:00 也曾上过二楼"
+      - "邻居周明远当晚的具体行踪"
+
+    lies_about:
+      - 谎言: "声称在地下室一直没离开过"
+        破绽: "实际 22:30 上过楼，鞋底沾有书房地毯特殊纤维"
+
+  - id: "B"
+    name: "林淑兰"
+    role: "妻子（续弦）"
+    persona:
+      age: 45
+      style: "得体优雅、刻意保持距离感、爱用'我先生'"
+      avatar_hint: "中等身材，穿真丝睡袍"
+
+    public_alibi: "我吃完晚饭就回卧室看电视了，看到 23:00 才睡"
+
+    truth:
+      is_killer: false
+      motive: null
+
+    secrets:
+      - "她当晚 22:00 上过二楼，是为了去书房放回一份保险单"
+      - "保险单的受益人是她自己，金额巨大，她担心被主人怀疑"
+
+    knows:
+      - "丈夫书房有暗格"
+      - "保险单的存在和金额"
+
+    knows_not:
+      - "暗格的具体位置"
+      - "王福偷东西的事"
+
+    lies_about:
+      - 谎言: "声称晚上没上过二楼"
+        破绽: "她不知道当晚下了大雨，但描述时漏掉了雨声"
+
+  - id: "C"
+    name: "周明远"
+    role: "邻居古玩商"
+    persona:
+      age: 60
+      style: "圆滑健谈、常用行话、爱端茶杯做思考状"
+      avatar_hint: "矮胖，戴老花镜，常拎个布袋"
+
+    public_alibi: "我那晚在自家茶室招待几位客人，可以查"
+
+    truth:
+      is_killer: false
+      motive: null
+
+    secrets:
+      - "其实他和张文康有古董生意上的纠纷，张曾揭穿他卖假货"
+
+    knows:
+      - "张文康收藏青铜器的爱好"
+      - "本地古董圈的人际关系"
+
+    knows_not:
+      - "张家内部仆人关系"
+      - "案发当晚张家内部的具体情况"
+
+    lies_about:
+      - 谎言: "和张文康关系一直很好"
+        破绽: "提到张文康时会下意识皱眉、改口"
+
+# ── 物证（按 reveal_trigger 触发条件透露） ──
+evidence:
+  - id: "e1"
+    name: "青铜烛台"
+    weight: "凶器"
+    reveal_trigger:
+      - "玩家提问含关键词：凶器 / 伤口 / 武器 / 重物 / 钝器"
+    description: "明代御用青铜烛台，沉重，台底有血迹"
+    rarity: "SR"
+
+  - id: "e2"
+    name: "半张被烧的字条"
+    weight: "重要线索"
+    reveal_trigger:
+      - "玩家提问含关键词：书房 / 桌上 / 现场有什么 / 纸 / 字条"
+    description: "壁炉余烬中拣出，能辨出'……烛台……三十万……'字样"
+    rarity: "SR"
+
+  - id: "e3"
+    name: "管家鞋底的特殊纤维"
+    weight: "破绽"
+    reveal_trigger:
+      - "玩家提问含关键词：鞋 / 脚印 / 泥 / 痕迹 / 地毯"
+      - "或者：玩家追问管家 3 次以上后自动透露"
+    description: "管家鞋底有书房地毯特有的金色丝线"
+    rarity: "R"
+
+  - id: "e4"
+    name: "妻子的保险单"
+    weight: "迷惑线索"
+    reveal_trigger:
+      - "玩家提问含关键词：保险 / 钱 / 受益人 / 财产"
+    description: "受益人为林淑兰，金额 200 万"
+    rarity: "R"
+
+  - id: "e5"
+    name: "邻居家的茶会名单"
+    weight: "迷惑线索"
+    reveal_trigger:
+      - "玩家提问含关键词：邻居 / 周明远 / 不在场证明 / 茶室"
+    description: "茶会名单可验证邻居确实在自家"
+    rarity: "N"
+
+# ── 真相 ──
+truth:
+  killer: "A"             # 嫌疑人 ID
+  weapon: "青铜烛台"
+  motive: "贪财"           # 简化标签，前端结算选项
+
+  full_story: |
+    管家王福服务张家 20 年，早已觊觎书房暗格中的明代青铜烛台。
+    案发当晚雷雨大作，王福趁主人夜读时上楼，假装送茶，
+    在主人转身查书时用青铜烛台击中其后脑，致其死亡。
+    事后他试图烧毁一张写有交易意图的字条，但仅烧掉一半。
+    他换鞋下楼，但鞋底仍沾有书房地毯纤维。
+
+# ── 卡牌奖励 ──
+cards:
+  - { type: person,   ref: "A",       name: "王福·管家",       rarity: SSR }
+  - { type: person,   ref: "B",       name: "林淑兰·妻子",     rarity: SR  }
+  - { type: person,   ref: "C",       name: "周明远·邻居",     rarity: R   }
+  - { type: person,   ref: victim,    name: "张文康·古董商",   rarity: SR  }
+  - { type: evidence, ref: "e1",      name: "青铜烛台",        rarity: SR  }
+  - { type: evidence, ref: "e2",      name: "半张被烧字条",    rarity: SR  }
+  - { type: evidence, ref: "e3",      name: "金色丝线",        rarity: R   }
+  - { type: evidence, ref: "e4",      name: "保险单",          rarity: R   }
+  - { type: evidence, ref: "e5",      name: "茶会名单",        rarity: N   }
+  - { type: truth,    ref: case,      name: "真相·午夜书房",   rarity: SSR }  # 仅 S 评级解锁
+
+# ── 提交答案的选项（前端 UI 用） ──
+answer_options:
+  killer: ["A", "B", "C"]
+  weapon: ["青铜烛台", "厨房菜刀", "陶瓷花瓶", "保险柜钥匙"]
+  motive: ["贪财", "感情纠纷", "商业报复", "意外失手"]

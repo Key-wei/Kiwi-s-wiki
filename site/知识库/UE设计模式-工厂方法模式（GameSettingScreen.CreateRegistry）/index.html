@@ -1,0 +1,2213 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="keywei 的私人技术图鉴">
+      
+      
+      
+      
+        <link rel="prev" href="../UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/">
+      
+      
+        <link rel="next" href="../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式 - KIWI CODEX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/codex.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lyra-gof-1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="KIWI CODEX" class="md-header__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KIWI CODEX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="KIWI CODEX" class="md-nav__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KIWI CODEX
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KIWI CODEX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C%2B%2B%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UE%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE群体避障导航架构：CrowdManager与CrowdFollowingComponent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简单工厂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UML%E7%B1%BB%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 所有线放一起
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位运算符
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra拆解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lyra拆解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lyra%E6%8B%86%E8%A7%A3/Lyra%E6%B8%B8%E6%88%8F%E5%90%AF%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8EExperience%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    研究
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程目录拆解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A0%94%E7%A9%B6/%E4%B8%AA%E4%BA%BA%E8%BD%AF%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    个人软件工作流说明书
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A0%94%E7%A9%B6/%E8%85%BE%E8%AE%AF%E6%8E%A7%E8%82%A1%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6-%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%B4%A2%E5%8A%A1%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腾讯控股深度研究：商业模式、收入结构与生态版图
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A0%94%E7%A9%B6/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零散知识点整理流程
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A0%94%E7%A9%B6/%E9%A2%84%E6%94%AF%E6%98%8E%E5%A4%A9%E7%9A%84%E7%83%A6%E6%81%BC-%E9%A2%84%E6%9C%9F%E7%84%A6%E8%99%91%E5%BF%83%E7%90%86%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预支明天的烦恼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI侦探局
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI侦探局
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/AI%E4%BE%A6%E6%8E%A2%E5%B1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 侦探局 · 微信小程序
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding能力体系
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VibeCoding能力体系
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding 能力体系
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品能力：从用户需求到 MVP 的全链路思维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目管理能力：一个人也要有节奏与可交付
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计能力：从数据结构到分布式的工程直觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试能力：AI 时代最被低估的核心竞争力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/08_%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    英语能力：一手信息的带宽与全球市场的入口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/09_%E8%BF%9B%E9%98%B6%E8%A1%A5%E5%85%85%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    进阶补充能力：技术之外，决定一个人能走多远的变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人生成就墙
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙 (地球Online 风)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/figma-prompt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学设计依据
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E6%88%90%E5%B0%B1%E5%BA%93_v0.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    成就库 v0.1 (地球Online 风格)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  <div class="cx-meta">
+    
+    <span>标签 <b>UE · 设计模式 · FactoryMethod</b></span>
+    <span>建立 <b>2026-07-10</b></span>
+  </div>
+  
+  
+                  
+
+
+
+<h1 id="lyra-gof-1">跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式<a class="headerlink" href="#lyra-gof-1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>前言：这篇文章是我用 Lyra 项目拆解 GoF 设计模式系列的第一篇。</p>
+</blockquote>
+<p>我写这个系列的目的，不是重新复述教科书里的定义，也不是把 UML 类图再画一遍，而是希望把设计模式放回真实工程里观察：它到底解决了什么问题？为什么项目代码会长成这样？如果不用这个模式，代码会在哪里变得难维护？</p>
+<p>Lyra 是一个很适合做这件事的样本。它不是为了讲设计模式而写的示例代码，而是一个真实的 UE 项目：有 UI、有设置系统、有 Gameplay、有插件分层，也有大量为了扩展性、生命周期和引擎机制而做出的工程取舍。正因为它不“教科书”，反而更适合帮助我们理解设计模式在实际项目里的样子。</p>
+<p>这个系列会按 GoF 的三大类来拆：</p>
+<ul>
+<li>创建型模式：关注对象如何被创建，以及创建流程如何和具体类型解耦；</li>
+<li>结构型模式：关注类和对象如何组合成更大的结构；</li>
+<li>行为型模式：关注对象之间如何协作、通信和分配职责。</li>
+</ul>
+<p>本文属于第一类：<strong>创建型模式</strong>。我们从工厂方法模式开始，因为它在 UE 里非常常见，也很容易被误解成“把 <code>new</code> 或 <code>NewObject</code> 包一层函数”。但在真实工程里，它真正有价值的地方并不是隐藏创建语句，而是：<strong>把稳定流程留在父类，把具体创建哪一种对象这个变化点交给子类</strong>。</p>
+<h1 id="_1">意图<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>工厂方法是一种创建型模式：它
+的核心思想是： </p>
+<blockquote>
+<p>父类定义创建对象的流程，但把具体创建哪一种对象交给子类决定。</p>
+</blockquote>
+<p>简单来说： 父类负责： - 什么时候创建； - 创建之后做什么； - 后续流程如何执行。 子类负责： - 到底创建哪个具体类型。 它解决的问题不是「怎么写 NewObject」，而是： &gt; 当创建流程固定，但创建出来的对象类型可能变化时，如何避免父类和具体类型强绑定。</p>
+<p>本文我们用 Lyra 的设置界面作为案例贯穿讲解。
+<img alt="" src="Pasted image 20260710124454.png" /></p>
+<h1 id="_2">问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="_3">如果不用工厂会发生什么？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>假设现在要做一个设置菜单。
+里面有：
+- 音量
+- 鼠标灵敏度
+- 是否开启 VSync
+- 分辨率
+- 全屏模式
+<img alt="" src="Pasted image 20260710130514.png" />
+<img alt="" src="Pasted image 20260710130540.png" />
+最直接的做法就是在设置界面里写大量判断。设置界面一边遍历所有设置，一边判断：</p>
+<blockquote>
+<p>如果这是布尔值，就创建一个复选框。
+如果这是数字，就创建一个滑块。
+如果这是枚举，就创建一个下拉框。
+如果这是按钮，就创建一个按钮。</p>
+</blockquote>
+<p>刚开始只有五种设置，看起来没什么问题。但是随着项目越来越大：
+- HDR 设置
+- 色盲模式
+- 键位绑定
+- 手柄震动
+- 动态分辨率
+这些新的设置类型都会不断出现。于是设置界面就会越来越臃肿，因为每增加一种设置类型，都要修改设置界面的代码。设置界面不仅负责"显示"，还负责"决定创建什么控件"。两个职责耦合在了一起。</p>
+<h1 id="lyra">Lyra做了什么<a class="headerlink" href="#lyra" title="Permanent link">&para;</a></h1>
+<p>Lyra 把这两个职责拆开了。
+首先，它只负责描述：这里有一个设置。而不会描述：它应该长成什么样。
+例如，一个音量设置对象：
+它知道：
+- 自己代表 Master Volume；
+- 当前值是多少；
+- 修改后应该如何应用到音频系统。
+但是它不知道：
+- 自己最终应该显示成 Slider；
+- Slider 的样式是什么；
+- UI 应该如何布局。
+同样，一个"是否开启 VSync"也只知道我是一个布尔值它也不知道：我要画成一个复选框。这些 <code>UGameSetting</code> 对象本身并不是 UI 控件，而是一个<strong>设置项的运行时描述对象</strong>。</p>
+<h2 id="ui">真正决定 UI 的是谁？<a class="headerlink" href="#ui" title="Permanent link">&para;</a></h2>
+<p>真正负责决定 UI 的，是后面的工厂。
+当设置界面开始生成时，它会把每一个设置对象交给工厂。
+工厂看到以后，会问一个问题：</p>
+<blockquote>
+<p>这是什么类型的设置？
+如果是布尔值，就返回一个复选框。
+如果是数值，就返回一个滑块。
+如果是枚举，就返回一个下拉框。
+最后，设置界面只负责把这些已经创建好的控件按顺序摆出来。</p>
+</blockquote>
+<h1 id="_4">结构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>时序图：
+<img alt="" src="Pasted image 20260710125409.png" /></p>
+<p>首先：设置界面刚打开的时候，并不知道要显示哪些控件。
+所以UGameSettingRegistry中返回了所有的UGameSetting:
+├── Master Volume 
+├── Music Volume 
+├── Mouse Sensitivity 
+├── Fullscreen
+├── VSync
+└── Resolution
+接着遍历每一个Setting，调用CreateWidiget()给工厂处理，判断Setting的类型并返回对应的Widiget，接着创建子控件设置到SettingWidget上</p>
+<h1 id="lyra_1">代码实现（Lyra 源码）<a class="headerlink" href="#lyra_1" title="Permanent link">&para;</a></h1>
+<p>这一段是本文真正要抓住的工厂方法落点：</p>
+<blockquote>
+<p><code>UGameSettingScreen</code> 不直接知道自己要创建哪一种 <code>UGameSettingRegistry</code>，它只知道：我需要一个 Registry，然后我要把它接到设置面板、变更追踪和缓存流程里。</p>
+</blockquote>
+<p>也就是说，父类掌握的是<strong>稳定流程</strong>，子类只填一个<strong>变化点</strong>。</p>
+<h2 id="1">1. 父类：把稳定流程收在自己手里<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>先看基类声明：</p>
+<p><img alt="" src="Pasted image 20260710131631.png" />```</p>
+<p>这里最重要的是两个函数：</p>
+<ul>
+<li><code>GetOrCreateRegistry()</code>：父类自己的流程函数。</li>
+<li><code>CreateRegistry()</code>：留给子类重写的工厂方法。</li>
+</ul>
+<p>注意：<code>CreateRegistry()</code> 返回的是 <code>UGameSettingRegistry*</code>，也就是产品基类，而不是 <code>ULyraGameSettingRegistry*</code>。这就是解耦点。父类只依赖抽象产品，不依赖 Lyra 的具体产品。</p>
+<p>真正的流程在这里：
+<img alt="" src="Pasted image 20260710131733.png" /></p>
+<p>这段代码看起来很短，但它把四件容易漏的事情统一收住了：</p>
+<ol>
+<li>判断是否已经创建过。</li>
+<li>调用工厂方法创建 Registry。</li>
+<li>给 Registry 绑定设置变化事件。</li>
+<li>把 Registry 塞给 <code>Settings_Panel</code>，并缓存起来。</li>
+</ol>
+<p>如果不用工厂方法，这四步就很容易散落到每一个具体设置界面里。每个界面都要自己写一遍：先创建、再绑定、再塞面板、再缓存。只要某个界面忘了绑定 <code>OnSettingChangedEvent</code>，设置改变后的 dirty 状态、Apply / Cancel 逻辑就可能出问题。</p>
+<p>所以这里的关键不是“少写一行 <code>NewObject</code>”，而是：</p>
+<blockquote>
+<p>父类把创建之后必须发生的流程固定下来，子类没有机会漏接线。</p>
+</blockquote>
+<h2 id="2">2. 子类：只回答“我要造哪一个”<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>Lyra 的具体设置界面只重写了 <code>CreateRegistry()</code>：</p>
+<p><img alt="" src="Pasted image 20260710131822.png" />
+实现也很直接：
+<img alt="" src="Pasted image 20260710131837.png" /></p>
+<p>子类只做两件事：</p>
+<ol>
+<li>创建 Lyra 自己的 <code>ULyraGameSettingRegistry</code>。</li>
+<li>用当前 <code>LocalPlayer</code> 初始化它。</li>
+</ol>
+<p>它不需要关心：</p>
+<ul>
+<li>创建好的 Registry 要不要缓存；</li>
+<li>要不要绑定 <code>OnSettingChangedEvent</code>；</li>
+<li>要不要塞进 <code>Settings_Panel</code>；</li>
+<li>后续 Apply / Cancel / DirtyState 怎么联动。</li>
+</ul>
+<p>这些全部是父类流程。</p>
+<p>这就是工厂方法在工程里的舒服之处：</p>
+<blockquote>
+<p>子类越简单，父类流程越稳定，越不容易因为扩展而破坏已有行为。</p>
+</blockquote>
+<h2 id="3">3. 角色映射<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>把 Lyra 这段代码对应回工厂方法模式，可以这样看：</p>
+<table>
+<thead>
+<tr>
+<th>工厂方法角色</th>
+<th>Lyra 中的代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creator / 创建者基类</td>
+<td><code>UGameSettingScreen</code></td>
+<td>定义稳定流程 <code>GetOrCreateRegistry()</code></td>
+</tr>
+<tr>
+<td>Factory Method / 工厂方法</td>
+<td><code>CreateRegistry()</code></td>
+<td>留给子类决定创建哪种 Registry</td>
+</tr>
+<tr>
+<td>ConcreteCreator / 具体创建者</td>
+<td><code>ULyraSettingScreen</code></td>
+<td>重写 <code>CreateRegistry()</code></td>
+</tr>
+<tr>
+<td>Product / 产品基类</td>
+<td><code>UGameSettingRegistry</code></td>
+<td>父类只依赖这个抽象类型</td>
+</tr>
+<tr>
+<td>ConcreteProduct / 具体产品</td>
+<td><code>ULyraGameSettingRegistry</code></td>
+<td>Lyra 项目自己的设置注册表</td>
+</tr>
+<tr>
+<td>Client / 使用者</td>
+<td><code>UGameSettingScreen::GetOrCreateRegistry()</code>、<code>Settings_Panel</code></td>
+<td>拿到 Registry 后继续走通用流程</td>
+</tr>
+</tbody>
+</table>
+<p>最容易误解的一点是：<code>ULyraSettingScreen</code> 本身既是一个 UI 页面，也是一个“具体创建者”。在真实项目里，模式角色经常不会单独拆成一个纯粹的 <code>Factory</code> 类，而是藏在某个业务基类的虚函数里。</p>
+<p>这也是 UE 代码里很常见的形态：</p>
+<blockquote>
+<p>不一定有一个叫 <code>Factory</code> 的类；只要“父类定义流程，子类重写创建步骤”，它就是工厂方法的落地。</p>
+</blockquote>
+<h2 id="4">4. 调用链完整走一遍<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>可以把这段代码想成下面这条链：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>设置界面需要 Registry
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        ▼
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>UGameSettingScreen::GetOrCreateRegistry()
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        ├─ 如果 Registry 已经存在：直接返回缓存
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        └─ 如果 Registry 不存在：
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>              │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>              ▼
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        调用虚函数 CreateRegistry()
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>              │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>              ▼
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        ULyraSettingScreen::CreateRegistry()
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>              │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>              ├─ NewObject&lt;ULyraGameSettingRegistry&gt;()
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>              ├─ CastChecked&lt;ULyraLocalPlayer&gt;(GetOwningLocalPlayer())
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>              └─ NewRegistry-&gt;Initialize(LocalPlayer)
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>              │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>              ▼
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        返回 UGameSettingRegistry* 给父类
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>              │
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>              ▼
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        父类继续统一流程：
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>              ├─ 绑定 OnSettingChangedEvent
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>              ├─ Settings_Panel-&gt;SetRegistry(NewRegistry)
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>              └─ Registry = NewRegistry
+</code></pre></div>
+<p>这里的分工非常清楚：</p>
+<ul>
+<li>“造什么”是子类的责任。</li>
+<li>“造完之后怎么接进系统”是父类的责任。</li>
+</ul>
+<p>这也是本文标题里说的：把稳定流程和变化类型分离。</p>
+<h1 id="ue">和教科书有什么不一样（UE 的落地差异）<a class="headerlink" href="#ue" title="Permanent link">&para;</a></h1>
+<p>教科书里的工厂方法通常长这样：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Creator</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Operation</span><span class="p">()</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">Product</span><span class="o">*</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateProduct</span><span class="p">();</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">P</span><span class="o">-&gt;</span><span class="n">DoSomething</span><span class="p">();</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">protected</span><span class="o">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">Product</span><span class="o">*</span><span class="w"> </span><span class="n">CreateProduct</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">};</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">class</span><span class="w"> </span><span class="nc">ConcreteCreator</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Creator</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">protected</span><span class="o">:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">Product</span><span class="o">*</span><span class="w"> </span><span class="n">CreateProduct</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConcreteProduct</span><span class="p">();</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">};</span>
+</code></pre></div>
+<p>Lyra 里的形状几乎一样，只是换成 UE 习语：
+差异主要在三个地方。</p>
+<h2 id="1-ue-pure_virtual">1. 纯虚函数：UE 里常见 <code>PURE_VIRTUAL</code><a class="headerlink" href="#1-ue-pure_virtual" title="Permanent link">&para;</a></h2>
+<p>在普通 C++ 里，我们会写：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">Product</span><span class="o">*</span><span class="w"> </span><span class="nf">CreateProduct</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>但 Lyra 这里写的是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">UGameSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="nf">CreateRegistry</span><span class="p">()</span><span class="w"> </span><span class="n">PURE_VIRTUAL</span><span class="p">(,</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;);</span>
+</code></pre></div>
+<p><code>PURE_VIRTUAL</code> 的作用可以理解成：</p>
+<ul>
+<li>语义上告诉你：这个函数应该由子类实现；</li>
+<li>同时给链接器一个兜底函数体；</li>
+<li>如果运行时真的调用到基类实现，会走 UE 的错误提示路径，并返回宏里给出的兜底值。</li>
+</ul>
+<p>所以它既保留了“强制子类实现”的设计意图，又更符合 UE 的 UObject / 模块链接习惯。</p>
+<h2 id="2-uobject-new">2. 创建 UObject：不要用裸 <code>new</code><a class="headerlink" href="#2-uobject-new" title="Permanent link">&para;</a></h2>
+<p>Lyra 子类里没有写：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">NewRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ULyraGameSettingRegistry</span><span class="p">();</span><span class="w"> </span><span class="c1">// 不要这样</span>
+</code></pre></div>
+<p>而是写：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">ULyraGameSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="n">NewRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">ULyraGameSettingRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>原因是 <code>ULyraGameSettingRegistry</code> 是 UObject 家族对象。UObject 的生命周期、反射、GC、Outer、序列化等机制都依赖 UE 自己的对象系统。用裸 <code>new</code> 会绕开这些机制。</p>
+<p>如果这个产品是 UObject，那么工厂方法里通常应该用：</p>
+<ul>
+<li><code>NewObject&lt;T&gt;()</code> 创建普通 UObject；</li>
+<li><code>CreateWidget&lt;T&gt;()</code> 创建 UUserWidget；</li>
+<li><code>SpawnActor&lt;T&gt;()</code> 创建 Actor；</li>
+<li>或者由 Subsystem / AssetManager / Factory 类提供的专门创建接口。</li>
+</ul>
+<p>也就是说，工厂方法解决的是“谁决定创建哪种产品”，而 UE 的创建 API 解决的是“这种产品应该按引擎规则怎么出生”。这两件事不要混在一起。</p>
+<h2 id="3-uproperty">3. 缓存对象：用 <code>UPROPERTY</code> 挂住引用<a class="headerlink" href="#3-uproperty" title="Permanent link">&para;</a></h2>
+<p>基类里缓存 Registry 的字段是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">// Plugins/GameSettings/Source/Public/Widgets/GameSettingScreen.h:79</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Transient</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">mutable</span><span class="w"> </span><span class="n">TObjectPtr</span><span class="o">&lt;</span><span class="n">UGameSettingRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Registry</span><span class="p">;</span>
+</code></pre></div>
+<p>这不是随便写的。</p>
+<p>因为 Registry 是 UObject，如果父类创建完以后只存在一个普通裸指针引用，就要非常小心 GC 可见性。Lyra 用 <code>UPROPERTY(Transient)</code> + <code>TObjectPtr</code> 表达了两个意思：</p>
+<ul>
+<li>这是 UObject 引用，应该被 UE 对象系统看见；</li>
+<li>它只是运行时临时状态，不需要被保存成资产数据。</li>
+</ul>
+<p>所以，在 UE 里写工厂方法时，不能只照搬 GoF 的类图，还要同时考虑 UObject 生命周期。</p>
+<h1 id="_5">适用场景<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>工厂方法适合用在这种结构里：</p>
+<blockquote>
+<p>上层流程稳定，但中间某一步要创建的具体类型会因为项目、平台、玩法、子类而变化。</p>
+</blockquote>
+<p>放到 UE 项目里，常见场景有这些。</p>
+<h2 id="1_1">1. 父类有统一生命周期，子类只替换产品<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h2>
+<p>比如 Lyra 的设置页：</p>
+<ul>
+<li>打开设置页；</li>
+<li>获取 Registry；</li>
+<li>绑定变更事件；</li>
+<li>塞进 Panel；</li>
+<li>追踪 Apply / Cancel；</li>
+<li>关闭时处理状态。</li>
+</ul>
+<p>这些流程对所有设置页都一样，所以应该放父类。</p>
+<p>但不同项目可能有不同 Registry：</p>
+<ul>
+<li><code>ULyraGameSettingRegistry</code>；</li>
+<li><code>UShooterGameSettingRegistry</code>；</li>
+<li><code>UMobileGameSettingRegistry</code>；</li>
+<li><code>UConsoleGameSettingRegistry</code>。</li>
+</ul>
+<p>这时就很适合用工厂方法。</p>
+<h2 id="2_1">2. 创建之后必须统一接线<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<p>如果创建后还要做很多固定动作，工厂方法特别有价值。</p>
+<p>Lyra 里创建 Registry 之后马上做了：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">NewRegistry</span><span class="o">-&gt;</span><span class="n">OnSettingChangedEvent</span><span class="p">.</span><span class="n">AddUObject</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ThisClass</span><span class="o">::</span><span class="n">HandleSettingChanged</span><span class="p">);</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">Settings_Panel</span><span class="o">-&gt;</span><span class="n">SetRegistry</span><span class="p">(</span><span class="n">NewRegistry</span><span class="p">);</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">Registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewRegistry</span><span class="p">;</span>
+</code></pre></div>
+<p>这些接线如果分散到子类里，迟早有人漏掉。</p>
+<p>因此，判断要不要用工厂方法，可以问自己一句：</p>
+<blockquote>
+<p>创建完这个对象之后，有没有一串所有子类都必须遵守的标准流程？</p>
+</blockquote>
+<p>如果有，父类就应该把这串流程收住，只把“创建哪一个”开放出去。</p>
+<h2 id="3_1">3. 框架代码要让项目代码扩展<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<p><code>Plugins/GameSettings</code> 是插件层，<code>Source/LyraGame</code> 是项目层。</p>
+<p>插件层不应该硬编码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">ULyraGameSettingRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>因为插件不应该知道 Lyra 项目里的具体类。</p>
+<p>所以它只能说：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">UGameSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="n">NewRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CreateRegistry</span><span class="p">();</span>
+</code></pre></div>
+<p>这就是插件 / 框架常用工厂方法的原因：</p>
+<blockquote>
+<p>上游框架定义流程，下游项目填具体类型。</p>
+</blockquote>
+<h2 id="4_1">4. 不适合的情况<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h2>
+<p>工厂方法也不是越多越好。</p>
+<p>下面几种情况不一定适合：</p>
+<ul>
+<li>只有一个具体类型，而且未来也不太会变；</li>
+<li>创建逻辑只是简单 <code>NewObject</code>，创建后没有统一接线；</li>
+<li>类型选择来自数据表、配置或资产，而不是来自子类差异；</li>
+<li>产品族很多、而且要成套创建，这时可能更接近抽象工厂；</li>
+<li>只是想把 <code>switch</code> 从一个地方挪到另一个地方，这通常更像简单工厂。</li>
+</ul>
+<p>如果类型主要由数据决定，在 UE 里更常见的替代方案是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditDefaultsOnly</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">UMyProduct</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ProductClass</span><span class="p">;</span>
+</code></pre></div>
+<p>然后在运行时：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">UMyProduct</span><span class="o">*</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UMyProduct</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Outer</span><span class="p">,</span><span class="w"> </span><span class="n">ProductClass</span><span class="p">);</span>
+</code></pre></div>
+<p>这叫数据驱动创建，不一定需要再额外引入一层子类工厂。</p>
+<h1 id="_6">实现方式（步骤）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<p>如果要在自己的 UE 代码里复刻 Lyra 这种工厂方法，可以按这个步骤写。</p>
+<h2 id="_7">第一步：定义产品基类<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>先让所有可能被创建的对象有一个共同父类或接口。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">UCLASS</span><span class="p">(</span><span class="n">Abstract</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">UMySettingRegistryBase</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UObject</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">{</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Initialize</span><span class="p">(</span><span class="n">ULocalPlayer</span><span class="o">*</span><span class="w"> </span><span class="n">InLocalPlayer</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">};</span>
+</code></pre></div>
+<p>重点是：父类流程只依赖 <code>UMySettingRegistryBase</code>，不要依赖 <code>UMyLyraSettingRegistry</code> 这种具体类。</p>
+<h2 id="_8">第二步：在创建者基类里声明工厂方法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">UCLASS</span><span class="p">(</span><span class="n">Abstract</span><span class="p">)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">UMySettingScreenBase</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UUserWidget</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">protected</span><span class="o">:</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="n">CreateRegistry</span><span class="p">()</span><span class="w"> </span><span class="n">PURE_VIRTUAL</span><span class="p">(,</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;);</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">private</span><span class="o">:</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="n">GetOrCreateRegistry</span><span class="p">();</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">private</span><span class="o">:</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">Transient</span><span class="p">)</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="n">TObjectPtr</span><span class="o">&lt;</span><span class="n">UMySettingRegistryBase</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Registry</span><span class="p">;</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="p">};</span>
+</code></pre></div>
+<p>这里的返回值一定用产品基类。</p>
+<p>不要写成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">UMyLyraSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="nf">CreateRegistry</span><span class="p">();</span><span class="w"> </span><span class="c1">// 不推荐</span>
+</code></pre></div>
+<p>因为这样基类又重新依赖具体产品了，工厂方法的解耦意义会变弱。</p>
+<h2 id="_9">第三步：父类流程只调用工厂方法，不直接创建具体类<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="nf">UMySettingScreenBase::GetOrCreateRegistry</span><span class="p">()</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="p">{</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Registry</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="n">NewRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateRegistry</span><span class="p">();</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="c1">// 这里放所有子类都必须遵守的统一接线流程</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">        </span><span class="c1">// NewRegistry-&gt;OnChanged.AddUObject(...);</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">        </span><span class="c1">// SettingPanel-&gt;SetRegistry(NewRegistry);</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="n">Registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewRegistry</span><span class="p">;</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Registry</span><span class="p">;</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>这一步是整个模式最核心的地方。</p>
+<p>父类不写：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UMyLyraSettingRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
+<p>父类只写：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">CreateRegistry</span><span class="p">();</span>
+</code></pre></div>
+<h2 id="_10">第四步：子类重写工厂方法<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">UCLASS</span><span class="p">(</span><span class="n">Abstract</span><span class="p">)</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">UMyLyraSettingScreen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UMySettingScreenBase</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="p">{</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="k">protected</span><span class="o">:</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="n">CreateRegistry</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="p">};</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="nf">UMyLyraSettingScreen::CreateRegistry</span><span class="p">()</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="p">{</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="w">    </span><span class="n">UMyLyraSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="n">NewRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UMyLyraSettingRegistry</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">    </span><span class="n">NewRegistry</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">(</span><span class="n">GetOwningLocalPlayer</span><span class="p">());</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">NewRegistry</span><span class="p">;</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>子类只写变化点，不复制父类流程。</p>
+<p>如果以后有移动端设置页：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">UMySettingRegistryBase</span><span class="o">*</span><span class="w"> </span><span class="nf">UMyMobileSettingScreen::CreateRegistry</span><span class="p">()</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="p">{</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="n">UMyMobileSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="n">NewRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UMyMobileSettingRegistry</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="n">NewRegistry</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">(</span><span class="n">GetOwningLocalPlayer</span><span class="p">());</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">NewRegistry</span><span class="p">;</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>父类 <code>GetOrCreateRegistry()</code> 一行都不用改。</p>
+<h1 id="do-dont">Do / Don't<a class="headerlink" href="#do-dont" title="Permanent link">&para;</a></h1>
+<h2 id="do">Do<a class="headerlink" href="#do" title="Permanent link">&para;</a></h2>
+<ul>
+<li>✅ <strong>让工厂方法返回产品基类</strong>：例如返回 <code>UGameSettingRegistry*</code>，而不是 <code>ULyraGameSettingRegistry*</code>。</li>
+<li>✅ <strong>把创建后的统一流程放在父类</strong>：绑定事件、注册、塞 UI、缓存，都应该由父类统一做。</li>
+<li>✅ <strong>UObject 产品用 UE 创建 API</strong>：<code>NewObject</code>、<code>CreateWidget</code>、<code>SpawnActor</code>，不要裸 <code>new</code>。</li>
+<li>✅ <strong>缓存 UObject 引用时用 <code>UPROPERTY</code> / <code>TObjectPtr</code></strong>：让 GC 能看见引用关系。</li>
+<li>✅ <strong>子类只写变化点</strong>：子类越薄，越说明父类流程封装得好。</li>
+</ul>
+<h2 id="dont">Don't<a class="headerlink" href="#dont" title="Permanent link">&para;</a></h2>
+<ul>
+<li>❌ <strong>不要让父类依赖具体产品类</strong>：否则工厂方法就变成了“把 new 换了个位置”。</li>
+<li>❌ <strong>不要让每个子类复制完整流程</strong>：一旦复制，就会出现某个子类漏绑定、漏缓存、漏初始化。</li>
+<li>❌ <strong>不要为了一个永远不变的类型硬套工厂方法</strong>：那只是增加类层级。</li>
+<li>❌ <strong>不要在 UObject 上使用裸 <code>new</code></strong>：会绕过 UE 对象系统。</li>
+<li>❌ <strong>不要把所有类型判断都塞进工厂方法子类</strong>：如果你写出巨大 <code>switch</code>，那可能已经变成简单工厂或数据驱动创建了。</li>
+</ul>
+<h1 id="_11">优缺点<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h1>
+<h2 id="_12">优点<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="1_2">1. 解耦框架和项目<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p><code>UGameSettingScreen</code> 属于 <code>GameSettings</code> 插件，<code>ULyraGameSettingRegistry</code> 属于 Lyra 项目。</p>
+<p>插件层不能依赖项目层，所以父类不能直接创建 Lyra 的 Registry。工厂方法让插件只依赖 <code>UGameSettingRegistry</code>，具体类型由项目子类决定。</p>
+<p>这对 UE 插件特别重要：插件越通用，越不应该知道下游项目的具体类。</p>
+<h3 id="2_2">2. 固定流程只写一遍<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<p><code>GetOrCreateRegistry()</code> 里那几步：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">CreateRegistry</span><span class="p">();</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">AddUObject</span><span class="p">(...);</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">SetRegistry</span><span class="p">(...);</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">Registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewRegistry</span><span class="p">;</span>
+</code></pre></div>
+<p>只写在父类一处。</p>
+<p>以后如果要加日志、加校验、加埋点、加空指针保护，也只改父类。</p>
+<h3 id="3_2">3. 子类扩展成本低<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
+<p>下游想换 Registry，只要继承并重写：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">UGameSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="nf">CreateRegistry</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+</code></pre></div>
+<p>不用理解整套设置面板如何绑定、如何缓存、如何追踪变更。</p>
+<p>这就是框架设计里的“窄扩展点”：开放的口子越小，越不容易被误用。</p>
+<h3 id="4_2">4. 更符合开闭原则<a class="headerlink" href="#4_2" title="Permanent link">&para;</a></h3>
+<p>新增一个具体 Registry，不需要改 <code>UGameSettingScreen</code>。</p>
+<p>父类对修改关闭，对扩展开放。</p>
+<h2 id="_13">缺点<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h3 id="1_3">1. 类数量会上升<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<p>如果每一种产品都要配一个创建者子类，类会变多。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ULyraSettingScreen       -&gt; ULyraGameSettingRegistry
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>UMobileSettingScreen     -&gt; UMobileGameSettingRegistry
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>UConsoleSettingScreen    -&gt; UConsoleGameSettingRegistry
+</code></pre></div>
+<p>当变化维度很多时，继承层级可能会膨胀。</p>
+<h3 id="2_3">2. 不适合简单条件分支<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
+<p>如果只是根据一个枚举创建不同对象：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">SettingType</span><span class="p">)</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="p">{</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="k">case</span><span class="w"> </span><span class="no">Bool</span><span class="p">:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">CreateCheckbox</span><span class="p">();</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="k">case</span><span class="w"> </span><span class="no">Number</span><span class="p">:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">CreateSlider</span><span class="p">();</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>这更像简单工厂，不一定需要为每种类型建立一个子类。</p>
+<h3 id="3_3">3. 不适合纯数据驱动场景<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h3>
+<p>如果设计师希望在蓝图或 DataAsset 里直接配置类型，那么 <code>TSubclassOf</code> 往往更直观。</p>
+<p>工厂方法更适合“行为随子类变化”，而不是“类型随配置变化”。</p>
+<h1 id="ue_1">UE 中还有哪些类似写法？<a class="headerlink" href="#ue_1" title="Permanent link">&para;</a></h1>
+<p>Lyra 里还有一些同样带有“父类流程 + 子类填空”味道的写法。</p>
+<h2 id="1-gamemode-pawn">1. GameMode 决定默认 Pawn<a class="headerlink" href="#1-gamemode-pawn" title="Permanent link">&para;</a></h2>
+<p><code>ALyraGameMode</code> 重写了 <code>GetDefaultPawnClassForController_Implementation</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1">// Source/LyraGame/GameModes/LyraGameMode.cpp:332</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">UClass</span><span class="o">*</span><span class="w"> </span><span class="n">ALyraGameMode</span><span class="o">::</span><span class="n">GetDefaultPawnClassForController_Implementation</span><span class="p">(</span><span class="n">AController</span><span class="o">*</span><span class="w"> </span><span class="n">InController</span><span class="p">)</span>
+</code></pre></div>
+<p>这个函数回答的是：</p>
+<blockquote>
+<p>对这个 Controller，应该使用哪一种 PawnClass？</p>
+</blockquote>
+<p>后面 <code>SpawnDefaultPawnAtTransform_Implementation</code> 会使用这个 PawnClass 创建 Pawn：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1">// Source/LyraGame/GameModes/LyraGameMode.cpp:345</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">APawn</span><span class="o">*</span><span class="w"> </span><span class="n">ALyraGameMode</span><span class="o">::</span><span class="n">SpawnDefaultPawnAtTransform_Implementation</span><span class="p">(</span><span class="n">AController</span><span class="o">*</span><span class="w"> </span><span class="n">NewPlayer</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FTransform</span><span class="o">&amp;</span><span class="w"> </span><span class="n">SpawnTransform</span><span class="p">)</span>
+</code></pre></div>
+<p>这和 <code>CreateRegistry()</code> 的味道很像：上层 Spawn 流程稳定，具体 Pawn 类型由可重写函数决定。</p>
+<h2 id="2-userwidget-native">2. UserWidget 的 Native* 钩子<a class="headerlink" href="#2-userwidget-native" title="Permanent link">&para;</a></h2>
+<p><code>UGameSettingScreen</code> 本身也重写了 <code>NativeGetDesiredFocusTarget()</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1">// Plugins/GameSettings/Source/Private/Widgets/GameSettingScreen.cpp:48</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">UWidget</span><span class="o">*</span><span class="w"> </span><span class="n">UGameSettingScreen</span><span class="o">::</span><span class="n">NativeGetDesiredFocusTarget</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<p>这种 <code>Native*</code> 函数在 UE UI 里很常见。它们未必都是严格的工厂方法，但经常体现同一种框架思路：</p>
+<blockquote>
+<p>引擎或父类定义调用时机，项目子类填具体行为。</p>
+</blockquote>
+<h2 id="3-gamefeature-dataasset">3. GameFeature / DataAsset 中的类型替换<a class="headerlink" href="#3-gamefeature-dataasset" title="Permanent link">&para;</a></h2>
+<p>另一类相近方案是 <code>TSubclassOf</code> 数据驱动。</p>
+<p>例如 Pawn、Ability、Widget 这类对象，经常不是通过子类工厂方法决定，而是通过 DataAsset 配置类型，然后运行时 <code>NewObject</code> / <code>SpawnActor</code> / <code>CreateWidget</code>。</p>
+<p>它和工厂方法的区别是：</p>
+<ul>
+<li>工厂方法：类型决策在子类代码里；</li>
+<li>数据驱动：类型决策在资产或配置里。</li>
+</ul>
+<h1 id="_14">与其他模式的关系<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h1>
+<h2 id="1_4">1. 和模板方法模式<a class="headerlink" href="#1_4" title="Permanent link">&para;</a></h2>
+<p>工厂方法常常嵌在模板方法里。</p>
+<p>在本文案例中：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">UGameSettingScreen</span><span class="o">::</span><span class="n">GetOrCreateRegistry</span><span class="p">()</span>
+</code></pre></div>
+<p>就是一个小型模板方法。它定义了固定流程：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>检查缓存 -&gt; 创建 Registry -&gt; 绑定事件 -&gt; 塞进 Panel -&gt; 缓存 -&gt; 返回
+</code></pre></div>
+<p>其中 <code>CreateRegistry()</code> 是被子类重写的步骤。</p>
+<p>所以可以说：</p>
+<blockquote>
+<p>工厂方法经常不是单独出现，而是作为模板方法中的一个可变步骤出现。</p>
+</blockquote>
+<h2 id="2_4">2. 和简单工厂<a class="headerlink" href="#2_4" title="Permanent link">&para;</a></h2>
+<p>简单工厂通常是一个集中函数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">UWidget</span><span class="o">*</span><span class="w"> </span><span class="nf">CreateWidgetForSetting</span><span class="p">(</span><span class="n">UGameSetting</span><span class="o">*</span><span class="w"> </span><span class="n">Setting</span><span class="p">)</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="p">{</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Setting</span><span class="o">-&gt;</span><span class="n">IsBool</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">CreateCheckbox</span><span class="p">();</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Setting</span><span class="o">-&gt;</span><span class="n">IsNumber</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">CreateSlider</span><span class="p">();</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>它的特点是：创建逻辑集中在一个函数里，通常靠 <code>if</code> / <code>switch</code> 判断。</p>
+<p>工厂方法则是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">virtual</span><span class="w"> </span><span class="n">UGameSettingRegistry</span><span class="o">*</span><span class="w"> </span><span class="nf">CreateRegistry</span><span class="p">();</span>
+</code></pre></div>
+<p>它的特点是：创建决策下放给子类，靠多态扩展。</p>
+<p>一句话区分：</p>
+<blockquote>
+<p>简单工厂靠条件分支选类型；工厂方法靠子类重写选类型。</p>
+</blockquote>
+<h2 id="3_4">3. 和抽象工厂<a class="headerlink" href="#3_4" title="Permanent link">&para;</a></h2>
+<p>如果一个创建者不只是创建一个 Registry，而是要创建一整套相关对象：</p>
+<ul>
+<li>Registry；</li>
+<li>Setting Row Widget；</li>
+<li>Detail Panel；</li>
+<li>Apply Button；</li>
+<li>Reset Button；</li>
+</ul>
+<p>并且这些对象要成套替换，比如 PC UI 一套、主机 UI 一套、移动端 UI 一套，那就更接近抽象工厂。</p>
+<p>工厂方法通常只关注一个产品创建点；抽象工厂关注一组产品族。</p>
+<h2 id="4_3">4. 和数据驱动创建<a class="headerlink" href="#4_3" title="Permanent link">&para;</a></h2>
+<p>UE 里经常可以不用继承工厂，而是把类型写进资产：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditDefaultsOnly</span><span class="p">)</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">UUserWidget</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SettingRowWidgetClass</span><span class="p">;</span>
+</code></pre></div>
+<p>这种方式更适合设计师调参，工厂方法更适合程序框架扩展。</p>
+<p>两者不是互斥的。实际项目里也可以这样组合：</p>
+<ul>
+<li>工厂方法决定使用哪套配置；</li>
+<li>配置里用 <code>TSubclassOf</code> 决定具体 Widget 类型。</li>
+</ul>
+<h1 id="_15">一句话总结<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h1>
+<p>工厂方法的本质不是“把 <code>NewObject</code> 包一层虚函数”，而是：</p>
+<blockquote>
+<p>父类把稳定且容易漏的流程牢牢握住，只把“创建哪一种具体产品”这个变化点开放给子类。</p>
+</blockquote>
+<p>在 Lyra 的 <code>GameSettingScreen.CreateRegistry</code> 案例里，<code>UGameSettingScreen</code> 负责 <code>GetOrCreateRegistry()</code> 的完整流程，<code>ULyraSettingScreen</code> 只负责返回 <code>ULyraGameSettingRegistry</code>。流程只有一份，具体类型可以替换，这就是工厂方法在 UE 项目里的典型价值。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/codex.js"></script>
+      
+    
+  </body>
+</html>

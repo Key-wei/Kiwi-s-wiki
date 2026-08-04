@@ -1,0 +1,2418 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="keywei 的私人技术图鉴">
+      
+      
+      
+      
+        <link rel="prev" href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/">
+      
+      
+        <link rel="next" href="../03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>软件架构能力：让代码库随规模优雅生长 - KIWI CODEX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/codex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="KIWI CODEX" class="md-header__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KIWI CODEX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              软件架构能力：让代码库随规模优雅生长
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KIWI CODEX" class="md-nav__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KIWI CODEX
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KIWI CODEX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/C%2B%2B%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE群体避障导航架构：CrowdManager与CrowdFollowingComponent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%EF%BC%88GameSettingScreen.CreateRegistry%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简单工厂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UML%E7%B1%BB%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 所有线放一起
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位运算符
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra拆解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lyra拆解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/Lyra%E6%8B%86%E8%A7%A3/Lyra%E6%B8%B8%E6%88%8F%E5%90%AF%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8EExperience%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    研究
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程目录拆解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E4%B8%AA%E4%BA%BA%E8%BD%AF%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    个人软件工作流说明书
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E8%85%BE%E8%AE%AF%E6%8E%A7%E8%82%A1%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6-%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%B4%A2%E5%8A%A1%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腾讯控股深度研究：商业模式、收入结构与生态版图
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零散知识点整理流程
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%A2%84%E6%94%AF%E6%98%8E%E5%A4%A9%E7%9A%84%E7%83%A6%E6%81%BC-%E9%A2%84%E6%9C%9F%E7%84%A6%E8%99%91%E5%BF%83%E7%90%86%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预支明天的烦恼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI侦探局
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI侦探局
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI%E4%BE%A6%E6%8E%A2%E5%B1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 侦探局 · 微信小程序
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding能力体系
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VibeCoding能力体系
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding 能力体系
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品能力：从用户需求到 MVP 的全链路思维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、专栏简介：为什么 AI 时代架构反而更重要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、章节目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 章 架构思想总览：约束、边界与决策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-layered-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 章 分层架构（Layered Architecture）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章 模块化：高内聚低耦合的量化标准
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ddd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 4 章 领域驱动设计（DDD）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-clean-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 5 章 整洁架构（Clean Architecture）与依赖倒置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hexagonal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 6 章 六边形架构（Hexagonal / 端口与适配器）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-event-driven-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 7 章 事件驱动架构（Event-Driven Architecture）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-solid-dry-kiss-yagni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 8 章 软件设计原则（SOLID / DRY / KISS / YAGNI）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 9 章 让 AI 遵守架构约束的工程实践
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、参考文章与网站
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目管理能力：一个人也要有节奏与可交付
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计能力：从数据结构到分布式的工程直觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试能力：AI 时代最被低估的核心竞争力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    英语能力：一手信息的带宽与全球市场的入口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_%E8%BF%9B%E9%98%B6%E8%A1%A5%E5%85%85%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    进阶补充能力：技术之外，决定一个人能走多远的变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人生成就墙
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙 (地球Online 风)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/figma-prompt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学设计依据
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E6%88%90%E5%B0%B1%E5%BA%93_v0.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    成就库 v0.1 (地球Online 风格)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、专栏简介：为什么 AI 时代架构反而更重要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、章节目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 章 架构思想总览：约束、边界与决策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-layered-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 章 分层架构（Layered Architecture）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章 模块化：高内聚低耦合的量化标准
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ddd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 4 章 领域驱动设计（DDD）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-clean-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 5 章 整洁架构（Clean Architecture）与依赖倒置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hexagonal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 6 章 六边形架构（Hexagonal / 端口与适配器）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-event-driven-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 7 章 事件驱动架构（Event-Driven Architecture）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-solid-dry-kiss-yagni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 8 章 软件设计原则（SOLID / DRY / KISS / YAGNI）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 9 章 让 AI 遵守架构约束的工程实践
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、参考文章与网站
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  <div class="cx-meta">
+    <span>类型 <b>column</b></span>
+    <span>标签 <b>VibeCoding · 架构 · 学习路线</b></span>
+    <span>建立 <b>2026-07-06</b></span>
+  </div>
+  
+  
+                  
+
+
+
+<h1 id="_1">软件架构能力：让代码库随规模优雅生长<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>📖 本文是《AI 时代，开发者能力模型被重写》系列 · 第 2 篇 / 共 9 篇。</strong>
+系列缘起与全九篇导航见 👉 <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/">系列前言（开篇）</a>。
+<strong>本篇导语</strong>：AI 是一台熵放大器——给它干净的边界，它帮你优雅填充；给它一团乱麻，它帮你把乱麻搅成灾难。这一篇讲如何用分层、DDD、Clean/Hexagonal 等架构，为 AI 生成的代码立好骨架与边界。
+<strong>系列导航</strong>：<a href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/">← ① 产品能力</a> · <strong>② 软件架构(本篇)</strong> · <a href="../03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/">③ AI 协作 →</a></p>
+<p><em>（发布到 CSDN 等平台时，请将上方 <code>[[...]]</code> 替换为对应文章链接。）</em></p>
+</blockquote>
+<hr />
+<h2 id="ai">一、专栏简介：为什么 AI 时代架构反而更重要<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h2>
+<p>有一个反直觉的事实：<strong>当 AI 能在几秒内生成上百行可运行代码时，架构能力不是被削弱了，而是被空前放大了。</strong></p>
+<p>过去，写代码慢，坏结构的扩散速度也慢——你还没来得及把混乱铺满整个仓库，就已经被编译错误、手写疲劳、code review 拦下来了。而现在，VibeCoding 让"生成"几乎零成本，这意味着：</p>
+<blockquote>
+<p><strong>AI 是一台熵放大器。给它一个干净的边界，它帮你优雅地填充；给它一团意大利面，它帮你把面条搅成一整锅。</strong></p>
+</blockquote>
+<p>具体来看，AI 辅助编码放大了三类风险：</p>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>传统开发下的表现</th>
+<th>VibeCoding 下被放大后的表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>结构熵增</strong></td>
+<td>逐渐腐化，几个月后变屎山</td>
+<td>几天内就腐化，因为生成速度远超思考速度</td>
+</tr>
+<tr>
+<td><strong>上下文丢失</strong></td>
+<td>人能记住"这个模块为什么这么设计"</td>
+<td>AI 每次对话都是新的，没有约束就随机发挥</td>
+</tr>
+<tr>
+<td><strong>隐式耦合</strong></td>
+<td>手写时偶尔"顺手"耦合一下</td>
+<td>AI 倾向于"就地取材"，把能 import 的全 import 进来</td>
+</tr>
+</tbody>
+</table>
+<p>结论很清晰：<strong>架构的本质是"约束"与"边界"</strong>。在 AI 时代，架构文档、目录结构、依赖规则不再只是给人看的规范，它们变成了<strong>喂给 AI 的护栏（guardrails）</strong>。你把边界定义得越清楚，AI 生成的代码就越收敛；你越是"让它自由发挥"，技术债累积得越快。</p>
+<p>这门专栏的核心主线只有一句话：<strong>高内聚、低耦合</strong>。所有架构风格——分层、DDD、Clean、Hexagonal、事件驱动——都只是达成这八个字的不同手段。请带着这条主线读完全文。</p>
+<blockquote>
+<p>架构关注的是"系统设计"的落地约束，而"如何权衡容量、可用性、扩展性"属于 <a href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/">06_系统设计能力</a>；"如何用规范和工具让约束自动执行"属于 <a href="../05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/">05_软件工程规范</a>。本专栏聚焦代码库内部的结构。</p>
+</blockquote>
+<hr />
+<h2 id="_2">二、学习路线图<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>目标</th>
+<th>你应该能做到</th>
+<th>核心章节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>入门</strong></td>
+<td>理解"边界"意识</td>
+<td>会分层，能把业务逻辑从框架/IO 里剥离出来，能说清什么叫高内聚低耦合</td>
+<td>第 1、2、3、9 章</td>
+</tr>
+<tr>
+<td><strong>进阶</strong></td>
+<td>掌握依赖方向</td>
+<td>能画出依赖箭头永远指向业务核心的架构，会用端口与适配器隔离外部依赖</td>
+<td>第 5、6 章</td>
+</tr>
+<tr>
+<td><strong>精通</strong></td>
+<td>用领域语言建模</td>
+<td>能识别限界上下文、设计聚合、用领域事件解耦子系统，并判断"何时不该用"</td>
+<td>第 4、7、8 章</td>
+</tr>
+</tbody>
+</table>
+<p>一句话给独立开发者的忠告：<strong>不要从 DDD 或微服务开始。</strong> 先把"分层 + 依赖倒置 + SOLID"练到肌肉记忆，那才是 90% 项目真正需要的。</p>
+<hr />
+<h2 id="_3">三、章节目录<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>架构思想总览：约束、边界与决策</li>
+<li>分层架构（Layered Architecture）</li>
+<li>模块化：高内聚低耦合的量化标准</li>
+<li>领域驱动设计（DDD）</li>
+<li>整洁架构（Clean Architecture）与依赖倒置</li>
+<li>六边形架构（Hexagonal / 端口与适配器）</li>
+<li>事件驱动架构（Event-Driven Architecture）</li>
+<li>软件设计原则（SOLID / DRY / KISS / YAGNI）</li>
+<li>让 AI 遵守架构约束的工程实践</li>
+</ol>
+<hr />
+<h2 id="1">第 1 章 架构思想总览：约束、边界与决策<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p><strong>核心概念</strong>：软件架构是"关于系统的、难以更改的重要决策的集合"。它的本质不是画框图，而是<strong>用约束换取长期的可维护性</strong>。</p>
+<p><strong>为什么重要</strong>：每一个决策都在为未来买单或欠债。Ralph Johnson 有句名言："架构是那些让人后悔的决定。"好的架构让"改变"变得便宜——这正是熵增最快的 VibeCoding 项目最需要的能力。</p>
+<p><strong>如何落地</strong>：养成对每个技术选择问三个问题：</p>
+<ol>
+<li>这个决策<strong>多难反悔</strong>？（越难反悔，越需要谨慎）</li>
+<li>它把哪些东西<strong>耦合</strong>在了一起？</li>
+<li>半年后新人（或 AI）能否<strong>仅凭目录结构</strong>猜出业务在哪？</li>
+</ol>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：先让 AI 帮你写一份 <code>ARCHITECTURE.md</code> 或 <code>ADR</code>（Architecture Decision Record，架构决策记录），把"为什么这么分层""依赖方向是什么"写清楚，然后每次开新对话时把它作为上下文喂进去。AI 有了宪法，才不会天天违宪。</p>
+<p><strong>常见误区</strong>：把"用了什么框架/技术栈"当成架构。框架是细节，架构是边界。</p>
+<p><strong>实战练习</strong>：给你现在的项目写一份不超过一页的 ADR，回答"依赖方向、分层、外部系统隔离方式"三件事。</p>
+<hr />
+<h2 id="2-layered-architecture">第 2 章 分层架构（Layered Architecture）<a class="headerlink" href="#2-layered-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>核心概念</strong>：把系统按职责水平切分，典型四层：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>表现层 (Presentation / UI / API)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        │  只能向下调用
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>业务层 (Application / Service)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>领域层 (Domain / 业务规则)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>数据层 (Infrastructure / DB / 外部IO)
+</code></pre></div>
+<p><strong>为什么重要</strong>：分层是"高内聚低耦合"最朴素的实现——同一职责的代码聚在一层（内聚），层与层只通过明确接口通信（低耦合）。它是所有独立开发者都应掌握的默认架构。</p>
+<p><strong>如何落地</strong>：铁律——<strong>依赖只能单向向下，禁止跨层调用，禁止下层反向依赖上层</strong>。</p>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：在 prompt 里明确写"表现层不得包含任何业务规则，业务规则只能放在领域层"。当 AI 想在 Controller 里直接写 SQL 时，你的护栏会立刻显形。</p>
+<p><strong>常见误区</strong>：
+- <strong>贫血分层</strong>：分了层，但业务逻辑全漏进了表现层，领域层只剩数据结构。这是最常见的假分层。
+- <strong>传导性耦合</strong>：一个字段从 UI 一路手动传到 DB，改一个字段要动四层。</p>
+<p><strong>何时不该用</strong>：极小的脚本、一次性工具，强行分层是过度设计（违反 [[08_软件设计原则]] 里的 YAGNI）。</p>
+<p><strong>实战练习</strong>：把你项目里任意一个"在路由函数里直接写数据库查询"的地方，重构成 Controller → Service → Repository 三层。</p>
+<hr />
+<h2 id="3">第 3 章 模块化：高内聚低耦合的量化标准<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>这是全专栏的<strong>主线章节</strong>。</p>
+<p><strong>核心概念</strong>：
+- <strong>内聚（Cohesion）</strong>：一个模块内部的元素有多"该在一起"。最高级别是<strong>功能内聚</strong>（所有代码为同一个目的服务）。
+- <strong>耦合（Coupling）</strong>：模块之间的依赖强度。</p>
+<p><strong>如何量化判断</strong>（给 AURA 生成代码时的检查清单）：</p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>高内聚低耦合（好）</th>
+<th>低内聚高耦合（坏）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>修改一个需求</td>
+<td>只改一个模块</td>
+<td>要改五个文件</td>
+</tr>
+<tr>
+<td>模块对外暴露</td>
+<td>少量清晰接口</td>
+<td>大量 public 字段/方法</td>
+</tr>
+<tr>
+<td>import 关系</td>
+<td>依赖抽象、依赖少</td>
+<td>到处 import 具体实现</td>
+</tr>
+<tr>
+<td>命名</td>
+<td>按业务能力命名（订单、支付）</td>
+<td>按技术类型命名（utils、helpers、common）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>警惕 <code>utils</code> / <code>common</code> / <code>helpers</code></strong>：这类目录是低内聚的重灾区，它们没有明确职责，会像黑洞一样吸走一切，最终变成谁都依赖的高耦合中心。</p>
+<p><strong>按业务组织，而非按技术组织</strong>（Package by Feature，而非 Package by Layer）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>✅ 推荐（按功能）        ❌ 不推荐（按技术类型）
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/order                  /controllers
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  order_service.py        order_controller.py
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  order_repo.py           user_controller.py
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  order_model.py        /services
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/payment                  order_service.py
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  payment_service.py      user_service.py
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  ...                   /models  ...
+</code></pre></div>
+<p>前者内聚——改订单只进 <code>/order</code>；后者会让每个功能的碎片散落在多个技术目录里。</p>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：让 AI 生成新功能前，先明确"这属于哪个业务模块，放在哪个目录"。否则 AI 默认会往 <code>utils</code> 里塞。</p>
+<p><strong>实战练习</strong>：统计你项目里 <code>utils.py</code> 有多少函数，把它们按真正的业务归属拆散。</p>
+<hr />
+<h2 id="4-ddd">第 4 章 领域驱动设计（DDD）<a class="headerlink" href="#4-ddd" title="Permanent link">&para;</a></h2>
+<p><strong>核心概念</strong>：DDD（Eric Evans 提出）主张<strong>软件结构应该映射业务领域</strong>，用统一语言（Ubiquitous Language）让代码术语和业务术语一致。核心积木：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>限界上下文 Bounded Context</strong></td>
+<td>一个模型有效的边界，同一个词在不同上下文含义不同</td>
+<td>「商品」在"目录"上下文和"库存"上下文是不同模型</td>
+</tr>
+<tr>
+<td><strong>实体 Entity</strong></td>
+<td>有唯一标识、生命周期内可变</td>
+<td>订单（有订单号）</td>
+</tr>
+<tr>
+<td><strong>值对象 Value Object</strong></td>
+<td>无标识、由属性定义、不可变</td>
+<td>金额、地址、日期区间</td>
+</tr>
+<tr>
+<td><strong>聚合 Aggregate</strong></td>
+<td>一组必须一起保持一致的对象，有一个聚合根作为唯一入口</td>
+<td>订单（根）+ 订单项</td>
+</tr>
+<tr>
+<td><strong>领域事件 Domain Event</strong></td>
+<td>领域中已发生的、有业务意义的事实</td>
+<td>「订单已支付」</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么重要</strong>：限界上下文是<strong>宏观层面的高内聚低耦合</strong>——它告诉你系统该在哪里切成几块。聚合则保证一致性边界，避免"改一个订单项要锁全表"。</p>
+<p><strong>如何落地</strong>：
+1. 先用<strong>事件风暴（Event Storming）</strong> 找出领域事件和上下文，别急着建表。
+2. 值对象优先——能用不可变值对象就别用带 setter 的实体，天然减少耦合和 bug。
+3. 聚合要<strong>小</strong>——聚合越大，锁竞争和耦合越严重。</p>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：把统一语言词汇表喂给 AI，要求它命名严格遵守业务术语（不要把「聚合根」生成成 <code>DataManager</code>）。让 AI 帮你做事件风暴的头脑风暴很高效。</p>
+<p><strong>常见误区 / 何时不该用</strong>：
+- <strong>战术模式崇拜</strong>：以为写几个 Entity/ValueObject 类就是 DDD。DDD 的精华在<strong>战略设计</strong>（上下文划分），不在战术积木。
+- <strong>过度使用</strong>：CRUD 为主、领域逻辑简单的项目（如一个博客、一个后台管理），DDD 是纯负担。DDD 适合<strong>业务复杂度高</strong>的核心域。</p>
+<p><strong>实战练习</strong>：为你项目最复杂的业务对象画出它的聚合边界，问自己"哪些数据必须和它一起被修改才一致"。</p>
+<p><strong>进阶阅读</strong>：Vaughn Vernon《实现领域驱动设计》比 Evans 原著更工程化、更好落地。</p>
+<hr />
+<h2 id="5-clean-architecture">第 5 章 整洁架构（Clean Architecture）与依赖倒置<a class="headerlink" href="#5-clean-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>核心概念</strong>：Robert C. Martin（Uncle Bob）在《架构整洁之道》中提出的同心圆模型。唯一的铁律是<strong>依赖规则（The Dependency Rule）：源码依赖只能由外向内指向核心</strong>。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    ┌─────────────────────────────┐
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    │   Frameworks &amp; Drivers      │  ← Web/DB/UI（细节，最易变）
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    │  ┌───────────────────────┐  │
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    │  │  Interface Adapters   │  │  ← Controller/Presenter/Gateway
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    │  │  ┌─────────────────┐  │  │
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    │  │  │  Use Cases      │  │  │  ← 应用业务逻辑
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    │  │  │  ┌───────────┐  │  │  │
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    │  │  │  │ Entities  │  │  │  │  ← 企业级业务规则（最稳定）
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    │  │  │  └───────────┘  │  │  │
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    │  │  └─────────────────┘  │  │
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    │  └───────────────────────┘  │
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    └─────────────────────────────┘
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>      依赖箭头 ⟶ 永远向内
+</code></pre></div>
+<p><strong>关键机制——依赖倒置（DIP）</strong>：内层（业务）不能依赖外层（数据库），但业务又需要存数据怎么办？答案是<strong>内层定义接口，外层实现它</strong>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>领域层:   interface UserRepository { save(user) }   ← 业务自己定义&quot;我需要什么&quot;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>基础设施层: class PostgresUserRepo implements UserRepository  ← 外层来适配
+</code></pre></div>
+<p>这样一来，数据库、Web 框架都变成了<strong>可插拔的细节</strong>。你的业务规则不知道自己跑在 Postgres 还是 MySQL 上——这就是终极的低耦合。</p>
+<p><strong>为什么重要</strong>：它把"最易变的东西"（框架、DB、UI）推到最外层，把"最稳定的东西"（业务规则）保护在最里层。易变依赖稳定，而非反过来。</p>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：Clean Architecture 对 AI 极其友好——因为业务核心不依赖任何框架，AI 可以在完全不看数据库代码的情况下正确修改业务逻辑，上下文更小、更聚焦。明确要求 AI："领域层不许 import 任何 web 或 orm 库。"</p>
+<p><strong>常见误区 / 何时不该用</strong>：
+- 小项目里，为一个只查一次的表也写 interface + 实现 + DTO 映射，会淹没在样板代码里（over-engineering）。
+- 与分层架构混淆：Clean 的重点不是"层数"，而是"依赖方向"。</p>
+<p><strong>实战练习</strong>：把项目里一个直接调用 ORM 的 Service，改成依赖一个自定义 Repository 接口，ORM 实现藏到基础设施层。</p>
+<hr />
+<h2 id="6-hexagonal">第 6 章 六边形架构（Hexagonal / 端口与适配器）<a class="headerlink" href="#6-hexagonal" title="Permanent link">&para;</a></h2>
+<p><strong>核心概念</strong>：Alistair Cockburn 提出。它和 Clean Architecture 思想同源，但视角是"<strong>应用 vs 外部世界</strong>"：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>        [驱动侧 / 主动方]                    [被驱动侧 / 被动方]
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   Web请求 ─▶ ┌──────────────────────┐ ─▶ 数据库
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>   CLI    ─▶ │  Port  应用核心  Port │ ─▶ 消息队列
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>   定时任务 ─▶ │  (业务逻辑，不知外界) │ ─▶ 第三方API
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>             └──────────────────────┘
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>             ▲ 适配器把外部协议翻译成端口调用 ▲
+</code></pre></div>
+<ul>
+<li><strong>端口（Port）</strong>：应用定义的接口（"我需要保存订单""我会被人调用来下单"）。</li>
+<li><strong>适配器（Adapter）</strong>：端口的具体实现（REST 适配器、Postgres 适配器、Kafka 适配器）。</li>
+</ul>
+<p><strong>为什么重要</strong>：它最大的好处是<strong>可测试性</strong>——测试时用内存适配器替换数据库适配器，业务逻辑毫秒级跑完，不需要真实 DB。同时让"换掉外部依赖"变成换一个适配器的事。</p>
+<p><strong>Clean vs Hexagonal 的取舍</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Clean Architecture</th>
+<th>Hexagonal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视角</td>
+<td>同心圆分层（4 层）</td>
+<td>内外二分（核心 vs 外部）</td>
+</tr>
+<tr>
+<td>强调</td>
+<td>稳定性梯度</td>
+<td>输入/输出对称、可替换</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>有丰富分层业务逻辑</td>
+<td>强调 IO 隔离、多种接入方式</td>
+</tr>
+</tbody>
+</table>
+<p>实践中两者常融合使用，不必二选一。</p>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：让 AI 为每个外部依赖生成"端口接口 + 一个真实适配器 + 一个测试用内存适配器"，测试覆盖率和隔离度会大幅提升。</p>
+<p><strong>何时不该用</strong>：接入方式单一、几乎不换外部依赖的小工具，端口/适配器的抽象层是纯开销。</p>
+<p><strong>实战练习</strong>：为项目里"发邮件"功能定义一个 <code>NotificationPort</code>，写一个真实适配器和一个"打印到控制台"的测试适配器。</p>
+<hr />
+<h2 id="7-event-driven-architecture">第 7 章 事件驱动架构（Event-Driven Architecture）<a class="headerlink" href="#7-event-driven-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>核心概念</strong>：组件之间不直接调用，而是通过<strong>事件（已发生的事实）</strong> 通信。生产者发布事件，消费者订阅事件，二者互不知晓。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[订单服务] ──发布──▶ 「订单已创建」 ──▶ [库存服务]（扣库存）
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>                          │──▶ [通知服务]（发短信）
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                          └──▶ [积分服务]（加积分）
+</code></pre></div>
+<p><strong>为什么重要</strong>：这是<strong>时间与空间上的极致解耦</strong>。新增一个"订单创建后要做的事"，不用改订单服务一行代码——只需新增一个订阅者。这是低耦合在系统间协作层面的体现。</p>
+<p><strong>核心模式</strong>：
+- <strong>事件通知</strong>：只发个信号，接收方自己去查详情。
+- <strong>事件溯源（Event Sourcing）</strong>：不存当前状态，而存所有事件序列，状态由重放事件得出（martinfowler.com 有经典阐述）。
+- <strong>CQRS</strong>：读写模型分离，常与事件驱动搭配。</p>
+<p><strong>取舍——事件驱动的代价</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>收益</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>极低耦合、易扩展</td>
+<td><strong>难以追踪</strong>：一个业务流程散落在多个订阅者里</td>
+</tr>
+<tr>
+<td>天然异步、削峰</td>
+<td><strong>最终一致性</strong>：不再有强一致事务</td>
+</tr>
+<tr>
+<td>弹性、可回放</td>
+<td><strong>调试地狱</strong>：没有明确调用栈，需要分布式追踪</td>
+</tr>
+</tbody>
+</table>
+<p><strong>何时不该用</strong>：单体小应用里，用事件替代普通函数调用只会让流程变得"隐形"、难以调试。<strong>同步直接调用能满足时，别引入事件。</strong> 事件驱动是为"确实需要解耦的异步/多消费者场景"准备的。</p>
+<p><strong>在 VibeCoding 中如何用 AI</strong>：让 AI 维护一份"事件目录"（每个事件的名称、载荷 schema、生产者、消费者），否则事件驱动系统会迅速变成没人说得清的黑盒。</p>
+<p><strong>实战练习</strong>：把项目里"下单后串行做三件事"的代码，改成发布一个领域事件、三个处理器订阅（哪怕先用进程内事件总线）。</p>
+<hr />
+<h2 id="8-solid-dry-kiss-yagni">第 8 章 软件设计原则（SOLID / DRY / KISS / YAGNI）<a class="headerlink" href="#8-solid-dry-kiss-yagni" title="Permanent link">&para;</a></h2>
+<p>原则是所有架构风格背后的"物理定律"。</p>
+<p><strong>SOLID</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>含义</th>
+<th>与主线的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S</strong> 单一职责</td>
+<td>一个模块只有一个变化的理由</td>
+<td>直接服务于<strong>高内聚</strong></td>
+</tr>
+<tr>
+<td><strong>O</strong> 开闭原则</td>
+<td>对扩展开放、对修改关闭</td>
+<td>靠加代码而非改代码来扩展</td>
+</tr>
+<tr>
+<td><strong>L</strong> 里氏替换</td>
+<td>子类型可无缝替换父类型</td>
+<td>保证抽象可靠</td>
+</tr>
+<tr>
+<td><strong>I</strong> 接口隔离</td>
+<td>别强迫依赖用不到的方法</td>
+<td>降低<strong>耦合</strong></td>
+</tr>
+<tr>
+<td><strong>D</strong> 依赖倒置</td>
+<td>依赖抽象而非具体</td>
+<td>第 5 章的地基</td>
+</tr>
+</tbody>
+</table>
+<p><strong>其它三条</strong>：
+- <strong>DRY</strong>（Don't Repeat Yourself）：消除<strong>知识</strong>的重复。注意——是消除知识重复，不是消除长得像的代码。两段巧合相似但会独立演化的代码，强行合并反而制造耦合（这叫"错误的抽象比重复更昂贵"）。
+- <strong>KISS</strong>（Keep It Simple）：能简单就别复杂。
+- <strong>YAGNI</strong>（You Aren't Gonna Need It）：不要为"将来可能需要"提前设计。</p>
+<p><strong>在 VibeCoding 中如何用 AI 的特别提醒</strong>：AI 有两个坏倾向——<strong>过度抽象</strong>（动不动加工厂、加接口，违反 KISS/YAGNI）和<strong>复制粘贴</strong>（违反 DRY）。你要在 prompt 里明确："保持简单，不要引入当前需求用不到的抽象。" 同时在 review 时警惕重复代码。</p>
+<p><strong>常见误区</strong>：把 DRY 奉为最高教条，制造出一堆参数爆炸、谁都不敢改的"万能函数"。<strong>记住优先级：KISS 和 YAGNI 通常应该压过 DRY。</strong></p>
+<p><strong>实战练习</strong>：找出你项目里最"聪明"的一个通用抽象，诚实评估它是否真的被复用了 3 次以上，否则考虑内联回去。</p>
+<hr />
+<h2 id="9-ai">第 9 章 让 AI 遵守架构约束的工程实践<a class="headerlink" href="#9-ai" title="Permanent link">&para;</a></h2>
+<p>这是把前面所有理论落到 VibeCoding 的收口章节。</p>
+<p><strong>1. 把架构写进 AI 能读到的地方</strong>
+- 在仓库根放 <code>CLAUDE.md</code> / <code>ARCHITECTURE.md</code>，明确目录职责、依赖方向、命名规范。
+- AI 每次生成代码前，让它先读这些约束。</p>
+<p><strong>2. 用工具把约束变成"自动执行的护栏"</strong>（详见 <a href="../05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/">05_软件工程规范</a>）</p>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>自动化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依赖方向不许违反</td>
+<td>依赖检查工具（如 import-linter / ArchUnit / dependency-cruiser）</td>
+</tr>
+<tr>
+<td>领域层不许 import 框架</td>
+<td>lint 规则 / CI 检查</td>
+</tr>
+<tr>
+<td>模块边界</td>
+<td>目录结构 + 代码所有权</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. 小步生成、频繁校验</strong>
+不要让 AI 一次生成整个模块。按"接口先行 → 逐个用例 → 适配器"的顺序小步走，每步人工确认边界没被突破。</p>
+<p><strong>4. 让 AI 做架构 review</strong>
+把 diff 喂给 AI，问："这段改动有没有违反依赖规则？有没有把业务逻辑漏进表现层？" AI 既是熵的放大器，也可以是熵的检测器——取决于你怎么用它。</p>
+<p><strong>核心心法</strong>：<strong>你负责定义边界，AI 负责填充边界内的实现。</strong> 边界的守护永远是人的责任。</p>
+<hr />
+<h2 id="_4">四、参考文章与网站<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><strong>书籍（均真实存在）</strong>
+- 《架构整洁之道》(Clean Architecture) — Robert C. Martin
+- 《领域驱动设计：软件核心复杂性应对之道》— Eric Evans
+- 《实现领域驱动设计》(Implementing Domain-Driven Design) — Vaughn Vernon
+- 《企业应用架构模式》(Patterns of Enterprise Application Architecture) — Martin Fowler
+- 《设计模式：可复用面向对象软件的基础》— GoF（Gamma 等四人组）
+- 《重构：改善既有代码的设计》— Martin Fowler
+- 《软件架构：架构模式、特征及实践指南》(Fundamentals of Software Architecture) — Mark Richards &amp; Neal Ford
+- 《人月神话》— Frederick P. Brooks（关于概念完整性）</p>
+<p><strong>网站与文章</strong>
+- martinfowler.com — 架构、Event Sourcing、CQRS、微服务的权威文章库
+- Microsoft .NET Application Architecture Guides（learn.microsoft.com/dotnet/architecture）— 分层、DDD、微服务的官方指南
+- Alistair Cockburn 的六边形架构原文（alistair.cockburn.us/hexagonal-architecture）
+- The Twelve-Factor App（12factor.net）— 现代应用配置与依赖隔离
+- refactoring.guru — 设计模式与重构的可视化教程</p>
+<p><strong>工具（用于自动执行架构约束）</strong>
+- ArchUnit（Java）、import-linter（Python）、dependency-cruiser（JS/TS）— 依赖规则校验
+- Structurizr / C4 model — 架构可视化</p>
+<hr />
+<h2 id="_5">五、相关<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[[01_VibeCoding总览]] — 能力体系入口</li>
+<li><a href="../05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/">05_软件工程规范</a> — 用工具让架构约束自动执行</li>
+<li><a href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/">06_系统设计能力</a> — 从代码结构上升到分布式系统设计</li>
+<li>[[08_软件设计原则]] — SOLID 等原则的深入展开</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/codex.js"></script>
+      
+    
+  </body>
+</html>

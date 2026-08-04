@@ -1,0 +1,3410 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="keywei 的私人技术图鉴">
+      
+      
+      
+      
+        <link rel="prev" href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">
+      
+      
+        <link rel="next" href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>软件工程规范：让 AI 与未来的你都能协作 - KIWI CODEX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/codex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="KIWI CODEX" class="md-header__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KIWI CODEX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              软件工程规范：让 AI 与未来的你都能协作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KIWI CODEX" class="md-nav__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KIWI CODEX
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KIWI CODEX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/C%2B%2B%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE群体避障导航架构：CrowdManager与CrowdFollowingComponent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%EF%BC%88GameSettingScreen.CreateRegistry%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简单工厂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UML%E7%B1%BB%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 所有线放一起
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位运算符
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra拆解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lyra拆解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/Lyra%E6%8B%86%E8%A7%A3/Lyra%E6%B8%B8%E6%88%8F%E5%90%AF%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8EExperience%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    研究
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程目录拆解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E4%B8%AA%E4%BA%BA%E8%BD%AF%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    个人软件工作流说明书
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E8%85%BE%E8%AE%AF%E6%8E%A7%E8%82%A1%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6-%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%B4%A2%E5%8A%A1%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腾讯控股深度研究：商业模式、收入结构与生态版图
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零散知识点整理流程
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%A2%84%E6%94%AF%E6%98%8E%E5%A4%A9%E7%9A%84%E7%83%A6%E6%81%BC-%E9%A2%84%E6%9C%9F%E7%84%A6%E8%99%91%E5%BF%83%E7%90%86%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预支明天的烦恼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI侦探局
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI侦探局
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI%E4%BE%A6%E6%8E%A2%E5%B1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 侦探局 · 微信小程序
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding能力体系
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VibeCoding能力体系
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding 能力体系
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品能力：从用户需求到 MVP 的全链路思维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目管理能力：一个人也要有节奏与可交付
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        专栏简介
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录分类
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 章：Git 工作流
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 1 章：Git 工作流">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-conventional-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 章：Conventional Commits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 2 章：Conventional Commits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-monorepo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章：Monorepo 与仓库策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 3 章：Monorepo 与仓库策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 4 章：CI/CD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 4 章：CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地：GitHub Actions 实战
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 5 章：Code Review
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 5 章：Code Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何审查 AI 生成的代码（重点）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-docs-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 6 章：文档驱动开发（Docs-as-Code）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 6 章：文档驱动开发（Docs-as-Code）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 7 章：测试驱动开发（TDD）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 7 章：测试驱动开发（TDD）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值（AI 时代测试的新角色）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-aivibecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 8 章：把规范"喂"给 AI（VibeCoding 专章）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考文章与网站（真实资源）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计能力：从数据结构到分布式的工程直觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试能力：AI 时代最被低估的核心竞争力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    英语能力：一手信息的带宽与全球市场的入口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_%E8%BF%9B%E9%98%B6%E8%A1%A5%E5%85%85%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    进阶补充能力：技术之外，决定一个人能走多远的变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人生成就墙
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙 (地球Online 风)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/figma-prompt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学设计依据
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E6%88%90%E5%B0%B1%E5%BA%93_v0.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    成就库 v0.1 (地球Online 风格)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        专栏简介
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录分类
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 章：Git 工作流
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 1 章：Git 工作流">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-conventional-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 章：Conventional Commits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 2 章：Conventional Commits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-monorepo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章：Monorepo 与仓库策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 3 章：Monorepo 与仓库策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 4 章：CI/CD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 4 章：CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何落地：GitHub Actions 实战
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 5 章：Code Review
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 5 章：Code Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何审查 AI 生成的代码（重点）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-docs-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 6 章：文档驱动开发（Docs-as-Code）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 6 章：文档驱动开发（Docs-as-Code）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 7 章：测试驱动开发（TDD）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 7 章：测试驱动开发（TDD）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vibecoding-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 VibeCoding 中的特殊价值（AI 时代测试的新角色）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        练习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-aivibecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 8 章：把规范"喂"给 AI（VibeCoding 专章）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考文章与网站（真实资源）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  <div class="cx-meta">
+    <span>类型 <b>column</b></span>
+    <span>标签 <b>VibeCoding · 工程规范 · CICD · 学习路线</b></span>
+    <span>建立 <b>2026-07-06</b></span>
+  </div>
+  
+  
+                  
+
+
+
+<h1 id="ai">软件工程规范：让 AI 与未来的你都能协作<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>📖 本文是《AI 时代，开发者能力模型被重写》系列 · 第 5 篇 / 共 9 篇。</strong>
+系列缘起与全九篇导航见 👉 <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/">系列前言（开篇）</a>。
+<strong>本篇导语</strong>：AI 生成代码的速度远超人类审查的速度。这一篇讲 Git 工作流、CI/CD、Code Review、文档与 TDD——你的工程规范，就是 AI 的记忆与护栏。
+<strong>系列导航</strong>：<a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">← ④ 项目管理</a> · <strong>⑤ 工程规范(本篇)</strong> · <a href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/">⑥ 系统设计 →</a></p>
+<p><em>（发布到 CSDN 等平台时，请将上方 <code>[[...]]</code> 替换为对应文章链接。）</em></p>
+</blockquote>
+<hr />
+<h2 id="_1">专栏简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在 VibeCoding 时代，写代码的人变了——你不再逐行敲键盘，而是"指挥" AI 生成大段代码。这让很多独立开发者产生一个错觉：<strong>既然 AI 写得又快又多，规范岂不是拖后腿的官僚主义？</strong></p>
+<p>恰恰相反。规范在 AI 时代不是减负了，而是<strong>权重更高了</strong>。原因很简单：</p>
+<ol>
+<li><strong>AI 生成代码的速度远超人类审查的速度。</strong> 没有规范，你会在一周内堆出一个自己都读不懂的项目。规范是唯一能让"生成速度"不失控的刹车与护栏。</li>
+<li><strong>AI 需要上下文（Context）才能生成好代码。</strong> 而清晰的目录结构、README、ADR、类型定义、测试用例，本质上就是喂给 AI 的高质量上下文。<strong>你的工程规范，就是 AI 的记忆和护栏。</strong></li>
+<li><strong>未来的你 = 一个失忆的协作者。</strong> 三个月后你回看这个项目，和一个新加入的陌生人没有区别。规范是你写给未来自己的"操作手册"。</li>
+</ol>
+<p>一句话总结这个专栏的世界观：</p>
+<blockquote>
+<p><strong>规范不是束缚，而是让 AI 生成的代码可维护、让未来的你/协作者不崩溃的基础设施。文档与测试，是你给 AI 划定的护栏——护栏越清晰，AI 跑得越快越稳。</strong></p>
+</blockquote>
+<p>本专栏是 [[VibeCoding能力体系]] 的第 5 篇，与 <a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/">02_软件架构能力</a>、<a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">04_项目管理能力</a>、<a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a> 强相关。架构决定"代码长什么样"，工程规范决定"代码如何流动、协作与守护"。</p>
+<hr />
+<h2 id="_2">学习路线图<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>目标</th>
+<th>关键动作</th>
+<th>达成标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>入门</strong>（第 1 周）</td>
+<td>让项目"能被读懂、能回滚"</td>
+<td>用 GitHub Flow + Conventional Commits；写一份像样的 README；配置 <code>.gitignore</code> 与格式化工具</td>
+<td>任何一次 commit 都能说清"做了什么、为什么"；能凭 git log 回溯历史</td>
+</tr>
+<tr>
+<td><strong>进阶</strong>（第 2-4 周）</td>
+<td>让项目"能自动守护自己"</td>
+<td>配置 GitHub Actions（lint + test + build）；引入 TDD 与测试金字塔；建立 PR 模板与自审清单</td>
+<td>每次 push 自动跑 CI；测试覆盖核心逻辑；PR 有结构化描述</td>
+</tr>
+<tr>
+<td><strong>精通</strong>（持续）</td>
+<td>让项目"能规模化、能协作"</td>
+<td>采用 Trunk-Based 或规范化分支模型；Monorepo（Turborepo/Nx）管理多包；ADR 记录架构决策；建立 AI 代码评审流程</td>
+<td>多项目/多人协作不混乱；架构决策可追溯；能高效审查 AI 生成的代码</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心心法</strong>：不要一次上齐所有规范。规范应该"按痛点引入"——每当你被某个问题绊倒（找不到为什么改、CI 挂了、AI 改坏了别处），就引入对应的那一条规范。</p>
+<hr />
+<h2 id="_3">目录分类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>第 1 章：Git 工作流</strong> —— Git Flow vs GitHub Flow vs Trunk-Based，选哪个</li>
+<li><strong>第 2 章：Conventional Commits</strong> —— 让提交历史成为可读的变更日志</li>
+<li><strong>第 3 章：Monorepo 与仓库策略</strong> —— 单仓多包，Turborepo / Nx</li>
+<li><strong>第 4 章：CI/CD</strong> —— 持续集成与持续交付，GitHub Actions 实战</li>
+<li><strong>第 5 章：Code Review</strong> —— 代码评审，以及"如何审查 AI 生成的代码"</li>
+<li><strong>第 6 章：文档驱动开发</strong> —— Docs-as-Code、README、ADR</li>
+<li><strong>第 7 章：测试驱动开发</strong> —— TDD、测试金字塔、AI 时代测试的新角色</li>
+<li><strong>第 8 章：把规范"喂"给 AI</strong> —— 让规范成为 AI 的护栏（VibeCoding 专章）</li>
+</ol>
+<hr />
+<h2 id="1-git">第 1 章：Git 工作流<a class="headerlink" href="#1-git" title="Permanent link">&para;</a></h2>
+<h3 id="_4">核心概念<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Git 工作流是团队（哪怕团队只有你一个人）就"分支如何创建、合并、发布"达成的约定。三大主流模型：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>分支结构</th>
+<th>适用场景</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Git Flow</strong></td>
+<td><code>main</code> + <code>develop</code> + <code>feature/*</code> + <code>release/*</code> + <code>hotfix/*</code></td>
+<td>有明确版本发布节奏的软件（如桌面 App、SDK）</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>GitHub Flow</strong></td>
+<td><code>main</code> + 短命 <code>feature/*</code>，PR 合并即部署</td>
+<td>Web 应用、SaaS、独立开发者</td>
+<td>低</td>
+</tr>
+<tr>
+<td><strong>Trunk-Based</strong></td>
+<td>几乎只有 <code>main</code>，分支存活数小时到一天</td>
+<td>需要高频集成、有强 CI 的团队</td>
+<td>中（依赖 CI）</td>
+</tr>
+</tbody>
+</table>
+<p>分支模型（GitHub Flow，独立开发者推荐）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>main   ────●────────●───────────●──────►  (始终可部署)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>            \        /            \
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>feature      ●──●──●               ●──●   (短命，几天内合并)
+</code></pre></div>
+<h3 id="_5">为什么重要<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>分支模型决定了"半成品代码"如何隔离。<code>main</code> 永远保持可部署，是你最重要的安全垫——出问题时你永远有一个已知的好状态可以回退。</p>
+<h3 id="_6">如何落地<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>独立开发者/Web 项目</strong>：直接用 <strong>GitHub Flow</strong>。<code>main</code> 可部署，每个功能开一个短命分支，PR 合并。简单、够用。</li>
+<li><strong>有版本发布的库/App</strong>：考虑 <strong>Git Flow</strong>（nvie 原文 <em>A successful Git branching model</em>）。</li>
+<li><strong>追求极致集成速度</strong>：<strong>Trunk-Based</strong>（trunkbaseddevelopment.com），配合特性开关（feature flags）把未完成功能藏起来。</li>
+</ul>
+<h3 id="vibecoding">在 VibeCoding 中的特殊价值<a class="headerlink" href="#vibecoding" title="Permanent link">&para;</a></h3>
+<p>AI 常常"改着改着就跑偏"，把不相关的文件也改了。<strong>短命分支 = 小的、可丢弃的实验单元。</strong> 如果这一轮 AI 生成的代码不满意，直接 <code>git checkout .</code> 丢掉分支，<code>main</code> 毫发无伤。把每次"让 AI 做一件事"对应一个分支，是驯服 AI 的关键习惯。</p>
+<h3 id="_7">常见误区<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ 独立开发者硬套 Git Flow，<code>develop</code>/<code>release</code> 分支形同虚设，徒增负担。</li>
+<li>❌ 让功能分支活太久（几周），最后合并冲突地狱。分支越短命越好。</li>
+<li>❌ 直接在 <code>main</code> 上让 AI 大改，一旦跑偏无法干净回退。</li>
+</ul>
+<h3 id="_8">练习<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>把你当前项目切成 GitHub Flow：保护 <code>main</code>，下一个功能开 <code>feature/xxx</code> 分支，用 PR 合并。</p>
+<hr />
+<h2 id="2-conventional-commits">第 2 章：Conventional Commits<a class="headerlink" href="#2-conventional-commits" title="Permanent link">&para;</a></h2>
+<h3 id="_9">核心概念<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><a href="https://www.conventionalcommits.org/">Conventional Commits</a> 是一套 commit message 规范，格式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt;type&gt;(&lt;scope&gt;): &lt;描述&gt;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[可选正文]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[可选脚注，如 BREAKING CHANGE:]
+</code></pre></div>
+<p>常用 type：</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat</code></td>
+<td>新功能</td>
+<td><code>feat(auth): 支持微信登录</code></td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>修 bug</td>
+<td><code>fix(api): 修复分页越界</code></td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>文档</td>
+<td><code>docs: 补充部署说明</code></td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>重构（不改行为）</td>
+<td><code>refactor(db): 抽取查询层</code></td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>测试</td>
+<td><code>test: 增加登录用例</code></td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>杂务/构建</td>
+<td><code>chore: 升级依赖</code></td>
+</tr>
+<tr>
+<td><code>perf</code></td>
+<td>性能</td>
+<td><code>perf: 缓存首页查询</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">为什么重要<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>提交历史是项目唯一"不会骗人"的文档。规范化的 commit 能：自动生成 CHANGELOG、配合语义化版本（SemVer）自动升版本号、让 <code>git log</code> 一眼可读。</p>
+<h3 id="_11">如何落地<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>心里记住那张 type 表，或用 <code>commitlint</code> + <code>husky</code> 在提交时自动校验。</li>
+<li>一个提交只做一件事（原子提交），描述回答"做了什么"，正文回答"为什么"。</li>
+</ul>
+<h3 id="vibecoding_1">在 VibeCoding 中的特殊价值<a class="headerlink" href="#vibecoding_1" title="Permanent link">&para;</a></h3>
+<p>让 AI 帮你写 commit message！把 <code>git diff</code> 丢给 AI，要求它按 Conventional Commits 输出。反过来，规范的历史也让 AI 在后续对话中能快速理解"这个项目最近发生了什么"。见 <a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">04_项目管理能力</a>。</p>
+<h3 id="_12">常见误区<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ <code>update</code>、<code>fix bug</code>、<code>.</code> 这类无信息量的 message。</li>
+<li>❌ 一个 commit 塞进十个不相关改动，无法回滚单个功能。</li>
+</ul>
+<h3 id="_13">练习<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>接下来 10 次提交全部用 Conventional Commits 格式，月底用 <code>git log --oneline</code> 回看，感受可读性差异。</p>
+<hr />
+<h2 id="3-monorepo">第 3 章：Monorepo 与仓库策略<a class="headerlink" href="#3-monorepo" title="Permanent link">&para;</a></h2>
+<h3 id="_14">核心概念<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p><strong>Monorepo（单体仓库）</strong>：把多个项目/包放在同一个 Git 仓库里，用工具管理它们的依赖与构建。典型结构：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>my-monorepo/
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── apps/
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│   ├── web/          # 前端
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   └── api/          # 后端
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├── packages/
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│   ├── ui/           # 共享组件
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│   └── config/       # 共享配置
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>├── turbo.json        # 或 nx.json
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>└── package.json
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monorepo</strong></td>
+<td>代码共享方便、原子提交跨包、统一工具链</td>
+<td>仓库变大、需要专门工具</td>
+</tr>
+<tr>
+<td><strong>Polyrepo（多仓）</strong></td>
+<td>隔离清晰、权限独立</td>
+<td>跨仓改动难同步、版本地狱</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">为什么重要<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>当你有"前端 + 后端 + 共享类型"时，Monorepo 让一次改动能原子地覆盖多端——尤其是共享的 TypeScript 类型定义，改一处全端受益。</p>
+<h3 id="_16">如何落地<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Turborepo</strong>（官方文档 turbo.build）：轻量，专注任务编排与缓存，配置简单，适合独立开发者起步。</li>
+<li><strong>Nx</strong>（官方文档 nx.dev）：功能全面，代码生成器、依赖图、受影响项目分析，适合更大规模。</li>
+<li>核心价值都是<strong>增量构建 + 缓存</strong>：只重新构建"受影响"的包，CI 大幅提速。</li>
+</ul>
+<h3 id="vibecoding_2">在 VibeCoding 中的特殊价值<a class="headerlink" href="#vibecoding_2" title="Permanent link">&para;</a></h3>
+<p>Monorepo 把相关代码放在一起，等于给 AI 提供了<strong>完整的上下文</strong>——AI 能看到前端调用、后端接口、共享类型，生成的代码前后一致，不会前端用了后端没有的字段。这是架构层面的护栏，参考 <a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/">02_软件架构能力</a>。</p>
+<h3 id="_17">常见误区<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ 项目还只有一个 app 就上 Monorepo，过度工程。</li>
+<li>❌ 不配置缓存，CI 每次全量构建，慢到怀疑人生。</li>
+</ul>
+<h3 id="_18">练习<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>如果你有前后端共享类型的需求，用 Turborepo 初始化一个 <code>apps/</code> + <code>packages/</code> 结构，体验共享 <code>packages/types</code>。</p>
+<hr />
+<h2 id="4-cicd">第 4 章：CI/CD<a class="headerlink" href="#4-cicd" title="Permanent link">&para;</a></h2>
+<h3 id="_19">核心概念<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CI（持续集成）</strong>：每次 push 自动运行 lint、测试、构建，尽早发现问题。</li>
+<li><strong>CD（持续交付/部署）</strong>：通过检查后自动发布到测试/生产环境。</li>
+<li>理论基石：《持续交付》（<em>Continuous Delivery</em>, Jez Humble &amp; David Farley）。</li>
+</ul>
+<h3 id="github-actions">如何落地：GitHub Actions 实战<a class="headerlink" href="#github-actions" title="Permanent link">&para;</a></h3>
+<p><code>.github/workflows/ci.yml</code> 可复制模板：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CI</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">on</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">build-and-test</span><span class="p">:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v4</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">          </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">          </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;npm&#39;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm ci</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run lint</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm test</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run build</span>
+</code></pre></div>
+<p>带部署的 CD（合并到 main 后部署）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-and-test</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github.ref == &#39;refs/heads/main&#39;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;在此调用 Vercel / Fly.io / 服务器部署脚本&quot;</span>
+</code></pre></div>
+<h3 id="_20">为什么重要<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>CI 是<strong>自动化的门卫</strong>。它保证没有人（包括 AI）能把坏掉的代码合进 <code>main</code>。CD 让"发布"从一场惊心动魄的手动仪式，变成一次无聊的自动流程。</p>
+<h3 id="vibecoding_3">在 VibeCoding 中的特殊价值<a class="headerlink" href="#vibecoding_3" title="Permanent link">&para;</a></h3>
+<p><strong>CI 是 AI 生成代码的终极护栏。</strong> AI 可能生成看起来对、实则跑不起来的代码。CI 会无情地告诉你：类型错了、测试挂了、构建失败了。你甚至可以把 CI 的报错日志丢回给 AI，让它自我修正——形成"AI 生成 → CI 验证 → AI 修复"的闭环。见 <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a>。</p>
+<h3 id="_21">常见误区<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ CI 只跑构建不跑测试，护栏形同虚设。</li>
+<li>❌ CI 跑得太慢（几十分钟），大家干脆绕过它。用缓存、并行、只测受影响部分来提速。</li>
+</ul>
+<h3 id="_22">练习<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>给现有项目加上上面的 <code>ci.yml</code>，故意提交一个类型错误，观察 CI 变红。</p>
+<hr />
+<h2 id="5-code-review">第 5 章：Code Review<a class="headerlink" href="#5-code-review" title="Permanent link">&para;</a></h2>
+<h3 id="_23">核心概念<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<p>代码评审是合并前由人（或 AI）检查代码的过程。业界最佳实践参考 <strong>Google Engineering Practices</strong>（<em>google.github.io/eng-practices</em>）的 Code Review Developer Guide。核心原则一句话：</p>
+<blockquote>
+<p>评审的标准不是"完美"，而是"是否明确改善了代码库的整体健康度"。</p>
+</blockquote>
+<p>PR 自审清单模板（放进 <code>.github/pull_request_template.md</code>）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gu">## 这个 PR 做了什么</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gu">## 为什么这样做</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="gu">## 自审清单</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">- [ ]</span> 代码符合项目规范（lint 通过）
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">- [ ]</span> 增加/更新了相关测试
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">- [ ]</span> 更新了相关文档
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">- [ ]</span> 没有引入无关改动
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">- [ ]</span> 没有硬编码的密钥/敏感信息
+</code></pre></div>
+<h3 id="ai_1">如何审查 AI 生成的代码（重点）<a class="headerlink" href="#ai_1" title="Permanent link">&para;</a></h3>
+<p>AI 生成的代码有独特的"陷阱"，审查时重点看：</p>
+<table>
+<thead>
+<tr>
+<th>关注点</th>
+<th>AI 常见问题</th>
+<th>审查动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>幻觉 API</strong></td>
+<td>调用了不存在的库函数/参数</td>
+<td>核对官方文档，确认 API 真实存在</td>
+</tr>
+<tr>
+<td><strong>过度实现</strong></td>
+<td>加了你没要求的功能/抽象</td>
+<td>删掉超纲部分，保持最小改动</td>
+</tr>
+<tr>
+<td><strong>安全隐患</strong></td>
+<td>硬编码密钥、SQL 拼接、缺少校验</td>
+<td>逐行看输入处理与鉴权</td>
+</tr>
+<tr>
+<td><strong>静默改动</strong></td>
+<td>顺手改了不相关的文件/逻辑</td>
+<td>看完整 diff，警惕"越界"改动</td>
+</tr>
+<tr>
+<td><strong>似是而非</strong></td>
+<td>逻辑看起来对，边界条件错</td>
+<td>亲自跑测试，别信"看起来对"</td>
+</tr>
+<tr>
+<td><strong>风格不一致</strong></td>
+<td>与项目现有风格冲突</td>
+<td>交给 linter 统一</td>
+</tr>
+</tbody>
+</table>
+<p><strong>黄金法则：你对合并进 <code>main</code> 的每一行代码负全责，无论它是你写的还是 AI 写的。</strong> 不理解就不要合并——让 AI 解释这段代码，直到你真正看懂。</p>
+<h3 id="_24">常见误区<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ "AI 写的应该没问题"直接合并——这是 VibeCoding 最大的坑。</li>
+<li>❌ 评审只挑格式毛病，放过了架构与安全问题（那些应该交给自动化工具）。</li>
+</ul>
+<h3 id="_25">练习<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p>下次让 AI 生成一段代码后，逐条对照上表审查，记录你发现了几处问题。</p>
+<hr />
+<h2 id="6-docs-as-code">第 6 章：文档驱动开发（Docs-as-Code）<a class="headerlink" href="#6-docs-as-code" title="Permanent link">&para;</a></h2>
+<h3 id="_26">核心概念<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Docs-as-Code</strong>：文档和代码一起放在仓库、一起走 PR 评审、一起版本化。</li>
+<li><strong>README</strong>：项目门面，回答"这是什么、怎么跑起来、怎么用"。</li>
+<li><strong>ADR（Architecture Decision Record）</strong>：架构决策记录，回答"为什么这样设计"。</li>
+</ul>
+<p>README 最小模板：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gh"># 项目名</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>一句话说明这个项目是什么。
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="gu">## 快速开始</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>​```bash
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>npm install
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>npm run dev
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>​```
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="gu">## 技术栈 / 目录结构 / 环境变量 / 部署</span>
+</code></pre></div>
+<p>ADR 模板（<code>docs/adr/0001-choose-sqlite.md</code>）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gh"># 1. 选择 SQLite 作为初期数据库</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="gu">## 状态</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>已接受
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gu">## 背景</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>独立开发者，单机部署，数据量小。
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="gu">## 决策</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>使用 SQLite，避免运维一个独立数据库服务。
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="gu">## 后果</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>好处：零运维、易备份。代价：并发写受限，未来可能迁移到 Postgres。
+</code></pre></div>
+<h3 id="_27">为什么重要<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<p>文档回答代码回答不了的问题——<strong>"为什么"</strong>。代码告诉你"是什么"，ADR 告诉你"当初为何这么选、放弃了什么"。半年后你想改架构时，ADR 能救你的命。</p>
+<h3 id="vibecoding_4">在 VibeCoding 中的特殊价值<a class="headerlink" href="#vibecoding_4" title="Permanent link">&para;</a></h3>
+<p><strong>文档是喂给 AI 的最高质量上下文。</strong> 一份好的 README 和 ADR，能让 AI 瞬间理解项目全貌，生成符合你架构意图的代码。反之，没有文档的项目，AI 只能靠猜。建议在仓库放一个 <code>AI_CONTEXT.md</code> 或利用 <code>CLAUDE.md</code>，专门写给 AI 看的项目约定。参考 <a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/">02_软件架构能力</a>、<a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">04_项目管理能力</a>。</p>
+<h3 id="_28">常见误区<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ README 只有一句"我的项目"，等于没有。</li>
+<li>❌ 文档和代码脱节——把文档也纳入 PR 评审即可解决。</li>
+</ul>
+<h3 id="_29">练习<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
+<p>给当前项目写一个符合上面模板的 README，并为一个已做出的技术选型补一篇 ADR。</p>
+<hr />
+<h2 id="7-tdd">第 7 章：测试驱动开发（TDD）<a class="headerlink" href="#7-tdd" title="Permanent link">&para;</a></h2>
+<h3 id="_30">核心概念<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<p><strong>TDD 循环：红 → 绿 → 重构</strong>——先写一个失败的测试（红），写最少代码让它通过（绿），再优化代码（重构）。</p>
+<p><strong>测试金字塔</strong>（自下而上，越下越多、越快、越便宜）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>        /\        E2E 测试（少量，慢，贵）
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>       /--\       集成测试（适量）
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>      /----\      单元测试（大量，快，便宜）
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>     /______\
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>测什么</th>
+<th>数量</th>
+<th>速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元</td>
+<td>单个函数/模块</td>
+<td>最多</td>
+<td>毫秒级</td>
+</tr>
+<tr>
+<td>集成</td>
+<td>模块间协作、DB/API</td>
+<td>中等</td>
+<td>秒级</td>
+</tr>
+<tr>
+<td>E2E</td>
+<td>完整用户流程</td>
+<td>最少</td>
+<td>分钟级</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_31">为什么重要<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<p>测试是<strong>唯一能让你放心重构的东西</strong>。没有测试，每次改动都是在拆炸弹。有测试，你可以大胆改，因为改坏了立刻会红。</p>
+<h3 id="vibecoding-ai">在 VibeCoding 中的特殊价值（AI 时代测试的新角色）<a class="headerlink" href="#vibecoding-ai" title="Permanent link">&para;</a></h3>
+<p>测试在 AI 时代发生了角色升级：</p>
+<ol>
+<li><strong>测试 = AI 的可执行规格说明书。</strong> 与其用自然语言描述需求，不如写好测试用例，让 AI "生成能通过这些测试的实现"。测试比自然语言精确得多。</li>
+<li><strong>测试 = AI 代码的验收标准。</strong> AI 说"我实现好了"，测试说了算，不是它说了算。</li>
+<li><strong>可以让 AI 帮你补测试</strong>，但核心业务逻辑的测试<strong>应该由你亲自设计</strong>——因为测试定义了"什么是对的"，这是你不能外包的判断。</li>
+</ol>
+<p>推荐流程：<strong>你写测试（定义正确性）→ AI 写实现 → CI 跑测试验证 → 循环。</strong> 这把 TDD 和 VibeCoding 完美结合，测试成了人与 AI 之间的契约。见 <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a>。</p>
+<h3 id="_32">常见误区<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ 追求 100% 覆盖率，为无意义的 getter/setter 写测试。</li>
+<li>❌ 全写 E2E 测试，倒金字塔，跑得慢又脆。</li>
+<li>❌ 让 AI 既写实现又写测试，然后测试全绿——它可能只是写了"必然通过"的假测试。</li>
+</ul>
+<h3 id="_33">练习<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<p>选一个核心函数，先写测试再让 AI 实现，体验"测试作为规格"的感觉。</p>
+<hr />
+<h2 id="8-aivibecoding">第 8 章：把规范"喂"给 AI（VibeCoding 专章）<a class="headerlink" href="#8-aivibecoding" title="Permanent link">&para;</a></h2>
+<p>前面七章的规范，如何真正变成 AI 的护栏？关键是<strong>让规范可被 AI 读取和执行</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>规范</th>
+<th>如何变成 AI 护栏</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Git 工作流</td>
+<td>每个 AI 任务对应一个短命分支，跑偏就丢弃</td>
+</tr>
+<tr>
+<td>Conventional Commits</td>
+<td>让 AI 按规范生成 commit message</td>
+</tr>
+<tr>
+<td>Monorepo/结构</td>
+<td>清晰目录 = AI 的导航图，减少幻觉</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>AI 生成 → CI 验证 → 把报错丢回 AI 修复</td>
+</tr>
+<tr>
+<td>Code Review</td>
+<td>用上表逐条审查 AI 代码，绝不盲信</td>
+</tr>
+<tr>
+<td>文档/ADR</td>
+<td>作为高质量上下文喂给 AI</td>
+</tr>
+<tr>
+<td>测试</td>
+<td>作为可执行规格与验收标准</td>
+</tr>
+</tbody>
+</table>
+<p><strong>落地建议</strong>：在仓库根目录维护一份写给 AI 的约定文件（如 <code>CLAUDE.md</code> / <code>AI_CONTEXT.md</code>），内容包括：项目结构、技术栈、代码风格、提交规范、"不要做什么"清单。这份文件本身就是把上述所有规范"编译"成 AI 能持续遵守的护栏。</p>
+<blockquote>
+<p>记住：<strong>AI 是一个能力极强但没有长期记忆、偶尔自信满满地犯错的初级工程师。</strong> 你的工程规范，就是你管理这个"团队成员"的制度。制度越清晰，它越靠谱。</p>
+</blockquote>
+<hr />
+<h2 id="_34">参考文章与网站（真实资源）<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h2>
+<p><strong>Git 工作流</strong>
+- Conventional Commits 规范：https://www.conventionalcommits.org/
+- Vincent Driessen, <em>A successful Git branching model</em>（Git Flow 原文）：https://nvie.com/posts/a-successful-git-branching-model/
+- GitHub Flow 官方文档：https://docs.github.com/en/get-started/using-github/github-flow
+- Trunk Based Development：https://trunkbaseddevelopment.com/</p>
+<p><strong>Monorepo</strong>
+- Turborepo 官方文档：https://turbo.build/repo/docs
+- Nx 官方文档：https://nx.dev/</p>
+<p><strong>CI/CD</strong>
+- GitHub Actions 官方文档：https://docs.github.com/en/actions
+- Jez Humble &amp; David Farley,《持续交付》(<em>Continuous Delivery</em>)</p>
+<p><strong>Code Review</strong>
+- Google Engineering Practices — Code Review Developer Guide：https://google.github.io/eng-practices/review/</p>
+<p><strong>测试</strong>
+- Martin Fowler, <em>TestPyramid</em>：https://martinfowler.com/bliki/TestPyramid.html
+- Kent Beck,《测试驱动开发》(<em>Test-Driven Development: By Example</em>)</p>
+<p><strong>文档</strong>
+- Architecture Decision Records（Michael Nygard 原文）：https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions</p>
+<hr />
+<h2 id="_35">相关<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[[VibeCoding能力体系]]</li>
+<li><a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/">02_软件架构能力</a></li>
+<li><a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">04_项目管理能力</a></li>
+<li><a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/codex.js"></script>
+      
+    
+  </body>
+</html>

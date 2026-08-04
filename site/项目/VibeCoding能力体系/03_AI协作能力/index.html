@@ -1,0 +1,2538 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="keywei 的私人技术图鉴">
+      
+      
+      
+      
+        <link rel="prev" href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/">
+      
+      
+        <link rel="next" href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>AI 协作能力：从 Prompt 到 Multi-Agent 系统 - KIWI CODEX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/codex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-prompt-multi-agent" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="KIWI CODEX" class="md-header__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KIWI CODEX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AI 协作能力：从 Prompt 到 Multi-Agent 系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KIWI CODEX" class="md-nav__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KIWI CODEX
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KIWI CODEX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/C%2B%2B%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE群体避障导航架构：CrowdManager与CrowdFollowingComponent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%EF%BC%88GameSettingScreen.CreateRegistry%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简单工厂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UML%E7%B1%BB%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 所有线放一起
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位运算符
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra拆解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lyra拆解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/Lyra%E6%8B%86%E8%A7%A3/Lyra%E6%B8%B8%E6%88%8F%E5%90%AF%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8EExperience%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    研究
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程目录拆解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E4%B8%AA%E4%BA%BA%E8%BD%AF%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    个人软件工作流说明书
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E8%85%BE%E8%AE%AF%E6%8E%A7%E8%82%A1%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6-%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%B4%A2%E5%8A%A1%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腾讯控股深度研究：商业模式、收入结构与生态版图
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零散知识点整理流程
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%A2%84%E6%94%AF%E6%98%8E%E5%A4%A9%E7%9A%84%E7%83%A6%E6%81%BC-%E9%A2%84%E6%9C%9F%E7%84%A6%E8%99%91%E5%BF%83%E7%90%86%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预支明天的烦恼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI侦探局
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI侦探局
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI%E4%BE%A6%E6%8E%A2%E5%B1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 侦探局 · 微信小程序
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding能力体系
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VibeCoding能力体系
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding 能力体系
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品能力：从用户需求到 MVP 的全链路思维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、专栏简介
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、目录分类
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、每章详细课程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、每章详细课程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prompt-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 章 Prompt Engineering 基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-few-shot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 章 结构化提示与 Few-shot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-context-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章 Context Engineering 上下文工程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tool-calling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 4 章 Tool Calling 工具调用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 5 章 MCP 模型上下文协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-agent-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 6 章 Agent Planning 任务规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-agent-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 7 章 Agent Memory 记忆系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-multi-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 8 章 Multi-Agent 多智能体协作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-agent-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 9 章 Agent Delegation 子代理委派
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-vibecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 10 章 综合实战：搭一条 VibeCoding 流水线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、参考文章与网站（均为真实资源）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目管理能力：一个人也要有节奏与可交付
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计能力：从数据结构到分布式的工程直觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试能力：AI 时代最被低估的核心竞争力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    英语能力：一手信息的带宽与全球市场的入口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_%E8%BF%9B%E9%98%B6%E8%A1%A5%E5%85%85%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    进阶补充能力：技术之外，决定一个人能走多远的变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人生成就墙
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙 (地球Online 风)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/figma-prompt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学设计依据
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/%E6%88%90%E5%B0%B1%E5%BA%93_v0.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    成就库 v0.1 (地球Online 风格)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、专栏简介
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、目录分类
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、每章详细课程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、每章详细课程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prompt-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 章 Prompt Engineering 基础
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-few-shot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 章 结构化提示与 Few-shot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-context-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 章 Context Engineering 上下文工程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tool-calling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 4 章 Tool Calling 工具调用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 5 章 MCP 模型上下文协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-agent-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 6 章 Agent Planning 任务规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-agent-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 7 章 Agent Memory 记忆系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-multi-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 8 章 Multi-Agent 多智能体协作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-agent-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 9 章 Agent Delegation 子代理委派
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-vibecoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 10 章 综合实战：搭一条 VibeCoding 流水线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、参考文章与网站（均为真实资源）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  <div class="cx-meta">
+    <span>类型 <b>column</b></span>
+    <span>标签 <b>VibeCoding · AI · Agent · 学习路线</b></span>
+    <span>建立 <b>2026-07-06</b></span>
+  </div>
+  
+  
+                  
+
+
+
+<h1 id="ai-prompt-multi-agent">AI 协作能力：从 Prompt 到 Multi-Agent 系统<a class="headerlink" href="#ai-prompt-multi-agent" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>📖 本文是《AI 时代，开发者能力模型被重写》系列 · 第 3 篇 / 共 9 篇。</strong>
+系列缘起与全九篇导航见 👉 <a href="../../%E4%BA%BA%E7%94%9F%E6%88%90%E5%B0%B1%E5%A2%99/">系列前言（开篇）</a>。
+<strong>本篇导语</strong>：本系列的核心。很多人卡在「不会搭 AI 工作流」，本质是把可编排的引擎当成了更聪明的搜索框。这一篇讲如何从单点问答，走向 Context Engineering、Tool Calling、MCP 与 Multi-Agent 编排。
+<strong>系列导航</strong>：<a href="../02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/">← ② 软件架构</a> · <strong>③ AI 协作(本篇)</strong> · <a href="../04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/">④ 项目管理 →</a></p>
+<p><em>（发布到 CSDN 等平台时，请将上方 <code>[[...]]</code> 替换为对应文章链接。）</em></p>
+</blockquote>
+<hr />
+<h2 id="_1">一、专栏简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在 VibeCoding（用 AI 辅助编码）的世界里，代码本身正在急速贬值，<strong>"如何指挥 AI 写出正确的代码"</strong> 正在急速升值。</p>
+<p>很多人误以为 AI 编码的杠杆是"生成"——只要模型够强，敲一句 <code>帮我写个登录页</code> 就万事大吉。这是最大的认知误区。真正的杠杆从来不是生成，而是<strong>指挥（Orchestration）</strong>：</p>
+<ul>
+<li>模型不知道你的代码库长什么样 → 你要做 <strong>Context Engineering（上下文工程）</strong>；</li>
+<li>模型一次只能吃下有限的信息 → 你要做 <strong>记忆窗口管理与压缩</strong>；</li>
+<li>一个 Agent 干不完一个复杂功能 → 你要做 <strong>Multi-Agent 编排</strong>；</li>
+<li>模型需要读文件、跑测试、查数据库 → 你要做 <strong>Tool Calling 与 MCP 接入</strong>。</li>
+</ul>
+<p>一句话总结这个专栏的核心论点：</p>
+<blockquote>
+<p><strong>Prompt 决定"这一次"AI 听不听话；Context 与 Agent 编排决定"整个系统"能不能规模化地替你干活。</strong></p>
+</blockquote>
+<p>对独立开发者而言，AI 协作能力是"一个人干一个团队的活"的底层引擎。它直接决定了你的开发速度上限（关联 <a href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/">01_产品能力</a> 的迭代节奏）与代码质量下限（关联 <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a> 的自动纠错闭环）。这不是一项软技能，而是新时代最硬核的<strong>工程手艺</strong>。</p>
+<hr />
+<h2 id="_2">二、学习路线图<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>目标</th>
+<th>你能做到</th>
+<th>核心章节</th>
+<th>代表工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>入门</strong></td>
+<td>让单次对话稳定输出</td>
+<td>写出结构化、带约束、带示例的提示词，稳定获得可用代码</td>
+<td>第 1、2 章</td>
+<td>Cursor、ChatGPT、Claude 网页版</td>
+</tr>
+<tr>
+<td><strong>进阶</strong></td>
+<td>让 AI 理解你的项目</td>
+<td>管理上下文、接入工具、让 Agent 自主读写文件并跑命令</td>
+<td>第 3、4、5 章</td>
+<td>Claude Code、Cursor Agent、Aider</td>
+</tr>
+<tr>
+<td><strong>精通</strong></td>
+<td>让 AI 团队替你工作</td>
+<td>编排多 Agent、设计记忆系统、通过 MCP 打通全套工具链</td>
+<td>第 6-9 章</td>
+<td>Claude Code + Subagents、MCP Server 生态、LangGraph</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判断自己所处阶段的自测题：</strong></p>
+<ul>
+<li>你是否还在为"AI 又不按我说的格式输出"烦恼？→ 你在<strong>入门</strong>，补第 1-2 章。</li>
+<li>你是否遇到过"AI 改 A 文件时把 B 文件的逻辑忘了"？→ 你在<strong>进阶</strong>，补 Context Engineering。</li>
+<li>你是否希望"跑一条命令，AI 自动完成调研 → 编码 → 测试 → 提交"？→ 你要冲<strong>精通</strong>，学 Multi-Agent 与编排。</li>
+</ul>
+<hr />
+<h2 id="_3">三、目录分类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>主题</th>
+<th>一句话定位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 章</td>
+<td>Prompt Engineering 基础</td>
+<td>单次交互的"语法"</td>
+</tr>
+<tr>
+<td>第 2 章</td>
+<td>结构化提示与 Few-shot</td>
+<td>让输出可预测、可复用</td>
+</tr>
+<tr>
+<td>第 3 章</td>
+<td>Context Engineering 上下文工程</td>
+<td>决定 Agent 上限的隐藏引擎</td>
+</tr>
+<tr>
+<td>第 4 章</td>
+<td>Tool Calling 工具调用</td>
+<td>让模型从"会说"到"会做"</td>
+</tr>
+<tr>
+<td>第 5 章</td>
+<td>MCP 模型上下文协议</td>
+<td>工具生态的"USB-C 接口"</td>
+</tr>
+<tr>
+<td>第 6 章</td>
+<td>Agent Planning 任务规划</td>
+<td>ReAct 与 Plan-and-Execute</td>
+</tr>
+<tr>
+<td>第 7 章</td>
+<td>Agent Memory 记忆系统</td>
+<td>短期、长期、文件与向量记忆</td>
+</tr>
+<tr>
+<td>第 8 章</td>
+<td>Multi-Agent 多智能体协作</td>
+<td>编排模式与协作拓扑</td>
+</tr>
+<tr>
+<td>第 9 章</td>
+<td>Agent Delegation 子代理委派</td>
+<td>Orchestrator-Worker 实战</td>
+</tr>
+<tr>
+<td>第 10 章</td>
+<td>综合实战：搭一条 VibeCoding 流水线</td>
+<td>把前 9 章串成生产力</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">四、每章详细课程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1-prompt-engineering">第 1 章　Prompt Engineering 基础<a class="headerlink" href="#1-prompt-engineering" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：Prompt 是你与模型之间的"接口契约"。它由几个可拆解的要素组成：角色（Role）、任务（Task）、约束（Constraints）、上下文（Context）、输出格式（Output Format）。</p>
+<p><strong>为什么重要</strong>：模型是概率生成器，它输出的分布由你的 Prompt 塑造。含糊的输入必然导致含糊的输出——不是模型笨，是你没给够约束。</p>
+<p><strong>方法/模式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>反面例子</th>
+<th>正面写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>角色</td>
+<td>（不写）</td>
+<td><code>你是一名资深 TypeScript 后端工程师</code></td>
+</tr>
+<tr>
+<td>任务</td>
+<td><code>帮我写代码</code></td>
+<td><code>实现一个带重试的 fetch 封装</code></td>
+</tr>
+<tr>
+<td>约束</td>
+<td>（不写）</td>
+<td><code>不使用第三方库；最多重试 3 次；指数退避</code></td>
+</tr>
+<tr>
+<td>输出格式</td>
+<td>（不写）</td>
+<td><code>只输出代码，附带 3 行以内注释</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>VibeCoding 实战</strong>：在 Cursor / Claude Code 里，把项目级的通用约束（技术栈、代码风格、禁用库）写进 <code>.cursorrules</code> 或 <code>CLAUDE.md</code>，就相当于给每一次对话预置了角色与约束，不必重复敲。</p>
+<p><strong>常见误区</strong>：① 把 Prompt 当"许愿池"，一句话塞十个需求；② 用礼貌用语稀释指令密度；③ 不指定输出格式，导致解析困难。</p>
+<p><strong>练习</strong>：拿你最近一次"AI 输出不满意"的对话，用上面五要素重写一遍，对比结果。</p>
+<hr />
+<h3 id="2-few-shot">第 2 章　结构化提示与 Few-shot<a class="headerlink" href="#2-few-shot" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：<strong>结构化提示</strong>用分隔符（XML 标签、Markdown 标题、三引号）把不同信息块隔开；<strong>Few-shot</strong>用少量输入-输出示例教模型"照着做"。</p>
+<p><strong>为什么重要</strong>：Anthropic 官方 Prompt Engineering 指南明确推荐用 XML 标签（如 <code>&lt;context&gt;</code>、<code>&lt;example&gt;</code>、<code>&lt;instructions&gt;</code>）划分区块，因为 Claude 系模型对标签边界高度敏感，能显著降低"指令与数据混淆"的错误。</p>
+<p><strong>方法/模式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>技巧</th>
+<th>作用</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML/Markdown 分隔</td>
+<td>隔离指令与数据</td>
+<td>长文档摘要、代码审查</td>
+</tr>
+<tr>
+<td>Few-shot（1-5 例）</td>
+<td>锁定输出风格与结构</td>
+<td>生成固定格式的 commit message、测试用例</td>
+</tr>
+<tr>
+<td>Chain-of-Thought（"逐步思考"）</td>
+<td>提升推理准确率</td>
+<td>算法设计、Bug 根因分析</td>
+</tr>
+<tr>
+<td>Prefilling（预填响应开头）</td>
+<td>强制输出格式</td>
+<td>强制以 <code>{</code> 开头输出 JSON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VibeCoding 实战</strong>：让 AI 写测试时，给它 1-2 个你项目里已有的测试文件作为 few-shot 示例，生成的测试会自动贴合你的断言风格与命名规范，省去大量返工。</p>
+<p><strong>常见误区</strong>：few-shot 示例本身质量差 / 前后不一致，模型会忠实地学到你的坏习惯。示例即规范。</p>
+<p><strong>练习</strong>：为你项目写一个"生成 Conventional Commits 信息"的 3-shot 提示模板，复用到日常提交。</p>
+<hr />
+<h3 id="3-context-engineering">第 3 章　Context Engineering 上下文工程<a class="headerlink" href="#3-context-engineering" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：Context Engineering 是<strong>决定放什么、不放什么进模型上下文窗口</strong>的系统性工程。它包含四个动作：<strong>检索（Retrieve）、筛选（Select）、压缩（Compress）、组织（Organize）</strong>。</p>
+<p><strong>为什么重要</strong>：这是入门与精通的分水岭。模型的上下文窗口有限且昂贵，更关键的是存在 <strong>"Context Rot / Lost in the Middle"</strong> 现象——上下文越长、越杂，模型对中段信息的注意力越差。把整个代码库塞进去不是优势，而是灾难。<strong>给对信息，比给多信息重要一个数量级。</strong></p>
+<p><strong>方法/模式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>手段</th>
+<th>说明</th>
+<th>工具体现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语义检索（RAG）</td>
+<td>只捞与当前任务相关的代码片段</td>
+<td>Cursor 的 codebase 索引、<code>@file</code> 引用</td>
+</tr>
+<tr>
+<td>上下文压缩</td>
+<td>长历史 → 摘要，保留决策不保留过程</td>
+<td>Claude Code 的 <code>/compact</code>、自动 summarization</td>
+</tr>
+<tr>
+<td>分层记忆</td>
+<td>常驻规则 + 会话记忆 + 检索片段</td>
+<td><code>CLAUDE.md</code>（常驻）+ 对话（临时）</td>
+</tr>
+<tr>
+<td>明确引用</td>
+<td>用 <code>@</code> 精准喂文件，而非让 Agent 盲搜</td>
+<td>Cursor <code>@</code>、Claude Code 文件路径</td>
+</tr>
+<tr>
+<td>及时清场</td>
+<td>任务切换时开新会话，避免污染</td>
+<td>新开 session</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VibeCoding 实战</strong>：修一个 bug 时，不要把整个模块贴给 AI。先自己定位到 2-3 个相关文件，用 <code>@</code> 精确引用，再附上报错栈。上下文越干净，AI 命中率越高。长会话变慢变笨时，主动 <code>/compact</code> 或开新会话重启。</p>
+<p><strong>常见误区</strong>：① 迷信"大上下文窗口"，一股脑全塞；② 会话开太久，早期无关内容持续干扰当前任务；③ 不做压缩，token 成本失控。</p>
+<p><strong>练习</strong>：把一次"AI 越改越乱"的长会话，拆成"总结当前状态 → 开新会话 → 只带必要上下文"的两段式，感受差异。</p>
+<hr />
+<h3 id="4-tool-calling">第 4 章　Tool Calling 工具调用<a class="headerlink" href="#4-tool-calling" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：Tool Calling（函数调用）让模型从"生成文本"升级到"决定调用哪个函数、传什么参数"。模型不直接执行工具，而是输出一个结构化的调用请求，由外部运行时执行并把结果回传。</p>
+<p><strong>为什么重要</strong>：没有工具，Agent 只是个"话痨"；有了工具，它才能读文件、跑测试、查数据库、调 API——真正在你的环境里<strong>产生副作用</strong>。这是 Agent 从"聊天机器人"进化为"数字员工"的关键跃迁。</p>
+<p><strong>方法/模式</strong>：一次工具调用的循环是 <code>模型请求调用 → 运行时执行 → 结果回传 → 模型继续推理</code>。设计好工具是关键：</p>
+<table>
+<thead>
+<tr>
+<th>好工具的特征</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述清晰</td>
+<td>工具名与参数的 description 就是给模型的"说明书"，写烂了模型就用错</td>
+</tr>
+<tr>
+<td>粒度合适</td>
+<td>太细碎导致调用链过长，太粗则不灵活</td>
+</tr>
+<tr>
+<td>错误可读</td>
+<td>返回结构化、可诊断的错误，模型能自我纠正</td>
+</tr>
+<tr>
+<td>幂等/安全</td>
+<td>破坏性操作（删库、部署）应加确认门槛</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VibeCoding 实战</strong>：Claude Code 与 Cursor Agent 内置了 read/write file、run terminal、grep 等工具，这就是它们能"自己跑测试再改代码"的原因。理解工具循环，你才知道为什么要给 AI 一条能自动跑的测试命令——它是 Agent 的反馈信号（关联 <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a> 的自动化验证闭环）。</p>
+<p><strong>常见误区</strong>：① 工具描述含糊，模型频繁传错参数；② 把危险操作暴露给 Agent 却不加确认；③ 工具返回一大坨无结构日志，污染上下文。</p>
+<p><strong>练习</strong>：为你的项目定义一个"运行单测并返回失败摘要"的工具/脚本，让 Agent 具备自纠错能力。</p>
+<hr />
+<h3 id="5-mcp">第 5 章　MCP 模型上下文协议<a class="headerlink" href="#5-mcp" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：<strong>MCP（Model Context Protocol）</strong> 是 Anthropic 于 2024 年底开源的开放协议，用于标准化"AI 应用如何连接外部工具与数据源"。它常被比喻为 <strong>"AI 工具的 USB-C 接口"</strong>——一次实现，处处可用。</p>
+<p><strong>架构</strong>：MCP 采用 Client-Server 模型（参见 modelcontextprotocol.io 官方规范）：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Host</strong></td>
+<td>承载 AI 的应用</td>
+<td>Claude Desktop、Cursor、Claude Code</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>Host 内与单个 Server 通信的连接器</td>
+<td>每个 Server 一个 Client</td>
+</tr>
+<tr>
+<td><strong>Server</strong></td>
+<td>暴露能力的独立进程</td>
+<td>GitHub Server、Postgres Server、文件系统 Server</td>
+</tr>
+</tbody>
+</table>
+<p>Server 向模型暴露三类原语：<strong>Tools（可执行动作）、Resources（可读数据）、Prompts（预置提示模板）</strong>。传输层支持 stdio（本地）与 HTTP/SSE（远程）。</p>
+<p><strong>为什么重要</strong>：在 MCP 之前，每个 AI 应用要接每个工具都得写一遍胶水代码，是 M×N 的组合爆炸。MCP 把它降为 M+N：工具方写一个 Server，AI 应用方写一个 Client，即可互通。这是 Agent 生态从"孤岛"走向"操作系统"的基础设施。</p>
+<p><strong>VibeCoding 实战</strong>：给 Claude Code / Cursor 配一个 GitHub MCP Server，AI 就能直接读 issue、开 PR；配 Postgres Server，它能直接查你的开发库 schema 再写正确的 SQL。你甚至可以自己写一个 Server，把内部工具接进任意支持 MCP 的客户端。</p>
+<p><strong>常见误区</strong>：① 装一堆 MCP Server，每个都塞工具描述进上下文，反而稀释注意力——按需启用；② 忽视权限边界，把生产库直接暴露给 Agent。</p>
+<p><strong>练习</strong>：为 Claude Code 配置一个官方文件系统或 GitHub MCP Server，观察工具列表如何进入模型上下文。</p>
+<hr />
+<h3 id="6-agent-planning">第 6 章　Agent Planning 任务规划<a class="headerlink" href="#6-agent-planning" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：Planning 是 Agent 把一个模糊大目标拆解为可执行步骤序列的能力。两大主流范式：</p>
+<table>
+<thead>
+<tr>
+<th>范式</th>
+<th>机制</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ReAct</strong>（Reason + Act）</td>
+<td>边想边做：思考→行动→观察→再思考，逐步逼近</td>
+<td>探索型、环境不确定的任务（找 bug、逐步调研）</td>
+</tr>
+<tr>
+<td><strong>Plan-and-Execute</strong></td>
+<td>先出完整计划，再逐步执行，必要时重规划</td>
+<td>步骤清晰、可预估的任务（多文件重构）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么重要</strong>：Anthropic 的《Building Effective Agents》把系统分为两类：可预测的 <strong>Workflow（预设编排）</strong> 与自主决策的 <strong>Agent（模型自己规划循环）</strong>。规划能力决定了 Agent 面对开放任务时是稳步推进还是原地打转。一个好的建议是：<strong>能用固定 Workflow 解决的，就别用自主 Agent</strong>——简单、可控、便宜。</p>
+<p><strong>方法/模式</strong>：显式地要求 Agent"先制定计划，经我确认后再执行"（Claude Code 的 Plan Mode 正是此思路），把规划与执行解耦，让你在昂贵的执行前有机会纠偏。</p>
+<p><strong>VibeCoding 实战</strong>：做大重构时，先让 AI 输出一份 TODO 计划清单（不写代码），你审阅调整后再让它逐条执行。这既省 token，又避免它一头扎进错误方向。</p>
+<p><strong>常见误区</strong>：① 复杂任务不做规划直接让 Agent 自由发挥，导致它在细节里迷路；② 计划粒度过粗，无法验证中间进展。</p>
+<p><strong>练习</strong>：给 AI 一个"给项目加上 i18n"的目标，要求它只输出分阶段计划，你评审后再执行第一阶段。</p>
+<hr />
+<h3 id="7-agent-memory">第 7 章　Agent Memory 记忆系统<a class="headerlink" href="#7-agent-memory" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：记忆让 Agent 跨越单次对话的边界。分三层：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>载体</th>
+<th>生命周期</th>
+<th>VibeCoding 例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>短期记忆</strong></td>
+<td>上下文窗口</td>
+<td>单次会话</td>
+<td>当前对话历史</td>
+</tr>
+<tr>
+<td><strong>长期记忆</strong></td>
+<td>文件 / 数据库</td>
+<td>跨会话持久</td>
+<td><code>CLAUDE.md</code>、项目决策记录</td>
+</tr>
+<tr>
+<td><strong>语义记忆</strong></td>
+<td>向量数据库</td>
+<td>可检索</td>
+<td>代码库嵌入、历史 issue 检索</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么重要</strong>：模型本身是无状态的——每次调用都是"失忆"重新开始。记忆系统是让 Agent"记住项目约定、上次的决策、你的偏好"的唯一办法，直接决定协作是否连贯。</p>
+<p><strong>方法/模式</strong>：</p>
+<ul>
+<li><strong>文件记忆</strong>（最实用）：把"项目规则、架构决策、踩过的坑"写进 <code>CLAUDE.md</code> / <code>.cursorrules</code>，每次自动加载。这是独立开发者性价比最高的长期记忆。</li>
+<li><strong>向量记忆</strong>：把代码/文档做 embedding 存入向量库，按语义检索相关片段注入上下文（RAG 的底座）。</li>
+<li><strong>记忆压缩</strong>：长期记忆也要定期精简，只留"决策与结论"，去掉"过程与废话"。</li>
+</ul>
+<p><strong>VibeCoding 实战</strong>：每当你和 AI 达成一个重要约定（"这个项目所有日期用 UTC 存储"），立刻让它写进 <code>CLAUDE.md</code>。下次新会话，它自动记得——这就是把短期共识固化为长期记忆。</p>
+<p><strong>常见误区</strong>：① 把长期记忆当日志无限追加，越长越噪；② 依赖模型"记住"上次对话（它不会）；③ 向量检索召回一堆不相关片段污染上下文。</p>
+<p><strong>练习</strong>：整理一份你项目的 <code>CLAUDE.md</code>，包含技术栈、命名规范、3 条"血泪教训"，观察 AI 行为变化。</p>
+<hr />
+<h3 id="8-multi-agent">第 8 章　Multi-Agent 多智能体协作<a class="headerlink" href="#8-multi-agent" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：Multi-Agent 是让<strong>多个各有专长、各有独立上下文的 Agent 协作</strong>完成单个 Agent 难以胜任的复杂任务。核心动机是<strong>上下文隔离</strong>——每个子 Agent 拥有干净、聚焦的上下文窗口，避免相互污染。</p>
+<p><strong>为什么重要</strong>：Anthropic 在其多智能体研究系统（Research）的工程博客中指出，对于<strong>可并行、需广度探索</strong>的任务（如大规模调研），Multi-Agent 相比单 Agent 有显著提升，代价是 token 消耗大幅增加。所以它不是银弹，而是<strong>"用成本换广度与并行度"</strong>的权衡。</p>
+<p><strong>协作拓扑</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>结构</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orchestrator-Worker（主从）</strong></td>
+<td>一个主 Agent 拆任务并派给多个 Worker，汇总结果</td>
+<td>并行调研、多模块并行开发</td>
+</tr>
+<tr>
+<td><strong>Pipeline（流水线）</strong></td>
+<td>Agent 串行接力，前者输出为后者输入</td>
+<td>调研→写作→审校</td>
+</tr>
+<tr>
+<td><strong>Debate/Review（评审）</strong></td>
+<td>一个生成，另一个批判/审查</td>
+<td>代码审查、方案对比</td>
+</tr>
+<tr>
+<td><strong>Hierarchical（分层）</strong></td>
+<td>多层管理，主管带小组</td>
+<td>超大型任务分解</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VibeCoding 实战</strong>：Claude Code 的 Subagents 功能让你为不同职责建专职 Agent——一个"研究员"负责查文档、一个"编码员"负责写实现、一个"审查员"负责挑毛病。主 Agent 编排它们，各自上下文互不干扰。</p>
+<p><strong>常见误区</strong>：① 简单任务硬上 Multi-Agent，成本翻数倍收益却为负；② 子 Agent 间职责边界不清，重复劳动或互相甩锅；③ 忽视结果汇总环节，各 Agent 输出无法整合。</p>
+<p><strong>练习</strong>：设计一个双 Agent 流程——"实现 Agent"写功能，"审查 Agent"用另一套上下文独立评审，对比单 Agent 一气呵成的质量差异。</p>
+<hr />
+<h3 id="9-agent-delegation">第 9 章　Agent Delegation 子代理委派<a class="headerlink" href="#9-agent-delegation" title="Permanent link">&para;</a></h3>
+<p><strong>核心概念</strong>：Delegation 是 Multi-Agent 的落地机制——主 Agent（Orchestrator）如何<strong>把子任务委派给 Worker，并管理其生命周期与结果回收</strong>。它是第 8 章拓扑在工程上的具体实现。</p>
+<p><strong>为什么重要</strong>：委派做得好，主 Agent 的上下文能保持极度精简（只看"任务分配"与"结果摘要"），而繁重的细节探索被隔离在各 Worker 的独立上下文里。这是让复杂 Agent 系统<strong>可扩展、不崩窗口</strong>的关键。</p>
+<p><strong>Orchestrator-Worker 委派要点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>关键设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任务描述</td>
+<td>主 Agent 给 Worker 的指令要<strong>完整自包含</strong>——目标、边界、期望输出格式</td>
+</tr>
+<tr>
+<td>上下文隔离</td>
+<td>每个 Worker 独立窗口，不继承主 Agent 全部历史</td>
+</tr>
+<tr>
+<td>结果回收</td>
+<td>Worker 只回传<strong>结构化摘要</strong>，而非原始过程，保护主上下文</td>
+</tr>
+<tr>
+<td>并行与串行</td>
+<td>无依赖的子任务并行，有依赖的串行</td>
+</tr>
+<tr>
+<td>失败处理</td>
+<td>单个 Worker 失败可重试或降级，不拖垮全局</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VibeCoding 实战</strong>：在 Claude Code 里，主 Agent 用 Task 工具派生一个 Subagent 去"搜索整个代码库找出所有用到旧 API 的地方"。Subagent 在自己的上下文里翻遍几十个文件，最后只回传一份"文件清单 + 行号"给主 Agent——主 Agent 的窗口丝毫不被几十个文件的内容占满。这正是"委派换取上下文清洁"的精髓（也与第 3 章 Context Engineering 一脉相承）。</p>
+<p><strong>常见误区</strong>：① 给 Worker 的指令不自包含，它缺乏背景瞎干；② 让 Worker 回传原始全文，把主上下文重新撑爆，等于没隔离；③ 过度委派，简单查询也派子 Agent，增加延迟。</p>
+<p><strong>练习</strong>：用 Claude Code 的 subagent，把一次"全库排查 + 汇总"任务委派出去，观察主会话上下文是否保持精简。</p>
+<hr />
+<h3 id="10-vibecoding">第 10 章　综合实战：搭一条 VibeCoding 流水线<a class="headerlink" href="#10-vibecoding" title="Permanent link">&para;</a></h3>
+<p><strong>目标</strong>：把前 9 章串成一条你每天都能用的自动化开发流水线。</p>
+<p><strong>一条典型流水线（Orchestrator 编排）</strong>：</p>
+<ol>
+<li><strong>Context 准备</strong>（第 3、7 章）：<code>CLAUDE.md</code> 常驻项目规则，用 <code>@</code> 精确引用相关文件。</li>
+<li><strong>Plan</strong>（第 6 章）：让主 Agent 先出计划，你审阅确认。</li>
+<li><strong>Delegate 调研</strong>（第 8、9 章）：派研究 Subagent 查文档 / 全库排查，回传摘要。</li>
+<li><strong>Execute 编码</strong>（第 4 章）：编码 Agent 调用 read/write/run 工具实现功能。</li>
+<li><strong>Verify</strong>（第 4 章 + <a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a>）：自动跑测试，失败信息回流，Agent 自纠错。</li>
+<li><strong>Review</strong>（第 8 章）：独立审查 Agent 用干净上下文挑毛病。</li>
+<li><strong>Ship</strong>（第 5 章）：通过 GitHub MCP Server 自动开 PR。</li>
+</ol>
+<p><strong>练习</strong>：选一个真实小需求，全程按上述七步走一遍，记录每一步 AI 的表现与你介入纠偏的地方——这份记录本身就是最好的能力复盘。</p>
+<hr />
+<h2 id="_5">五、参考文章与网站（均为真实资源）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p><strong>Anthropic 官方</strong>
+- Anthropic Docs — Prompt Engineering 指南（含 XML 标签、Few-shot、CoT、Prefilling 等技巧）
+- Anthropic 工程博客 —《Building Effective Agents》（Workflow vs Agent、常见 Agent 模式）
+- Anthropic 工程博客 — 多智能体研究系统（Multi-Agent Research System）工程实践
+- Anthropic 工程博客 —《Effective Context Engineering for AI Agents》
+- Claude Code 官方文档（Subagents、Plan Mode、CLAUDE.md、MCP 配置）</p>
+<p><strong>Model Context Protocol（MCP）</strong>
+- MCP 官方站点与规范：modelcontextprotocol.io（架构、Tools/Resources/Prompts、传输层）
+- MCP 官方 GitHub 组织（SDK 与官方 Server 示例）</p>
+<p><strong>OpenAI 官方</strong>
+- OpenAI Platform Docs — Function Calling / Tools 指南
+- OpenAI Docs — Prompt Engineering 最佳实践</p>
+<p><strong>课程与研究</strong>
+- DeepLearning.AI — 《ChatGPT Prompt Engineering for Developers》
+- DeepLearning.AI — 《Functions, Tools and Agents with LangChain》/ 《AI Agentic Design Patterns with AutoGen》等 Agent 系列短课
+- 论文《ReAct: Synergizing Reasoning and Acting in Language Models》（Yao et al.）
+- 论文《Lost in the Middle: How Language Models Use Long Contexts》（Liu et al.）</p>
+<blockquote>
+<p>注：以上均为公开真实资源，具体 URL 请以各官方站点最新路径为准。</p>
+</blockquote>
+<hr />
+<h2 id="_6">六、相关<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[[VibeCoding能力体系]]（本专栏所属能力体系总览）</li>
+<li><a href="../01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/">01_产品能力</a>（AI 协作决定迭代速度）</li>
+<li><a href="../07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/">07_调试能力</a>（工具调用与自动化验证闭环）</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/codex.js"></script>
+      
+    
+  </body>
+</html>

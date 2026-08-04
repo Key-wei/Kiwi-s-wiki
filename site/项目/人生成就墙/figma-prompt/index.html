@@ -1,0 +1,2762 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="keywei 的私人技术图鉴">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Figma AI 设计 Prompt 包 - KIWI CODEX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/codex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#figma-ai-prompt" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="KIWI CODEX" class="md-header__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KIWI CODEX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Figma AI 设计 Prompt 包
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KIWI CODEX" class="md-nav__button md-logo" aria-label="KIWI CODEX" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KIWI CODEX
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KIWI CODEX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识库
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    知识库
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/C%2B%2B%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E7%BE%A4%E4%BD%93%E9%81%BF%E9%9A%9C%E5%AF%BC%E8%88%AA%E6%9E%B6%E6%9E%84%EF%BC%9ACrowdManager%E4%B8%8ECrowdFollowingComponent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UE群体避障导航架构：CrowdManager与CrowdFollowingComponent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%EF%BC%88GameSettingScreen.CreateRegistry%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跟着 Lyra 源码重学 GoF 设计模式（1）：工厂方法模式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UE%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88CommonGameDialogDescriptor%EF%BC%89/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简单工厂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/UML%E7%B1%BB%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 所有线放一起
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    位运算符
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/%E7%AE%97%E6%B3%95%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法查缺补漏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra拆解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lyra拆解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%9F%A5%E8%AF%86%E5%BA%93/Lyra%E6%8B%86%E8%A7%A3/Lyra%E6%B8%B8%E6%88%8F%E5%90%AF%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8EExperience%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lyra 游戏启动生命周期与 Experience 加载机制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    研究
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/Lyra%E5%B7%A5%E7%A8%8B%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程目录拆解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E4%B8%AA%E4%BA%BA%E8%BD%AF%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    个人软件工作流说明书
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E8%85%BE%E8%AE%AF%E6%8E%A7%E8%82%A1%E6%B7%B1%E5%BA%A6%E7%A0%94%E7%A9%B6-%E5%95%86%E4%B8%9A%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%B4%A2%E5%8A%A1%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    腾讯控股深度研究：商业模式、收入结构与生态版图
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    零散知识点整理流程
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A0%94%E7%A9%B6/%E9%A2%84%E6%94%AF%E6%98%8E%E5%A4%A9%E7%9A%84%E7%83%A6%E6%81%BC-%E9%A2%84%E6%9C%9F%E7%84%A6%E8%99%91%E5%BF%83%E7%90%86%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    预支明天的烦恼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI侦探局
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI侦探局
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI%E4%BE%A6%E6%8E%A2%E5%B1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 侦探局 · 微信小程序
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding能力体系
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VibeCoding能力体系
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VibeCoding 能力体系
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/01_%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品能力：从用户需求到 MVP 的全链路思维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/02_%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件架构能力：让代码库随规模优雅生长
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/03_AI%E5%8D%8F%E4%BD%9C%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 协作能力：从 Prompt 到 Multi-Agent 系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/04_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目管理能力：一个人也要有节奏与可交付
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/05_%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件工程规范：让 AI 与未来的你都能协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/06_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计能力：从数据结构到分布式的工程直觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/07_%E8%B0%83%E8%AF%95%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试能力：AI 时代最被低估的核心竞争力
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/08_%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    英语能力：一手信息的带宽与全球市场的入口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VibeCoding%E8%83%BD%E5%8A%9B%E4%BD%93%E7%B3%BB/09_%E8%BF%9B%E9%98%B6%E8%A1%A5%E5%85%85%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    进阶补充能力：技术之外，决定一个人能走多远的变量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    人生成就墙
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人生成就墙 (地球Online 风)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--active"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figma AI 设计 Prompt 包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-design-system-spec-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 Part 1: Design System Spec (粘贴在任何 prompt 顶部)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-master-prompt-v0-figma-make" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Part 2: Master Prompt (给 v0 / Figma Make 一次性生成)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-per-screen-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📱 Part 3: Per-Screen Prompts (逐屏精细生成)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📱 Part 3: Per-Screen Prompts (逐屏精细生成)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screen-1-entry-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 1: Entry Screen (入口页)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-2-starter-pack-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 2: Starter Pack Animation (新手大礼包动画)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-3-codex-main-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 3: Codex Main Page (图鉴主页 — 核心)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-4-achievement-detail-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 4: Achievement Detail Modal (成就详情弹窗)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-5-profile-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 5: Profile Page (个人主页)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-6-share-card-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 6: Share Card Preview (分享卡片)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-7-onboarding-bubble-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 7: Onboarding Bubble Guide (新手气泡引导)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-component-library-prompts-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Part 4: Component Library Prompts (组件级 prompt)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Part 4: Component Library Prompts (组件级 prompt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-a-achievement-cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component A: Achievement Cell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-b-rarity-badge-pill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component B: Rarity Badge / Pill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-c-progress-bar-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component C: Progress Bar (Category)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-mood-board-visual-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎬 Part 5: Mood Board / Visual References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎬 Part 5: Mood Board / Visual References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Primary references (照着抄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-mood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 Visual mood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animation-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎬 Animation references
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avoid-avoid-prompts-to-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ AVOID (avoid prompts to AI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-ai-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Part 6: AI 工具特化版 Prompt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Part 6: AI 工具特化版 Prompt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-figma-make-figma-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Figma Make (Figma 官方 AI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-v0-by-vercel-reacttailwind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For v0 by Vercel (生成 React/Tailwind 代码)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-galileo-ai-magic-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Galileo AI / Magic Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-uizard-banani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Uizard / Banani
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-7-quality-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Part 7: Quality Checklist (出图后自检)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 推荐使用流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%BE%E8%AE%A1%E4%BE%9D%E6%8D%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学设计依据
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%88%90%E5%B0%B1%E5%BA%93_v0.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    成就库 v0.1 (地球Online 风格)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-design-system-spec-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 Part 1: Design System Spec (粘贴在任何 prompt 顶部)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-master-prompt-v0-figma-make" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Part 2: Master Prompt (给 v0 / Figma Make 一次性生成)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-per-screen-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📱 Part 3: Per-Screen Prompts (逐屏精细生成)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📱 Part 3: Per-Screen Prompts (逐屏精细生成)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screen-1-entry-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 1: Entry Screen (入口页)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-2-starter-pack-animation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 2: Starter Pack Animation (新手大礼包动画)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-3-codex-main-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 3: Codex Main Page (图鉴主页 — 核心)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-4-achievement-detail-modal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 4: Achievement Detail Modal (成就详情弹窗)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-5-profile-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 5: Profile Page (个人主页)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-6-share-card-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 6: Share Card Preview (分享卡片)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-7-onboarding-bubble-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen 7: Onboarding Bubble Guide (新手气泡引导)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-component-library-prompts-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Part 4: Component Library Prompts (组件级 prompt)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Part 4: Component Library Prompts (组件级 prompt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-a-achievement-cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component A: Achievement Cell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-b-rarity-badge-pill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component B: Rarity Badge / Pill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-c-progress-bar-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component C: Progress Bar (Category)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-mood-board-visual-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎬 Part 5: Mood Board / Visual References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎬 Part 5: Mood Board / Visual References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Primary references (照着抄)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-mood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 Visual mood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animation-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎬 Animation references
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avoid-avoid-prompts-to-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ AVOID (avoid prompts to AI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-ai-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Part 6: AI 工具特化版 Prompt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Part 6: AI 工具特化版 Prompt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-figma-make-figma-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Figma Make (Figma 官方 AI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-v0-by-vercel-reacttailwind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For v0 by Vercel (生成 React/Tailwind 代码)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-galileo-ai-magic-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Galileo AI / Magic Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-uizard-banani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Uizard / Banani
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-7-quality-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Part 7: Quality Checklist (出图后自检)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 推荐使用流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  <div class="cx-meta">
+    <span>类型 <b>design-asset</b></span>
+    <span>标签 <b>figma · design · prompt · ai-tools · ui</b></span>
+    <span>建立 <b>2026-06-04</b></span>
+  </div>
+  
+  
+                  
+
+
+
+<h1 id="figma-ai-prompt">Figma AI 设计 Prompt 包<a class="headerlink" href="#figma-ai-prompt" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>用于喂给 Figma Make / v0 / Galileo AI / Magic Patterns / Uizard 等 AI 设计工具,生成「人生成就墙」v0.1 的视觉设计稿。</p>
+<p><strong>使用建议</strong>: AI 设计工具对英文 prompt 支持更好,所以系统指令用英文写,中文内容(成就名、按钮文字)保留中文。</p>
+</blockquote>
+<hr />
+<h2 id="part-1-design-system-spec-prompt">🎨 Part 1: Design System Spec (粘贴在任何 prompt 顶部)<a class="headerlink" href="#part-1-design-system-spec-prompt" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>DESIGN SYSTEM — LifeWall (地球Online RPG-style WeChat Mini-Program)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>## Concept
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>A &quot;Steam Profile Page meets MMO Achievement System for Chinese white-collar life.&quot;
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Dark, gamified, with rarity-based color hierarchy. Mood: nostalgic gaming UI
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>fused with modern minimalism. Think: Steam achievement page × Pokémon Pokédex
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>× NetEase Cloud Music year-in-review report.
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>## Platform
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>WeChat Mini-Program. Frame size: 375×812 dp (or 750×1624 px @2x).
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Top safe area: 44dp status bar + 44dp navigation bar = 88dp top inset.
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Bottom safe area: 56dp tabBar + 34dp home indicator = 90dp bottom inset.
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>## Color Palette
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>- Background primary:   #0F1419  (deep midnight, base)
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>- Background secondary: #1A1F26  (card, elevated surface)
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>- Background tertiary:  #2C3E50  (modal overlay, dividers)
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>- Text primary:         #E8E8E8  (main copy)
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>- Text secondary:       #999999  (subtitle, meta)
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>- Text muted:           #5A6470  (locked items, disabled)
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>- Accent (brand):       #F39C12  (legendary gold, CTA, brand)
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>- Accent hover:         #E67E22  (pressed state)
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>## Rarity Color System (CRITICAL — drives 80% of visual hierarchy)
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>- Common (&gt;50% unlock):   #999999  (gray border, plain)
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>- Elite (10–50%):         #4A90E2  (blue border, subtle glow)
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>- Epic (1–10%):           #9B59B6  (purple border, gradient inner)
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>- Legendary (&lt;1%):        #F39C12  (orange border, gold particle effect)
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>- Hidden (egg achievements): #2C3E50  (black silhouette, &quot;?&quot; mark)
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>## Typography
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>Font family: PingFang SC (中文), SF Pro Display (English), system fallback.
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>- Display (角色卡 hero):    36px / Bold / -0.5px letter-spacing
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>- Heading 1 (page title):  24px / Semibold
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>- Heading 2 (category):    18px / Semibold
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>- Body (achievement name): 14px / Medium
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>- Caption (rate, meta):    11px / Regular
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>- Tabular numerals for percentages (47% / 0.8%)
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>## Spacing System (8pt grid)
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>4 / 8 / 12 / 16 / 20 / 24 / 32 / 48 / 64
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>## Border Radius
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>- Card:   12px
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>- Modal:  20px (top-rounded for bottom sheet)
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>- Button: 24px (pill)
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>- Achievement cell: 8px
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>## Iconography
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>v0.1 uses Emoji-as-icons (not custom SVG, to save design time).
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>Each achievement has one emoji (🎮 👶 🎓 💼 💞 ✈️ 🛠️ 💪 🏠 💰 🎭 etc).
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>Locked state: emoji desaturated to grayscale + 35% opacity.
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>## Animation Principles (for prototyping only, devs implement separately)
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>- Unlock animation: scale 0.8 → 1.05 → 1.0, 600ms cubic-bezier
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>- Level-up toast: full-screen flash + golden particles, 1.2s
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>- Page transition: slide-from-right, 240ms ease-out
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>## Voice &amp; Tone (中文文案风格)
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>&quot;地球Online&quot; MMO slang. Examples:
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>- &quot;主角登场&quot; (Main Character Enters)
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>- &quot;新人下副本&quot; (Rookie Dungeon Run)
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>- &quot;驾照猎人&quot; (License Hunter)
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>- &quot;35岁试炼&quot; (Age 35 Trial)
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>NEVER serious or preachy. Always game-flavored.
+</code></pre></div>
+<hr />
+<h2 id="part-2-master-prompt-v0-figma-make">🚀 Part 2: Master Prompt (给 v0 / Figma Make 一次性生成)<a class="headerlink" href="#part-2-master-prompt-v0-figma-make" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Design a WeChat mini-program called &quot;地球Online&quot; (LifeWall) — a &quot;personal Steam
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>profile page&quot; for Chinese white-collar professionals to track life achievements.
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[PASTE THE FULL DESIGN SYSTEM SPEC FROM PART 1 ABOVE]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Generate the following 7 screens as a connected Figma file:
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>1. ENTRY SCREEN (welcome / scan-in landing)
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>2. STARTER PACK ANIMATION (8 main achievements auto-unlock with celebration)
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>3. CODEX MAIN PAGE (200 achievements grid — the heart of the app)
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>4. ACHIEVEMENT DETAIL MODAL (bottom sheet that opens on tap)
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>5. PROFILE PAGE (level, stats, share button)
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>6. SHARE CARD PREVIEW (the screenshotable life-RPG character card)
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>7. ONBOARDING BUBBLE GUIDE OVERLAY (3-4 step tooltips)
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>Aesthetic references:
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>- Steam personal profile page achievements section
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>- Pokémon Pokédex grid
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>- NetEase Cloud Music annual report (2024 wrapped style)
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>- Genshin Impact character menu (dark + gold)
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>- Honkai Star Rail UI (chinese gaming aesthetic)
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>Avoid: Material Design, generic SaaS dashboard, light mode, flat hipster style.
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>Make it feel like opening a treasure chest of your life.
+</code></pre></div>
+<hr />
+<h2 id="part-3-per-screen-prompts">📱 Part 3: Per-Screen Prompts (逐屏精细生成)<a class="headerlink" href="#part-3-per-screen-prompts" title="Permanent link">&para;</a></h2>
+<h3 id="screen-1-entry-screen">Screen 1: Entry Screen (入口页)<a class="headerlink" href="#screen-1-entry-screen" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Design a WeChat mini-program entry/welcome screen.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Layout (top to bottom):
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>- Logo/Wordmark &quot;地球Online&quot; centered, 60dp from top safe area, 36px Bold gold (#F39C12)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>- Subtitle: &quot;你的人生 RPG 存档&quot; (Your Life RPG Save File), 14px gray (#999), 8dp below logo
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>- Hero illustration area (300dp tall): pixel-art style isometric scene of a tiny
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  character standing in front of a giant achievement wall glowing in the dark
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>- Primary CTA button &quot;登录开始游戏&quot; (Login &amp; Start Game), pill shape,
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  full-width minus 32dp side margin, 56dp tall, gold gradient #F39C12 → #E67E22,
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  black text 16px Semibold
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>- Below CTA: small text &quot;首次进入将自动获得 8 个新手成就 🎁&quot; (First entry
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  auto-unlocks 8 starter achievements), 12px #999
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>Background: #0F1419 with subtle radial gradient toward center #1A1F26.
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Add 6 floating particle dots (gold, 2-4px) scattered randomly at low opacity.
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>Bottom: small WeChat-style &quot;由微信提供登录&quot; badge.
+</code></pre></div>
+<h3 id="screen-2-starter-pack-animation">Screen 2: Starter Pack Animation (新手大礼包动画)<a class="headerlink" href="#screen-2-starter-pack-animation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Design a celebratory unlock-animation screen — captured as a single keyframe
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>showing the climax of the animation.
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>State: 8 starter achievement cards arranged in 2 rows × 4 columns, centered
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>in screen. Each card is 72×72dp with:
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>- Emoji (32px) centered top
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>- Achievement name (12px white Medium) below
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>- Common rarity gray border
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>- ALL 8 cards in &quot;just unlocked&quot; state: gold glow halo, scale 1.08, white-to-gold
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  gradient ring
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Top: large headline &quot;你已抵达地球Online&quot; (You have arrived at Earth Online),
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>24px white Bold. Below: &quot;8 个主线成就已自动点亮&quot; (8 main achievements auto-lit),
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>14px gold #F39C12.
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>Background: deep #0F1419 with golden radial burst from center.
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>Confetti particles in gold, purple, blue scattered around (15-20 pieces).
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>Bottom CTA: &quot;进入图鉴&quot; (Enter Codex), pill, full-width, gold.
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>Sample 8 achievement names (1 per card):
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>🎮 主角登场  /  👶 第一声啼哭  /  🚶 学会走路  /  🗣️ 学会说话
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>🎓 义务教育毕业  /  🔓 18岁解封  /  💰 第一次自己买东西  /  🚲 学会骑自行车
+</code></pre></div>
+<h3 id="screen-3-codex-main-page">Screen 3: Codex Main Page (图鉴主页 — 核心)<a class="headerlink" href="#screen-3-codex-main-page" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Design the main codex (achievement library) page — the most important screen,
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>where users will spend 80% of their time.
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Header (top, 88dp tall, sticky):
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>- Left: back arrow + page title &quot;地球Online 图鉴&quot; 18px white Semibold
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>- Right: progress badge &quot;47 / 200&quot; 16px gold tabular numerals
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>- Below title, thin progress bar: gold filled, gray track, 4dp tall
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Filter chips row (horizontally scrollable, 44dp tall, sticky below header):
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>&quot;全部 200&quot; (Active, gold pill) / &quot;主线 8/8&quot; / &quot;成长 12/28&quot; / &quot;职业 5/28&quot; /
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>&quot;感情 3/22&quot; / &quot;旅行 2/22&quot; / &quot;技能 4/28&quot; / &quot;健康 1/18&quot; / &quot;生活 5/22&quot; /
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>&quot;财务 1/14&quot; / &quot;彩蛋 ?/10&quot;
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>Main grid (4 columns, 8dp gap, 16dp side padding):
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>Each cell is square (~80×80dp), shows:
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>- Top: emoji 28px centered
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>- Middle: achievement name 11px Medium, 1-2 lines, ellipsis
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>- Bottom right corner: rarity dot indicator (4dp circle)
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>- Border: 2dp solid in rarity color
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>- LOCKED state: 35% opacity, grayscale filter, &quot;?&quot; replaces name if hidden type
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>- UNLOCKED state: full color, subtle inner glow in rarity color
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>Sample cells (mix of locked/unlocked, all rarities):
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>Row 1 (Main, all unlocked, gray):
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>  🎮 主角登场 ✓  /  👶 第一声啼哭 ✓  /  🚶 学会走路 ✓  /  🗣️ 学会说话 ✓
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>Row 2 (Growth, mix):
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>  🎯 难道我是天才? (blue, unlocked)  /  📚 学霸装备 (purple, locked)
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>  🎓 大学毕业典礼 (blue, unlocked)  /  🥇 博士传说 (orange, locked)
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>Row 3 (Career):
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>  💼 新人下副本 (gray, unlocked)  /  🏢 大厂入职 (purple, locked)
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>  📜 考公上岸 (orange, locked)  /  🚪 逃离副本 (purple, locked)
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>Row 4 (Travel):
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>  🗺️ 国内地图开荒 (blue, unlocked)  /  ✈️ 走出新手村 (blue, locked)
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>  🌌 极光猎人 (orange, locked)  /  🏔️ 登顶玩家 (purple, locked)
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>Bottom: WeChat tabBar (56dp), 2 tabs:
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>&quot;图鉴&quot; (active, gold) | &quot;我&quot; (gray)
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>Background: #0F1419
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>Header background: #1A1F26 with 1dp #2C3E50 bottom border
+</code></pre></div>
+<h3 id="screen-4-achievement-detail-modal">Screen 4: Achievement Detail Modal (成就详情弹窗)<a class="headerlink" href="#screen-4-achievement-detail-modal" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Design a bottom-sheet modal that appears when user taps an achievement cell.
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Modal style: rounded top corners 20dp, slides up from bottom, height ~60% of
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>screen, dark semi-transparent backdrop behind (#000 60% opacity).
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Modal content (top to bottom, 24dp side padding):
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>- Drag handle bar (centered, 36×4dp, #5A6470, top 8dp)
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>- Hero section (centered): emoji 64px in a 100×100 circle with rarity-colored
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  glow ring around it
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>- Achievement name &quot;驾照猎人&quot; 24px white Semibold, centered
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>- Rarity badge pill: &quot;🔵 精英 · 54% 玩家拥有&quot; 12px elite blue (#4A90E2),
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>  centered below name
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>- Description box (#1A1F26 bg, 12dp radius, 16dp padding):
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  &quot;通关驾驶考试副本,解锁机动车驾驶权限&quot;
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>  14px #E8E8E8
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>UNLOCKED STATE shows:
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>- &quot;解锁于 2024-08-15&quot; 12px #999
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>- User note input area (multiline, placeholder &quot;记录一下当时的故事...&quot;),
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>  #2C3E50 bg, 12dp radius, 80dp tall
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>- &quot;添加照片&quot; button (optional photo upload), dashed border, gray, 60dp tall
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>- Bottom: secondary button &quot;取消解锁&quot; (red text, ghost button)
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>LOCKED STATE shows:
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>- Tap-to-unlock CTA: full-width pill button &quot;✅ 我已达成此成就&quot; (I&#39;ve achieved
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>  this), gold gradient, 56dp tall
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>- Below: smaller text &quot;勾选时请确保真实达成 · 诚信声明&quot;
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>  10px #5A6470 centered
+</code></pre></div>
+<h3 id="screen-5-profile-page">Screen 5: Profile Page (个人主页)<a class="headerlink" href="#screen-5-profile-page" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Design the user profile page — the &quot;Steam profile&quot; hero view.
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Header (200dp tall, gradient bg from #1A1F26 to #0F1419):
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>- Avatar (80×80dp circle, top-center, gold border 3dp)
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>- Display name &quot;玩家_kw&quot; 20px white Semibold below avatar
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>- Level badge: &quot;Lv.5 资深玩家&quot; pill, gold bg #F39C12, black text 14px,
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  rounded 12dp, below name
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>- Total achievements: &quot;已点亮 47 / 200 成就&quot; 13px #999
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>Stats grid (3 columns, below header, 16dp side margin, 8dp gap):
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>Each stat card (#1A1F26 bg, 12dp radius, 80dp tall, centered text):
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>  Card 1: &quot;⏱️ 5 天&quot; / &quot;已加入地球&quot; 11px #999
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  Card 2: &quot;🏆 47&quot; / &quot;已解锁成就&quot; 11px #999
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  Card 3: &quot;✨ 1&quot; / &quot;传说级成就&quot; 11px gold
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>Category breakdown (full width, 16dp side margin):
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>For each of 9 categories, show a horizontal row:
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>[icon] 类别名 — progress bar (rarity-of-highest tier color) — &quot;X / Y&quot;
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>e.g.:
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>🎯 主线        ████████████ 8/8
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>🎓 成长        ████████░░░░ 12/28
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>💼 职业        ████░░░░░░░░ 5/28
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>CTA section (sticky bottom, above tabBar):
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>- Primary button &quot;🪄 生成我的人生卡片&quot; full-width pill, 56dp tall, gold gradient
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>- IF user has &lt; 5 unlocks: button DISABLED state, gray, with text below:
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>  &quot;再勾选 X 个成就解锁分享卡 ✨&quot; 12px #999
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>WeChat tabBar bottom: &quot;图鉴&quot; (gray) | &quot;我&quot; (active, gold)
+</code></pre></div>
+<h3 id="screen-6-share-card-preview">Screen 6: Share Card Preview (分享卡片)<a class="headerlink" href="#screen-6-share-card-preview" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Design the screenshotable &quot;life RPG character card&quot; that users share to friends.
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Aspect: 750×1334px (3:4 portrait, optimized for WeChat moments).
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Layout (top to bottom):
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>- Header bar: &quot;地球Online · 玩家档案&quot; 14px gold, top 24dp
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>- Avatar circle (120dp) centered + gold ring + small &quot;Lv.5&quot; badge
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>- Display name 28px white Bold below avatar
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>- Tagline &quot;已征服地球的 47 个副本&quot; 14px gold #F39C12
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>- Center showcase grid (3×3 = 9 cells):
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>  Display the 9 most rare unlocked achievements (sorted by rarity).
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>  Each cell larger (~120×120dp), with full color rarity border + name visible.
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>  Sample 9 achievements (assume user has unlocked these):
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>  🌌 极光猎人 (orange) / 🥇 博士传说 (orange) / 📚 百本阅读 (orange)
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>  🏢 大厂入职 (purple) / 🎯 难道我是天才? (blue) / ✈️ 走出新手村 (blue)
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>  🚗 驾照猎人 (blue) / 💼 新人下副本 (gray) / 🎮 主角登场 (gray)
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>- Stat strip below grid:
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>  &quot;⏱️ 入服 5 天 · 🏆 47 成就 · ✨ 3 传说级&quot;
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>- Bottom area:
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>  - QR code (180×180px) for the mini-program — labeled
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    &quot;扫码查看你的地球Online 进度&quot; 12px #999
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>  - Tiny watermark bottom-right: &quot;@地球Online · 2026&quot;
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>Background: dark gradient #0F1419 → #1A1F26 with subtle starfield pattern
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>(small white dots at 30% opacity, randomly placed).
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>Add 2-3 large bokeh-blur orbs in gold/purple/blue at low opacity for depth.
+</code></pre></div>
+<h3 id="screen-7-onboarding-bubble-guide">Screen 7: Onboarding Bubble Guide (新手气泡引导)<a class="headerlink" href="#screen-7-onboarding-bubble-guide" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Design 3 onboarding tooltip overlays, shown sequentially on top of the codex
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>page after the starter pack animation.
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Backdrop: codex page dimmed to 30% opacity behind, with a &quot;highlight cutout&quot;
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>spotlight on the relevant UI element (radial bright spot around target).
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Tooltip style: chat-bubble shape, white-ish #1A1F26 bg with gold #F39C12 border
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>2dp, arrow tail pointing to target. Padding 16dp, max-width 280dp,
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>border-radius 16dp. Drop shadow.
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>Sequence:
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>Step 1 (target: codex grid):
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>&quot;👇 向下滑动,浏览全部 200 个人生成就&quot;
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>[skip] [next →] (right-bottom)
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>Step indicator: &quot;1 / 3&quot; top-right
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>Step 2 (target: an unlocked achievement cell):
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>&quot;💡 看到你已经达成的成就? 点一下勾选它&quot;
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>[skip] [next →]
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>&quot;2 / 3&quot;
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>Step 3 (target: profile tab in tabBar):
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>&quot;🎴 勾选 5 个以上,即可解锁&#39;人生角色卡&#39;分享朋友圈!&quot;
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>[skip] [开始探索 ✨] (gold CTA)
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>&quot;3 / 3&quot;
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>Visual notes:
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>- Bubble tail pointing toward UI element (e.g., arrow pointing down for grid,
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>  arrow pointing up for tabBar)
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>- Smooth dim animation: 200ms fade-in
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>- &quot;skip&quot; link smaller and #999 (de-emphasized)
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>- &quot;next&quot; CTA gold and prominent
+</code></pre></div>
+<hr />
+<h2 id="part-4-component-library-prompts-prompt">🧩 Part 4: Component Library Prompts (组件级 prompt)<a class="headerlink" href="#part-4-component-library-prompts-prompt" title="Permanent link">&para;</a></h2>
+<h3 id="component-a-achievement-cell">Component A: Achievement Cell<a class="headerlink" href="#component-a-achievement-cell" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Design a reusable Achievement Cell component for the codex grid.
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Specs:
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>- Square 80×80dp (or scalable to 72/96/120 variants)
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>- Border-radius 8dp
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>- 2dp solid border (color = rarity color)
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>- BG: #1A1F26
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>- Inner padding 8dp
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>- Layout: emoji 28px top-center / name 11px center / rate dot bottom-right
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>Provide 5 rarity variants + 2 state variants (locked/unlocked) = 10 total.
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>States to design:
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>1. Common · Locked    (gray border, 35% opacity, grayscale)
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>2. Common · Unlocked  (gray border, full color)
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>3. Elite · Locked     (faded blue border, dimmed)
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>4. Elite · Unlocked   (blue border, subtle blue inner glow)
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>5. Epic · Locked
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>6. Epic · Unlocked    (purple border + soft purple glow)
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>7. Legendary · Locked
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>8. Legendary · Unlocked (gold border + animated gold particle hint + &quot;✨&quot; sparkle)
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>9. Hidden · Locked    (black silhouette, &quot;???&quot; instead of name, &quot;?&quot; emoji)
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>10. Hidden · Unlocked (revealed, special purple-black gradient border)
+</code></pre></div>
+<h3 id="component-b-rarity-badge-pill">Component B: Rarity Badge / Pill<a class="headerlink" href="#component-b-rarity-badge-pill" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Design a small inline rarity badge used in detail modals and lists.
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Format: &quot;● 精英 · 54% 玩家拥有&quot;
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Pill shape, 24dp tall, 12px text, 8dp horizontal padding, rounded 12dp.
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>5 variants:
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>1. ● 普通 · 78% 玩家拥有     bg: #2C3E50, text: #999999, dot: #999999
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>2. ● 精英 · 54% 玩家拥有     bg: rgba(74,144,226,0.15), text: #4A90E2, dot: #4A90E2
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>3. ● 史诗 · 8% 玩家拥有      bg: rgba(155,89,182,0.15), text: #9B59B6, dot: #9B59B6
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>4. ● 传说 · 0.8% 玩家拥有    bg: rgba(243,156,18,0.15), text: #F39C12, dot: #F39C12
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>5. ⚫ 隐藏成就               bg: #2C3E50, text: #5A6470, dot: #5A6470
+</code></pre></div>
+<h3 id="component-c-progress-bar-category">Component C: Progress Bar (Category)<a class="headerlink" href="#component-c-progress-bar-category" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Design a horizontal category progress bar used in the profile page.
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Layout: [icon 16dp] [name 13px] [progress bar flex-grow] [count 12px]
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Height: 36dp row. Bar height: 6dp. Gap: 12dp.
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>Bar style:
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>- Track: #2C3E50 bg, 6dp tall, 3dp radius
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>- Fill: gradient based on highest rarity unlocked in that category
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>  (if user has any legendary in this category, fill is gold; else purple/blue/gray)
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>- Animation: fill grows on page load, 800ms ease-out
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>Sample rows:
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>🎯 主线        [████████████] 8/8
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>🎓 成长        [████████░░░░] 12/28
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>💼 职业        [████░░░░░░░░] 5/28
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>✈️ 旅行        [██░░░░░░░░░░] 2/22
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>🛠️ 技能        [████░░░░░░░░] 4/28
+</code></pre></div>
+<hr />
+<h2 id="part-5-mood-board-visual-references">🎬 Part 5: Mood Board / Visual References<a class="headerlink" href="#part-5-mood-board-visual-references" title="Permanent link">&para;</a></h2>
+<p>把以下关键词扔进 Pinterest / Dribbble / Behance 搜素材,辅助 AI 工具理解风格:</p>
+<h3 id="primary-references">🎯 Primary references (照着抄)<a class="headerlink" href="#primary-references" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Steam profile achievements page UI</code></li>
+<li><code>Pokemon Pokedex modern redesign</code></li>
+<li><code>网易云年度报告 2024 ui</code></li>
+<li><code>Genshin Impact character menu UI</code></li>
+<li><code>Honkai Star Rail UI dark gold</code></li>
+</ul>
+<h3 id="visual-mood">🎨 Visual mood<a class="headerlink" href="#visual-mood" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>dark mode gaming UI 2025</code></li>
+<li><code>MMO achievement system mockup</code></li>
+<li><code>pixel art meets minimalism</code></li>
+<li><code>chinese app gamification ui</code></li>
+</ul>
+<h3 id="animation-references">🎬 Animation references<a class="headerlink" href="#animation-references" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Duolingo level up animation</code></li>
+<li><code>Steam achievement unlock</code></li>
+<li><code>Apple fitness rings animation</code></li>
+</ul>
+<h3 id="avoid-avoid-prompts-to-ai">❌ AVOID (avoid prompts to AI)<a class="headerlink" href="#avoid-avoid-prompts-to-ai" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Generic Material Design</li>
+<li>Light mode SaaS dashboard</li>
+<li>Notion / Linear style minimalism (too sterile for our gamified concept)</li>
+<li>Hipster gradient mesh (too 2022)</li>
+</ul>
+<hr />
+<h2 id="part-6-ai-prompt">🛠️ Part 6: AI 工具特化版 Prompt<a class="headerlink" href="#part-6-ai-prompt" title="Permanent link">&para;</a></h2>
+<h3 id="for-figma-make-figma-ai">For Figma Make (Figma 官方 AI)<a class="headerlink" href="#for-figma-make-figma-ai" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Create a WeChat mini-program design system + 7 connected screens for &quot;地球Online&quot;
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>— a personal life-achievement codex inspired by Steam profile pages and Pokemon
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Pokedex. Dark theme (#0F1419), with rarity-based color hierarchy
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>(gray/blue/purple/orange/black). Chinese-language content. Mobile portrait
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>375×812dp. Generate as auto-layout components with proper variants for each
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>rarity × locked/unlocked state.
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>[paste Design System Spec from Part 1]
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>[paste Screen prompts from Part 3 in order]
+</code></pre></div>
+<h3 id="for-v0-by-vercel-reacttailwind">For v0 by Vercel (生成 React/Tailwind 代码)<a class="headerlink" href="#for-v0-by-vercel-reacttailwind" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Generate a Next.js + Tailwind component library for a WeChat-style achievement
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>tracker app called &quot;地球Online&quot; (Earth Online). Build:
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>1. &lt;AchievementCell&gt; component with rarity prop (common|elite|epic|legendary|hidden)
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>   and unlocked boolean
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>2. &lt;CodexGrid&gt; page with 200 cells in 4-column grid + filter chips
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>3. &lt;AchievementModal&gt; bottom-sheet with locked/unlocked variants
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>4. &lt;ProfilePage&gt; with stats + share card CTA
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>5. &lt;ShareCard&gt; screenshotable component (3:4 aspect)
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>Styling:
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>- Tailwind dark mode (always)
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>- Custom colors: rarity-common, rarity-elite, rarity-epic, rarity-legendary, rarity-hidden
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>- Font: PingFang SC fallback
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>- All Chinese sample copy (use names from achievement library)
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>Sample data: 20 achievements across all 5 rarities with Chinese names.
+</code></pre></div>
+<h3 id="for-galileo-ai-magic-patterns">For Galileo AI / Magic Patterns<a class="headerlink" href="#for-galileo-ai-magic-patterns" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Design a &quot;Steam profile page for real life&quot; — a Chinese WeChat mini-program
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>that turns life milestones into a Pokedex-style achievement codex. Dark gaming
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>aesthetic, gold + purple + blue rarity hierarchy. Generate the codex grid screen
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>showing 16 achievement cells (mix of locked/unlocked, all rarities) with names
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>in Chinese like &quot;主角登场&quot;, &quot;驾照猎人&quot;, &quot;大厂入职&quot;, &quot;极光猎人&quot;, &quot;婚礼CG解锁&quot;.
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>Header shows &quot;47 / 200&quot; progress. Bottom WeChat tabBar.
+</code></pre></div>
+<h3 id="for-uizard-banani">For Uizard / Banani<a class="headerlink" href="#for-uizard-banani" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Mobile UI for &quot;Earth Online&quot; life achievement tracker. Dark theme, Chinese
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>text, RPG game-style. 7 screens: welcome, starter-pack-celebration, codex-grid,
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>achievement-detail-modal, profile, share-card, onboarding-tooltips.
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>Reference: Steam achievement page meets NetEase Cloud annual report.
+</code></pre></div>
+<hr />
+<h2 id="part-7-quality-checklist">✅ Part 7: Quality Checklist (出图后自检)<a class="headerlink" href="#part-7-quality-checklist" title="Permanent link">&para;</a></h2>
+<p>设计稿出来后,逐项 check:</p>
+<ul>
+<li>[ ] 5 个稀有度颜色完全符合规范(灰/蓝/紫/橙/黑)</li>
+<li>[ ] 深色背景 #0F1419,不是其他颜色</li>
+<li>[ ] 中文文案不要被英文替换("解锁"不要变成"Unlock")</li>
+<li>[ ] 所有 emoji 显示正确(不是空白方框 □)</li>
+<li>[ ] 锁定态和解锁态有明显视觉差异(灰度 + 透明度)</li>
+<li>[ ] 顶部留出 88dp 安全区(微信状态栏 + 导航栏)</li>
+<li>[ ] 底部留出 90dp 安全区(tabBar + 全面屏 home indicator)</li>
+<li>[ ] 数字使用 tabular-nums(等宽数字),"47 / 200" 对齐</li>
+<li>[ ] 按钮至少 44dp 高(微信触控规范)</li>
+<li>[ ] 字体大小 ≥ 11px,不要过小</li>
+<li>[ ] 分享卡片是 3:4 比例,不是 16:9 或正方形</li>
+<li>[ ] 主色调橙色 #F39C12 没有被替换成其他金色</li>
+</ul>
+<hr />
+<h2 id="_1">🎯 推荐使用流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>先用 v0 生成代码版</strong>(免费、快速、可改): 把 Part 6 的 v0 prompt 喂进去,拿到 React 组件 → 截图当 reference</li>
+<li><strong>再用 Figma Make 精修视觉</strong>(出 Figma 文件): 把 Part 2 Master Prompt + Part 3 逐屏 prompt 喂进去</li>
+<li><strong>拿出图后</strong>: 用 Part 7 checklist 自检,有问题让 AI 重新生成或人工调</li>
+<li><strong>导出微信小程序素材</strong>: 关键图标/底图导出 PNG @2x @3x</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/codex.js"></script>
+      
+    
+  </body>
+</html>
