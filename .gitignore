@@ -81,3 +81,4 @@ node_modules/
 # Log files
 *.log
 .superpowers/
+wiki.tar.gz
